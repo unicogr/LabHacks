@@ -1,6 +1,6 @@
 # ResearchLog, minimal working example
 
-See here, for the Github page: https://nicogravel.github.io/UNICOG_ResearchLog
+See here, for the Github page: https://nicogravel.github.io/researchLog_template
 
 This tutorial is a collaborative effort with [Christophe Pallier](https://github.com/chrplr). Please see [here](https://github.com/chrplr/mynotebook) for a boiled down (or "*distilled*") version. 
 
