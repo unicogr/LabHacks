@@ -81,7 +81,7 @@ def setup(app):
     app.add_css_file('custom.css')
 
 html_theme_options = {
-    'logo': 'logo.png',
+    'logo': 'nico-logo.png',
     'logo_text_align': 'left',
     'github_banner': False,
     'description': 'Research Log',
