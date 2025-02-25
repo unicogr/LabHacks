@@ -134,10 +134,10 @@ rsync -a --delete /home/nicolas/Documents/GitHubProjects/researchLog_template/do
 
 # Navigate to the directory containing the conf.py file
 cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
-
+x`
 # Add, commit and push the changes
 git add .
-git commit -m "researchLog template"
+git commit -m "testing Giscus"
 git push -u origin main
 
 

@@ -21,18 +21,18 @@ An important step in using functional MRI is the design of stimuli to target spe
 ## <span style="color:lightblue">Feedback✍️</span>
 
 <script src="https://giscus.app/client.js"
-        data-repo="https://github.com/nicogravel/researchLog_template"
-        data-repo-id="[ENTER REPO ID HERE]"
-        data-category="general"
-        data-category-id="[ENTER CATEGORY ID HERE]"
+        data-repo="nicogravel/researchLog_template"
+        data-repo-id="R_kgDON90EnA"
+        data-category="Giscus!"
+        data-category-id="DIC_kwDON90EnM4CnVS9"
         data-mapping="pathname"
         data-strict="0"
-        data-reactions-enabled="0"
+        data-reactions-enabled="1"
         data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
+        data-input-position="bottom"
+        data-theme="gruvbox"
         data-lang="en"
+        data-loading="lazy"
         crossorigin="anonymous"
         async>
 </script>
-
