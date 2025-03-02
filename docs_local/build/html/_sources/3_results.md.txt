@@ -276,7 +276,7 @@ echo "Verification with tkregister2 completed for all corrected moving images."
 
 ```
 
-Let us have a look at the registered data for a single run using **freeview*:
+Let us have a look at the registered data for a single run using **freeview**:
 
 ```shell
 #!/bin/bash
@@ -300,7 +300,7 @@ freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
 
 |![](/figures/freeview.png){height="600px" align=center}|
 |:--:|
-|**Freeview**.|
+|**Freeview**. We can clearly see the modulation of the signal by the drifting bar used in the visual field mapping stimuli. We are going to use this later in order to compute pRF maps.|
 
 
 
@@ -445,7 +445,7 @@ right_ax.axis('off');
 ```
 
 
-Load co-registered and surface projected time series and compute t-SNR
+Load co-registered and surface projected time series and compute t-SNR:
 
 ```python
 import nibabel as nib
@@ -497,12 +497,12 @@ right_ax.axis('off');
 
 Some preliminary figures:
 
-|![](/figures/tSNR_V1.png){height="600px" align=center}|
+|![](/figures/tSNR_V1.png){height="400px" align=center}|
 |:--:|
 |**Temporal SNR in V1**.|
 
 
-|![](/figures/tSNR_outsideV1.png){height="600px" align=center}|
+|![](/figures/tSNR_outsideV1.png){height="400px" align=center}|
 |:--:|
 |**Temporal SNR outside V1**.|
 
