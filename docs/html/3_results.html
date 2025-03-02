@@ -259,7 +259,7 @@
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Motion correction completed for moving images.&quot;</span>
 </pre></div>
 </div>
-<p>Now is time for distortion correction. Note that the filedmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration pruposes, here we use fsl here but AFNI or ANTS may in some cases be preferable.</p>
+<p>Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use ‘fsl’ here but ‘AFNI’ or ‘ANTS’ may in some cases be preferable.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1">## Compute warps and apply distortion correction for each run</span>
 <span class="c1"># Create the acquisition parameters file</span>
 cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt</span>
@@ -297,7 +297,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Distortion correction completed for all moving images.&quot;</span>
 </pre></div>
 </div>
-<p>Now we can align corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run freesurfer successfully on a 1mm iso-volumetric resampled anatomical data of the subject:</p>
+<p>Now we can align corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run ‘freesurfer’ successfully on a 1<em>mm</em> iso-volumetric resampled anatomical data of the subject:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Align corrected data to the subject&#39;s anatomical image</span>
 
 <span class="c1"># Define the FreeSurfer subject directory</span>
@@ -364,7 +364,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/freeview.png"><img alt="" class="align-center" src="_images/freeview.png" style="height: 600px;" /></a></p></th>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="figures/Freeview.png"><img alt="" class="align-center" src="figures/Freeview.png" style="height: 600px;" /></a></p></th>
 </tr>
 </thead>
 <tbody>

@@ -178,7 +178,7 @@ echo "Motion correction completed for moving images."
 
 ```
 
-Now is time for distortion correction. Note that the filedmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration pruposes, here we use fsl here but AFNI or ANTS may in some cases be preferable. 
+Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use 'fsl' here but 'AFNI' or 'ANTS' may in some cases be preferable. 
 
 ```shell
 ## Compute warps and apply distortion correction for each run
@@ -219,7 +219,7 @@ echo "Distortion correction completed for all moving images."
 
 ```
 
-Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run freesurfer successfully on a 1mm iso-volumetric resampled anatomical data of the subject:
+Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run 'freesurfer' successfully on a 1*mm* iso-volumetric resampled anatomical data of the subject:
 
 
 ```shell
@@ -298,7 +298,7 @@ freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
 
 ```
 
-|![](/figures/freeview.png){height="600px" align=center}|
+|![](/figures/Freeview.png){height="600px" align=center}|
 |:--:|
 |**Freeview**. We can clearly see the modulation of the signal by the drifting bar used in the visual field mapping stimuli. We are going to use this later in order to compute pRF maps.|
 
