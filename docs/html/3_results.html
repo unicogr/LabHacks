@@ -49,8 +49,9 @@
 <li class="toctree-l1"><a class="reference internal" href="1_intro.html">1. <span style="color:black">Proposals</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_okr.html">2. <span style="color:black">🗓 <strong>Weekplan</strong> 🗓</span></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. <span style="color:black"> Results </span></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#from-visual-stimulus-to-bold">3.1. From Visual Stimulus to BOLD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#discussion">3.2. <span style="color:lightblue">Discussion📜</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-figure-from-visual-stimulus-to-bold">3.1. Example figure: <em>From Visual Stimulus to BOLD</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-pipeline-p-rf-maping-using-7t-fmri-data">3.2. Example pipeline: p-RF maping using 7T-fMRI data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discussion">3.3. <span style="color:lightblue">Discussion📜</span></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_tutorials.html">4. <span style="color:black">Tutorial</span></a></li>
@@ -113,8 +114,8 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="results">
 <h1><span class="section-number">3. </span><span style="color:black"> Results </span><a class="headerlink" href="#results" title="Permalink to this heading">¶</a></h1>
-<section id="from-visual-stimulus-to-bold">
-<h2><span class="section-number">3.1. </span>From Visual Stimulus to BOLD<a class="headerlink" href="#from-visual-stimulus-to-bold" title="Permalink to this heading">¶</a></h2>
+<section id="example-figure-from-visual-stimulus-to-bold">
+<h2><span class="section-number">3.1. </span>Example figure: <em>From Visual Stimulus to BOLD</em><a class="headerlink" href="#example-figure-from-visual-stimulus-to-bold" title="Permalink to this heading">¶</a></h2>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/barMap.png"><img alt="" src="_images/barMap.png" style="height: 400px;" /></a><a class="reference internal" href="_images/stHRF_BOLD_sim_cortex.png"><img alt="" src="_images/stHRF_BOLD_sim_cortex.png" style="height: 400px;" /></a></p></th>
@@ -126,8 +127,242 @@
 </tbody>
 </table>
 </section>
+<section id="example-pipeline-p-rf-maping-using-7t-fmri-data">
+<h2><span class="section-number">3.2. </span>Example pipeline: p-RF maping using 7T-fMRI data<a class="headerlink" href="#example-pipeline-p-rf-maping-using-7t-fmri-data" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; This is a work in progress!  
+</pre></div>
+</div>
+<p>Here the preprocessing for the functional retinotopy data. First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">FSLDIR</span><span class="o">=</span>/home/nicolas/Programas/fsl<span class="w"> </span>
+.<span class="w"> </span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/etc/fslconf/fsl.sh
+<span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/bin:<span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span>FSLDIR<span class="w"> </span>PATH
+
+
+<span class="c1"># Data folders</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">FREESURFER_HOME</span><span class="o">=</span>/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
+<span class="nb">source</span><span class="w"> </span><span class="nv">$FREESURFER_HOME</span>/SetUpFreeSurfer.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
+
+
+<span class="c1"># Clear all variables and dictionaries</span>
+<span class="nb">unset</span><span class="w"> </span>current_dir
+<span class="nb">unset</span><span class="w"> </span>data_folder
+<span class="nb">unset</span><span class="w"> </span>pth
+<span class="nb">unset</span><span class="w"> </span>subj_id
+<span class="nb">unset</span><span class="w"> </span>subj
+<span class="nb">unset</span><span class="w"> </span>ret_folders
+<span class="nb">unset</span><span class="w"> </span>moving_images
+<span class="nb">unset</span><span class="w"> </span>static_images
+<span class="nb">unset</span><span class="w"> </span>sorted_folders
+
+
+<span class="c1"># Define the current working directory</span>
+<span class="nv">current_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+
+<span class="c1"># Define the paths based on the current working directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">data_folder</span><span class="o">=</span>/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX
+<span class="nb">export</span><span class="w"> </span><span class="nv">pth</span><span class="o">=</span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/sub-00/func
+
+<span class="c1"># Define the subject ID and subject folder</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">subj_id</span><span class="o">=</span>cg220008-2898_001
+<span class="nb">export</span><span class="w"> </span><span class="nv">subj</span><span class="o">=</span>sub-00
+
+<span class="c1"># Change to the subject&#39;s data directory</span>
+<span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj_id</span><span class="si">}</span>
+</pre></div>
+</div>
+<p>Next, we find the files with RET1, RET2, RET* in their name, excluding those with SBRef:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef</span>
+<span class="nv">ret_folders</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*AP-RET*&quot;</span><span class="w"> </span>!<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*SBRef*&quot;</span><span class="k">)</span>
+
+<span class="c1"># Declare dictionaries for moving_images and static_images</span>
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>moving_images
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>static_images
+
+<span class="c1"># Populate the dictionaries and indices using IFS (Internal Field Separator)</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span><span class="w"> </span><span class="nv">sorted_folders</span><span class="o">=(</span><span class="k">$(</span>sort<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ret_folders</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="o">)</span>
+<span class="nb">unset</span><span class="w"> </span>IFS
+
+<span class="c1"># Initialize the counter</span>
+<span class="nv">counter</span><span class="o">=</span><span class="m">1</span>
+
+<span class="k">for</span><span class="w"> </span>folder<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">sorted_folders</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>moving_images<span class="o">[</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">]=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">folder</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="w">    </span><span class="c1"># Extract the first six digits from the folder name</span>
+<span class="w">    </span><span class="nv">folder_name</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">    </span><span class="nv">folder_index</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">folder_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span>-F<span class="s1">&#39;_&#39;</span><span class="w"> </span><span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1"># Subtract 2 from the first six digits to get the static index</span>
+<span class="w">    </span><span class="nv">static_index</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%06d&quot;</span><span class="w"> </span><span class="k">$((</span><span class="m">10#</span><span class="si">${</span><span class="nv">folder_index</span><span class="si">}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">2</span><span class="k">)))</span>
+
+<span class="w">    </span><span class="c1"># Find the corresponding folder with the static_index</span>
+<span class="w">    </span><span class="nv">static_folder</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_index</span><span class="si">}</span><span class="s2">*&quot;</span><span class="k">)</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1"># Save the names of the folders in the dictionaries</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>static_images<span class="o">[</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">]=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_folder</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Index for static image: </span><span class="si">${</span><span class="nv">static_index</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Index for moving image: </span><span class="si">${</span><span class="nv">folder_index</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="w">    </span><span class="nv">counter</span><span class="o">=</span><span class="k">$((</span><span class="nv">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span>
+<span class="k">done</span>
+
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">moving_images</span><span class="p">[</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="p">]</span><span class="si">}</span>
+<span class="w">    </span><span class="nv">static_image</span><span class="o">=</span><span class="si">${</span><span class="nv">static_images</span><span class="p">[</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="p">]</span><span class="si">}</span>
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Name for moving image: </span><span class="si">${</span><span class="nv">moving_image</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Name for static image: </span><span class="si">${</span><span class="nv">static_image</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>And convert the ‘dicom’ files within these folders to ‘nifti’:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run dcm2niix_afni for moving_images and static_images in ascending order</span>
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">moving_images</span><span class="p">[</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="p">]</span><span class="si">}</span>
+<span class="w">    </span><span class="nv">static_image</span><span class="o">=</span><span class="si">${</span><span class="nv">static_images</span><span class="p">[</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="p">]</span><span class="si">}</span>
+
+<span class="w">    </span><span class="c1"># Run dcm2niix_afni for moving_image</span>
+<span class="w">    </span>dcm2niix_afni<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="w"> </span>-z<span class="w"> </span>y<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj_id</span><span class="si">}</span>/<span class="si">${</span><span class="nv">moving_image</span><span class="si">}</span>
+
+<span class="w">    </span><span class="c1"># Run dcm2niix_afni for static_image</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_image</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>dcm2niix_afni<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="w"> </span>-z<span class="w"> </span>y<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;static_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj_id</span><span class="si">}</span>/<span class="si">${</span><span class="nv">static_image</span><span class="si">}</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;dcm2niix_afni processing and renaming completed for all images.&quot;</span>
+</pre></div>
+</div>
+<p>Apply slice timing correction:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Slice time correct the NIfTI files using 3dTshift</span>
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">moving_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
+<span class="w">    </span><span class="nv">static_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/static_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">moving_nifti</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>3dTshift<span class="w"> </span>-verbose<span class="w"> </span>-TR<span class="w"> </span><span class="m">2</span><span class="w"> </span>-tpattern<span class="w"> </span>altplus<span class="w"> </span>-ignore<span class="w"> </span><span class="m">0</span><span class="w"> </span>-tzero<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Fourier<span class="w"> </span>-prefix<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/tshift_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">moving_nifti</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_nifti</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>3dTshift<span class="w"> </span>-verbose<span class="w"> </span>-TR<span class="w"> </span><span class="m">2</span><span class="w"> </span>-tpattern<span class="w"> </span>altplus<span class="w"> </span>-ignore<span class="w"> </span><span class="m">0</span><span class="w"> </span>-tzero<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Fourier<span class="w"> </span>-prefix<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/tshift_static_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_nifti</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Slice time correction completed for all images.&quot;</span>
+</pre></div>
+</div>
+<p>Then motion correction:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Motion correct the output of moving_images using 3dvolreg</span>
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">tshift_moving_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/tshift_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">tshift_moving_nifti</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span>3dvolreg<span class="w"> </span>-verbose<span class="w"> </span>-prefix<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/volreg_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">tshift_moving_nifti</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Motion correction completed for moving images.&quot;</span>
+</pre></div>
+</div>
+<p>Now is time for distortion correction. Note that the filedmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration pruposes, here we use fsl here but AFNI or ANTS may in some cases be preferable.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1">## Compute warps and apply distortion correction for each run</span>
+<span class="c1"># Create the acquisition parameters file</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt</span>
+<span class="s">0 -1 0 0.05</span>
+<span class="s">0 1 0 0.05</span>
+<span class="s">EOT</span>
+
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w">   </span>
+<span class="w"> </span>
+<span class="w">    </span><span class="c1"># Combine AP and PA images into a single 4D file</span>
+<span class="w">    </span>fslroi<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/AP_image.nii.gz<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span>fslroi<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/static_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/PA_image.nii.gz<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span>fslmerge<span class="w"> </span>-t<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/combined_AP_PA.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/AP_image.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/PA_image.nii.gz
+
+<span class="w">    </span><span class="c1"># Run topup</span>
+<span class="w">    </span>topup<span class="w"> </span>--imain<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/combined_AP_PA.nii.gz<span class="w"> </span>--datain<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/acqparams.txt<span class="w"> </span>--config<span class="o">=</span>b02b0.cnf<span class="w"> </span>--out<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/topup_results<span class="w"> </span>--iout<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/hifi_b0.nii.gz<span class="w"> </span>--fout<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/fieldmap.nii.gz
+
+<span class="w">    </span><span class="c1"># Apply the distortion correction to the volreg moving images</span>
+<span class="w">    </span><span class="nv">moving_image</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/volreg_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
+<span class="w">    </span><span class="nv">corrected_moving_image</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/corrected_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
+<span class="w">    </span>applytopup<span class="w"> </span>--imain<span class="o">=</span><span class="si">${</span><span class="nv">moving_image</span><span class="si">}</span><span class="w"> </span>--datain<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/acqparams.txt<span class="w"> </span>--inindex<span class="o">=</span><span class="m">1</span><span class="w"> </span>--topup<span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/topup_results<span class="w"> </span>--out<span class="o">=</span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--method<span class="o">=</span>jac
+
+<span class="w">    </span><span class="c1"># Clean up topup results</span>
+<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/AP_image.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/PA_image.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/combined_AP_PA*
+<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/hifi_b0*
+<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/fieldmap.nii.gz
+<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/topup_results*
+<span class="w">    </span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Distortion correction completed for moving image </span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.&quot;</span>
+
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="c1">#rm ${pth}/acqparams.txt</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Distortion correction completed for all moving images.&quot;</span>
+</pre></div>
+</div>
+<p>Now we can align corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run freesurfer succesfully on the anatomical data of the subject:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the FreeSurfer subject directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SUBJECTS_DIR</span><span class="o">=</span><span class="nv">$FREESURFER_HOME</span>/subjects
+
+<span class="c1"># Perform affine registration using FreeSurfer&#39;s bbregister for all corrected_moving_images_*</span>
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">corrected_moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/corrected_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz
+<span class="w">    </span><span class="nv">registered_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registered_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz
+<span class="w">    </span><span class="nv">registration_matrix</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registration_matrix_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.dat
+
+<span class="w">    </span><span class="c1"># Find the brain.mgz file for the current subject</span>
+<span class="w">    </span><span class="nv">brain_mgz</span><span class="o">=</span><span class="si">${</span><span class="nv">SUBJECTS_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj</span><span class="si">}</span>/mri/brain.mgz
+
+<span class="w">    </span><span class="c1"># Run bbregister for affine registration</span>
+<span class="w">    </span>bbregister<span class="w"> </span>--s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span><span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--init-header<span class="w"> </span>--init-fsl<span class="w"> </span>--t2<span class="w"> </span>--bold
+
+<span class="w">    </span><span class="c1"># Apply the registration to the functional image</span>
+<span class="w">    </span>mri_vol2vol<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--targ<span class="w"> </span><span class="si">${</span><span class="nv">brain_mgz</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--o<span class="w"> </span><span class="si">${</span><span class="nv">registered_image</span><span class="si">}</span><span class="w"> </span>--no-resample
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for corrected moving image </span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for all corrected moving images.&quot;</span>
+</pre></div>
+</div>
+<p>Finally, for now, we check the results visually and apply manual corrections if needed:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use tkregister2 to verify the registration</span>
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">corrected_moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/corrected_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz
+<span class="w">    </span><span class="nv">registration_matrix</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registration_matrix_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.dat
+<span class="w">    </span><span class="nv">brain_mgz</span><span class="o">=</span><span class="si">${</span><span class="nv">SUBJECTS_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj</span><span class="si">}</span>/mri/brain.mgz
+
+<span class="w">    </span>tkregister2<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--targ<span class="w"> </span><span class="si">${</span><span class="nv">brain_mgz</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--surf
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Verification with tkregister2 completed for corrected moving image </span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Verification with tkregister2 completed for all corrected moving images.&quot;</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>So far all semi-automatic! Next steps:</p>
+<ul class="simple">
+<li><p>Fine tune coregsitration of anatomical to functional using ‘antsRegistration’.</p></li>
+<li><p>Compute pRFs using an occipital mask.</p></li>
+<li><p>Refactoring this to preprocess more subjects.</p></li>
+<li><p>Organize the results in BIDS format.</p></li>
+</ul>
+</section>
 <section id="discussion">
-<h2><span class="section-number">3.2. </span><span style="color:lightblue">Discussion📜</span><a class="headerlink" href="#discussion" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3. </span><span style="color:lightblue">Discussion📜</span><a class="headerlink" href="#discussion" title="Permalink to this heading">¶</a></h2>
 <script src="https://giscus.app/client.js"
         data-repo="nicogravel/researchLog_template"
         data-repo-id="R_kgDON90EnA"

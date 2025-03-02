@@ -118,6 +118,9 @@ ERROR: pip's dependency resolver does not currently take into account all the pa
 myst-parser 3.0.1 requires sphinx<8,>=6, but you have sphinx 5.2.0 which is incompatible.
 sphinxcontrib-bibtex 2.6.3 requires docutils!=0.18.*,!=0.19.*,>=0.8, but you have docutils 0.19 which is incompatible.
 
+# To get rid of adds and use Giscus, follow the instructions in the following link:
+https://www.patrickthurmond.com/blog/2023/12/11/commenting-is-available-now-thanks-to-giscus
+
 # Snippets to build the html files, sync them to the docs folder and push the changes to the remote repository
 
 # Activate sphinx environment
@@ -137,7 +140,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "Giscus up and running!"
+git commit -m "added mini-tutorial on 7T-fMRI preprocessing"
 git push -u origin main
 
 
