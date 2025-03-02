@@ -140,7 +140,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "added section on how to plot using neuropythy"
+git commit -m "included plots of tSNR"
 git push -u origin main
 
 

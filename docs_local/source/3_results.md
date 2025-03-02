@@ -467,9 +467,16 @@ left_ax.axis('off')
 right_ax.axis('off');
 ```
 
+Remember, this is work in progress! 
+
 |![](/figures/tSNR.png){height="800px"}|
 |:--:|
 |**Temporal SNR in V1**.|
+
+
+|![](/figures/tSNR_outsideV1.png){height="800px"}|
+|:--:|
+|**Temporal SNR outside V1**.|
 
 
 ## <span style="color:lightblue">Discussion📜</span>
