@@ -469,6 +469,7 @@ right_ax.axis('off');
 
 Remember, this is work in progress! 
 
+
 |![](/figures/tSNR.png){height="800px"}|
 |:--:|
 |**Temporal SNR in V1**.|
@@ -477,6 +478,11 @@ Remember, this is work in progress!
 |![](/figures/tSNR_outsideV1.png){height="800px"}|
 |:--:|
 |**Temporal SNR outside V1**.|
+
+
+The neuroimaging python package *Neuropythy is very versatile but a little cumbersome to learn. See here for its [documentation](https://nben.net/docs/neuropythy/html/genindex.html), and [here](https://nben.net/Retinotopy-Tutorial/) for an retinotopy tutorial example, and [here](https://nben.net/MRI-Geometry/) for details for on MRI Data Representation and Geometry.
+
+Next: using [prfpy](https://github.com/VU-Cog-Sci/prfpy) to compute pipulation receptive field maps.
 
 
 ## <span style="color:lightblue">Discussion📜</span>
