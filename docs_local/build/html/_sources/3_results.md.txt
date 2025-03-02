@@ -470,7 +470,7 @@ right_ax.axis('off');
 Remember, this is work in progress! 
 
 
-|![](/figures/tSNR.png){height="800px"}|
+|![](/figures/tSNR_V1.png){height="800px"}|
 |:--:|
 |**Temporal SNR in V1**.|
 
