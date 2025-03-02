@@ -219,18 +219,22 @@ echo "Distortion correction completed for all moving images."
 
 ```
 
-Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run freesurfer succesfully on the anatomical data of the subject:
+Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run freesurfer successfully on a 1mm iso-volumetric resampled anatomical data of the subject:
 
 
 ```shell
 
+# Align corrected data to the subject's anatomical image
+
 # Define the FreeSurfer subject directory
 export SUBJECTS_DIR=$FREESURFER_HOME/subjects
+export subj=sub-00_iso
+export pth=${data_folder}/sub-00/func
 
 # Perform affine registration using FreeSurfer's bbregister for all corrected_moving_images_*
 for index in $(seq 1 ${#moving_images[@]}); do
     corrected_moving_image=${pth}/corrected_moving_images_${index}.nii.gz
-    registered_image=${pth}/registered_moving_images_${index}.nii.gz
+    registered_image=${pth}/registered_moving_images_${index}_iso.nii.gz
     registration_matrix=${pth}/registration_matrix_${index}.dat
 
     # Find the brain.mgz file for the current subject
@@ -248,11 +252,13 @@ done
 # Print completion message
 echo "Affine registration completed for all corrected moving images."
 
+
 ```
 
 Finally, for now, we check the results visually and apply manual corrections if needed:
 
 ```shell
+
 # Use tkregister2 to verify the registration
 for index in $(seq 1 ${#moving_images[@]}); do
     corrected_moving_image=${pth}/corrected_moving_images_${index}.nii.gz
@@ -267,6 +273,7 @@ done
 # Print completion message
 echo "Verification with tkregister2 completed for all corrected moving images." 
 
+
 ```
 
 So far all semi-automatic! Next steps:
@@ -276,6 +283,193 @@ So far all semi-automatic! Next steps:
 * Refactoring this to preprocess more subjects.
 * Organize the results in BIDS format.
 
+
+Now we switch to python. The following has been adapted from excellent Noah Benson's [tutorial](https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb):
+
+```python
+import os, sys, six # six provides python 2/3 compatibility
+import numpy as np
+import scipy as sp
+
+# The neuropythy library is a swiss-army-knife for handling MRI data, especially
+# anatomical/structural data such as that produced by FreeSurfer or the HCP.
+# https://github.com/noahbenson/neuropythy
+import neuropythy as ny
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import ipyvolume as ipv
+
+
+fs_pth = '/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer/subjects/'
+subject_id = 'sub-00_iso'
+sub = ny.freesurfer_subject([fs_pth + subject_id])
+```
+
+Get V1 coordinats fom the fsaverage registration of the subjects
+
+```python
+fsaverage = ny.freesurfer_subject('fsaverage')
+
+v1_centers = {}
+for h in ['lh', 'rh']:
+    # Get the Cortex object for this hemisphere.
+    cortex = fsaverage.hemis[h]
+    # We're dealing with the cortical sphere, so get that surface.
+    sphere = cortex.registrations['native']
+    # Grab the V1_weight property and the coordinates.
+    v1_weight = sphere.prop('V1_weight')
+    coords = sphere.coordinates
+    # Now, we can take a weighted average of the coordinates in V1.
+    v1_center = np.sum(coords * v1_weight[None,:], axis=1)
+    v1_center /= np.sum(v1_weight)
+    # Save this in the v1_centers dict.
+    v1_centers[h] = v1_center
+
+# See what got saved:
+v1_centers
+
+v1_rights = {}
+for h in ['lh', 'rh']:
+    # Once again, we get the Cortex object for this hemisphere and the
+    # spherical surface.
+    cortex = fsaverage.hemis[h]
+    sphere = cortex.registrations['native']
+    # Now, we want the cortex_label property, which is True for points not
+    # on the medial wall and False for points on the medial wall.
+    weight = sphere.prop('cortex_label')
+    # We want to find the point at the middle of the medial wall, so we
+    # want to invert this property (True values indicate the medial wall).
+    weight = ~weight
+    # Now we take the weighted average again (however, since these weight
+    # values are all True or False (1 or 0), we can just average the
+    # points that are included.
+    mwall_center = np.mean(coords[:, weight], axis=1)
+    # If this is the RH, we invert this coordinate
+    v1_rights[h] = -mwall_center if h == 'rh' else mwall_center
+
+# See what got saved.
+v1_rights
+
+
+```
+
+Use neuropythy projection method to get the flat patch indices in the original surface:
+
+
+```python
+method = 'orthographic' # or: equirectangular, sinusoidal, mercator
+radius = np.pi/2
+
+# Now, we make the projections:
+map_projs = {}
+for h in ['lh', 'rh']: 
+    mp = ny.map_projection(chirality=h,
+                           center=v1_centers[h],
+                           center_right=v1_rights[h],
+                           method=method,
+                           radius=radius,
+                           registration='native')
+    map_projs[h] = mp
+
+# See what this created.
+map_projs
+
+flatmaps = {h: mp(sub.hemis[h]) for (h,mp) in map_projs.items()}
+flatmaps
+
+lh_cortex_label = flatmaps['lh'].prop('index')
+rh_cortex_label = flatmaps['rh'].prop('index')
+lh_cortex_label
+```
+
+Plot flat patches and medial wall: 
+
+```python
+# We'll make two axes, one for each hemisphere.
+(fig, (left_ax, right_ax)) = plt.subplots(1,2, figsize=(4,2), dpi=72*4)
+# Make sure there isn't a bunch of extra space around them.
+fig.subplots_adjust(0,0,1,1,0,0)
+
+ny.cortex_plot(flatmaps['lh'], axes=left_ax)
+ny.cortex_plot(flatmaps['rh'], axes=right_ax)
+
+left_ax.axis('off')
+right_ax.axis('off');
+
+(fig, (left_ax, right_ax)) = plt.subplots(1,2, figsize=(4,2), dpi=72*4)
+fig.subplots_adjust(0,0,1,1,0,0)
+
+
+lh_cortex_label = flatmaps['lh'].prop('cortex_label')
+rh_cortex_label = flatmaps['rh'].prop('cortex_label')
+
+
+ny.cortex_plot(flatmaps['lh'], axes=left_ax,
+               color=lh_cortex_label.astype('float'),
+               cmap='inferno')
+ny.cortex_plot(flatmaps['rh'], axes=right_ax,
+               color=rh_cortex_label.astype('float'),
+               cmap='inferno')
+
+left_ax.axis('off')
+right_ax.axis('off');   
+```
+
+
+Load co-registered and surface projected time series and compute t-SNR
+
+```python
+import nibabel as nib
+import numpy as np
+
+# Load the .mgh files
+# Define the path to the functional image
+pth = '/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/func/'
+
+lh_surfBOLD = 'lh.corrected_moving_images_1_iso.mgh'
+rh_surfBOLD = 'rh.corrected_moving_images_1_iso.mgh'
+
+# Load the projected time series
+lh_time_series_path = os.path.join(pth, 'lh.corrected_moving_images_1_iso.mgh')
+rh_time_series_path = os.path.join(pth, 'rh.corrected_moving_images_1_iso.mgh')
+
+lh_time_series = np.squeeze(nib.load(lh_time_series_path ).get_fdata())
+rh_time_series = np.squeeze(nib.load(rh_time_series_path).get_fdata())
+
+print(lh_time_series.shape)
+
+flatmaps = {h: mp(sub.hemis[h]) for (h,mp) in map_projs.items()}
+
+lh_cortex_index = flatmaps['lh'].prop('index')
+rh_cortex_index = flatmaps['rh'].prop('index')
+
+
+
+# Calculate the temporal-SNR (temporal standard deviation of the time series)
+lh_tsnr = np.std(lh_time_series[lh_cortex_index,:], axis=1)
+rh_tsnr = np.std(rh_time_series[rh_cortex_index,:], axis=1)
+
+
+print(lh_tsnr.shape)
+
+
+ny.cortex_plot(flatmaps['lh'], axes=left_ax,
+               color=lh_tsnr,
+               alpha='V1_weight')
+
+
+ny.cortex_plot(flatmaps['rh'], axes=right_ax,
+               color=rh_tsnr,
+               alpha='V1_weight')
+
+left_ax.axis('off')
+right_ax.axis('off');
+```
+
+|![](/figures/tSNR.png){height="800px"}|
+|:--:|
+|**Temporal SNR in V1**.|
 
 
 ## <span style="color:lightblue">Discussion📜</span>
