@@ -140,7 +140,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "added mini-tutorial on 7T-fMRI preprocessing"
+git commit -m "minor updates"
 git push -u origin main
 
 

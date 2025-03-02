@@ -49,9 +49,8 @@
 <li class="toctree-l1"><a class="reference internal" href="1_intro.html">1. <span style="color:black">Proposals</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="2_okr.html">2. <span style="color:black">🗓 <strong>Weekplan</strong> 🗓</span></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. <span style="color:black"> Results </span></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example-figure-from-visual-stimulus-to-bold">3.1. Example figure: <em>From Visual Stimulus to BOLD</em></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-pipeline-p-rf-maping-using-7t-fmri-data">3.2. Example pipeline: p-RF maping using 7T-fMRI data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#discussion">3.3. <span style="color:lightblue">Discussion📜</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-pipeline-prf-maping-using-7t-fmri-data">3.1. Example pipeline: pRF maping using 7T-fMRI data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discussion">3.2. <span style="color:lightblue">Discussion📜</span></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="4_tutorials.html">4. <span style="color:black">Tutorial</span></a></li>
@@ -114,21 +113,8 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="results">
 <h1><span class="section-number">3. </span><span style="color:black"> Results </span><a class="headerlink" href="#results" title="Permalink to this heading">¶</a></h1>
-<section id="example-figure-from-visual-stimulus-to-bold">
-<h2><span class="section-number">3.1. </span>Example figure: <em>From Visual Stimulus to BOLD</em><a class="headerlink" href="#example-figure-from-visual-stimulus-to-bold" title="Permalink to this heading">¶</a></h2>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/barMap.png"><img alt="" src="_images/barMap.png" style="height: 400px;" /></a><a class="reference internal" href="_images/stHRF_BOLD_sim_cortex.png"><img alt="" src="_images/stHRF_BOLD_sim_cortex.png" style="height: 400px;" /></a></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p><strong>Figure #. Cortical BOLD response.</strong> <em>Left</em>: <a class="reference external" href="https://drive.google.com/file/d/14MRGpbjya8KwtLup8kAvR8EmKF5svNSr/view?usp=sharing">Drifting bar aperture used in population receptive field mapping</a>. <em>Right</em>: <a class="reference external" href="https://drive.google.com/file/d/17JkrsSYfcZkWn2gZsGGb1wURvY_gLqTL/view?usp=sharing">Cortical BOLD responses to the drifting bar stimuli depicted on a flattened cortical reconstruction for a single hemisphere</a> (using Freesurfer’s <em>fsaverage</em>). Black traces indicate the borders between visual cortical maps V1, V2 and V3 within 0.1 and 6 degrees of visual eccentricity. Within each of these maps, nearby neurons respond to nearby locations in the visual image, with this property (receptive fields) extending along cortical hierarchy. Neuronal responses across cortical sites were approximated using a mean field approximation of retino-cortical inputs, resulting on stimuli-dependent estimates for the neuronal drive in V1, V2 and V3. These estimates are then translated to BOLD activity using an empirically established spatiotemporal hemodynamic response function (st-HRF).</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="example-pipeline-p-rf-maping-using-7t-fmri-data">
-<h2><span class="section-number">3.2. </span>Example pipeline: p-RF maping using 7T-fMRI data<a class="headerlink" href="#example-pipeline-p-rf-maping-using-7t-fmri-data" title="Permalink to this heading">¶</a></h2>
+<section id="example-pipeline-prf-maping-using-7t-fmri-data">
+<h2><span class="section-number">3.1. </span>Example pipeline: pRF maping using 7T-fMRI data<a class="headerlink" href="#example-pipeline-prf-maping-using-7t-fmri-data" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt; This is a work in progress!  
 </pre></div>
 </div>
@@ -146,7 +132,7 @@
 <span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
 
 
-<span class="c1"># Clear all variables and dictionaries</span>
+<span class="c1"># Clear all variables </span>
 <span class="nb">unset</span><span class="w"> </span>current_dir
 <span class="nb">unset</span><span class="w"> </span>data_folder
 <span class="nb">unset</span><span class="w"> </span>pth
@@ -177,11 +163,11 @@
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef</span>
 <span class="nv">ret_folders</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*AP-RET*&quot;</span><span class="w"> </span>!<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*SBRef*&quot;</span><span class="k">)</span>
 
-<span class="c1"># Declare dictionaries for moving_images and static_images</span>
+<span class="c1"># Declare variable for moving_images and static_images</span>
 <span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>moving_images
 <span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>static_images
 
-<span class="c1"># Populate the dictionaries and indices using IFS (Internal Field Separator)</span>
+<span class="c1"># Populate the variable and indices using IFS (Internal Field Separator)</span>
 <span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span><span class="w"> </span><span class="nv">sorted_folders</span><span class="o">=(</span><span class="k">$(</span>sort<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">ret_folders</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="o">)</span>
 <span class="nb">unset</span><span class="w"> </span>IFS
 
@@ -201,7 +187,7 @@
 <span class="w">    </span><span class="c1"># Find the corresponding folder with the static_index</span>
 <span class="w">    </span><span class="nv">static_folder</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_index</span><span class="si">}</span><span class="s2">*&quot;</span><span class="k">)</span>
 <span class="w">    </span>
-<span class="w">    </span><span class="c1"># Save the names of the folders in the dictionaries</span>
+<span class="w">    </span><span class="c1"># Save the names of the folders in the variable</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span>static_images<span class="o">[</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">]=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">static_folder</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="w">    </span><span class="k">fi</span>
@@ -362,7 +348,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </ul>
 </section>
 <section id="discussion">
-<h2><span class="section-number">3.3. </span><span style="color:lightblue">Discussion📜</span><a class="headerlink" href="#discussion" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.2. </span><span style="color:lightblue">Discussion📜</span><a class="headerlink" href="#discussion" title="Permalink to this heading">¶</a></h2>
 <script src="https://giscus.app/client.js"
         data-repo="nicogravel/researchLog_template"
         data-repo-id="R_kgDON90EnA"

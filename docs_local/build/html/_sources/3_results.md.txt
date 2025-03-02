@@ -6,15 +6,8 @@ comments: true
 
 # <span style="color:black"> Results </span>
 
-## Example figure: *From Visual Stimulus to BOLD* 
 
-
-|![](/figures/barMap.png){height="400px"}![](/figures/stHRF_BOLD_sim_cortex.png){height="400px"}|
-|:--:|
-|**Figure #. Cortical BOLD response.** *Left*: [Drifting bar aperture used in population receptive field mapping](https://drive.google.com/file/d/14MRGpbjya8KwtLup8kAvR8EmKF5svNSr/view?usp=sharing). *Right*: [Cortical BOLD responses to the drifting bar stimuli depicted on a flattened cortical reconstruction for a single hemisphere](https://drive.google.com/file/d/17JkrsSYfcZkWn2gZsGGb1wURvY_gLqTL/view?usp=sharing) (using Freesurfer's *fsaverage*). Black traces indicate the borders between visual cortical maps V1, V2 and V3 within 0.1 and 6 degrees of visual eccentricity. Within each of these maps, nearby neurons respond to nearby locations in the visual image, with this property (receptive fields) extending along cortical hierarchy. Neuronal responses across cortical sites were approximated using a mean field approximation of retino-cortical inputs, resulting on stimuli-dependent estimates for the neuronal drive in V1, V2 and V3. These estimates are then translated to BOLD activity using an empirically established spatiotemporal hemodynamic response function (st-HRF).|
-
-
-## Example pipeline: p-RF maping using 7T-fMRI data
+## Example pipeline: pRF maping using 7T-fMRI data
 
 
 	> This is a work in progress!  
@@ -37,7 +30,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 export PATH=/home/nicolas/Programas/ants-2.5.4/bin:$PATH
 
 
-# Clear all variables and dictionaries
+# Clear all variables 
 unset current_dir
 unset data_folder
 unset pth
@@ -73,11 +66,11 @@ Next, we find the files with RET1, RET2, RET* in their name, excluding those wit
 # Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef
 ret_folders=$(find . -type d -name "*AP-RET*" ! -name "*SBRef*")
 
-# Declare dictionaries for moving_images and static_images
+# Declare variable for moving_images and static_images
 declare -A moving_images
 declare -A static_images
 
-# Populate the dictionaries and indices using IFS (Internal Field Separator)
+# Populate the variable and indices using IFS (Internal Field Separator)
 IFS=$'\n' sorted_folders=($(sort <<<"${ret_folders[*]}"))
 unset IFS
 
@@ -97,7 +90,7 @@ for folder in "${sorted_folders[@]}"; do
     # Find the corresponding folder with the static_index
     static_folder=$(find . -type d -name "${static_index}*")
     
-    # Save the names of the folders in the dictionaries
+    # Save the names of the folders in the variable
     if [ -n "${static_folder}" ]; then
         static_images["${counter}"]="${static_folder}"
     fi

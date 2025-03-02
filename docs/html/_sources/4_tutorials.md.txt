@@ -189,13 +189,13 @@ Now enjoy building up your python package!
 
   After adding new code and document everything, working on docstrings, etc, do not forget to commit the changes to Github and update both the documentation and the package. For example, if you write new python functions, do:
 
-  ```shell
+ ```shell
   pip install -e .
   sphinx-apidoc -f -o docs_local/source myCodeIsYourCode
   git add .
   git commit -m "replace setup.py for pyproject.toml, updates in docstrings, etc"
   git push -u origin main'
-  ```
+ ```
 
 </details>
   
