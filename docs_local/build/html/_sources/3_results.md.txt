@@ -10,7 +10,7 @@ comments: true
 ## Example pipeline: pRF maping using 7T-fMRI data
 
 
-	> This is a work in progress!  
+> This is a work in progress!  
 
 
 Here the preprocessing for the functional retinotopy data. First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we "summon" our favorite neuroimaging software packages and define paths:
