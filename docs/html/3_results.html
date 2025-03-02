@@ -343,6 +343,35 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Verification with tkregister2 completed for all corrected moving images.&quot;</span><span class="w"> </span>
 </pre></div>
 </div>
+<p>Let us have a look at the registered data for a single run using *<em>freeview</em>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+
+<span class="c1"># Data folders</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">FREESURFER_HOME</span><span class="o">=</span>/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
+<span class="nb">source</span><span class="w"> </span><span class="nv">$FREESURFER_HOME</span>/SetUpFreeSurfer.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">subj</span><span class="o">=</span>sub-00_iso
+<span class="nb">export</span><span class="w"> </span><span class="nv">data_folder</span><span class="o">=</span>/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX
+<span class="nb">export</span><span class="w"> </span><span class="nv">pth</span><span class="o">=</span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/sub-00/func
+<span class="nb">export</span><span class="w"> </span><span class="nv">nifti</span><span class="o">=</span>lh.corrected_moving_images_1_iso.mgh
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">nifti</span><span class="o">=</span>registered_moving_images_1_iso.nii.gz
+freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJECTS_DIR</span>/<span class="si">${</span><span class="nv">subj</span><span class="si">}</span>/surf/lh.white<span class="w"> </span>-viewport<span class="w"> </span>3d<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/<span class="si">${</span><span class="nv">nifti</span><span class="si">}</span><span class="w">  </span>-viewport<span class="w"> </span>3d
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/freeview.png"><img alt="" class="align-center" src="_images/freeview.png" style="height: 600px;" /></a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><strong>Freeview</strong>.</p></td>
+</tr>
+</tbody>
+</table>
 <p>So far all semi-automatic! Next steps:</p>
 <ul class="simple">
 <li><p>Fine tune coregsitration of anatomical to functional using ‘antsRegistration’.</p></li>
@@ -521,10 +550,10 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="n">right_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Remember, this is work in progress!</p>
+<p>Some preliminary figures:</p>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/tSNR_V1.png"><img alt="" src="_images/tSNR_V1.png" style="height: 800px;" /></a></p></th>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/tSNR_V1.png"><img alt="" class="align-center" src="_images/tSNR_V1.png" style="height: 600px;" /></a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -534,7 +563,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </table>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/tSNR_outsideV1.png"><img alt="" src="_images/tSNR_outsideV1.png" style="height: 800px;" /></a></p></th>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/tSNR_outsideV1.png"><img alt="" class="align-center" src="_images/tSNR_outsideV1.png" style="height: 600px;" /></a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -542,6 +571,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </tr>
 </tbody>
 </table>
+<p>Remember, this is work in progress!</p>
 <p>The neuroimaging python package <strong>Neuropythy</strong> is very versatile but a little cumbersome to learn. See here for its <a class="reference external" href="https://nben.net/docs/neuropythy/html/genindex.html">documentation</a>, and <a class="reference external" href="https://nben.net/Retinotopy-Tutorial/">here</a> for a nice retinotopy tutorial, and <a class="reference external" href="https://nben.net/MRI-Geometry/">here</a> for details on MRI Data Representation and Geometry.</p>
 <p><strong>Next</strong>: using <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps.</p>
 </section>

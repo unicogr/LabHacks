@@ -125,6 +125,7 @@ https://www.patrickthurmond.com/blog/2023/12/11/commenting-is-available-now-than
 
 # Activate sphinx environment
 # conda activate sphinx
+pyenv activate Sphinx
 
 # Navigate to the directory containing the conf.py file
 cd /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/
@@ -140,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "some links added"
+git commit -m "added freeview example"
 git push -u origin main
 
 

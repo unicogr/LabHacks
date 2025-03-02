@@ -276,6 +276,34 @@ echo "Verification with tkregister2 completed for all corrected moving images."
 
 ```
 
+Let us have a look at the registered data for a single run using **freeview*:
+
+```shell
+#!/bin/bash
+
+
+# Data folders
+export FREESURFER_HOME=/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+export PATH=/home/nicolas/Programas/ants-2.5.4/bin:$PATH
+
+export subj=sub-00_iso
+export data_folder=/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX
+export pth=${data_folder}/sub-00/func
+export nifti=lh.corrected_moving_images_1_iso.mgh
+
+export nifti=registered_moving_images_1_iso.nii.gz
+freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
+         -v ${pth}/${nifti}  -viewport 3d
+
+```
+
+|![](/figures/freeview.png){height="600px" align=center}|
+|:--:|
+|**Freeview**.|
+
+
+
 So far all semi-automatic! Next steps:
 
 * Fine tune coregsitration of anatomical to functional using 'antsRegistration'.
@@ -467,17 +495,23 @@ left_ax.axis('off')
 right_ax.axis('off');
 ```
 
-Remember, this is work in progress! 
+Some preliminary figures:
 
-
-|![](/figures/tSNR_V1.png){height="800px"}|
+|![](/figures/tSNR_V1.png){height="600px" align=center}|
 |:--:|
 |**Temporal SNR in V1**.|
 
 
-|![](/figures/tSNR_outsideV1.png){height="800px"}|
+|![](/figures/tSNR_outsideV1.png){height="600px" align=center}|
 |:--:|
 |**Temporal SNR outside V1**.|
+
+
+Remember, this is work in progress! 
+
+
+
+
 
 
 The neuroimaging python package **Neuropythy** is very versatile but a little cumbersome to learn. See here for its [documentation](https://nben.net/docs/neuropythy/html/genindex.html), and [here](https://nben.net/Retinotopy-Tutorial/) for a nice retinotopy tutorial, and [here](https://nben.net/MRI-Geometry/) for details on MRI Data Representation and Geometry.
