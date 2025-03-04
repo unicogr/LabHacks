@@ -9,7 +9,7 @@ comments: true
 
 An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007, Schira_2010`. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling. 
   
-In the first part of this tutorial, we will learn how to (prep)process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. Still on the making is the second part of this tutorial: *pRF maping using 7T-fMRI data*. 
+In the first part of this tutorial, we will learn how to (prep)-process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. Still on the making is the second part of this tutorial: *pRF mapping using 7T-fMRI data*. 
 
 The requirements for Friday's tutorial are:
 
