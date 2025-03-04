@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Tutorials &#8212; researchLog  documentation</title>
+    <title>Lab tutorials &#8212; researchLog  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -99,12 +99,12 @@
 
           <div class="body" role="main">
             
-  <section id="tutorials">
-<h1><strong>Tutorials</strong><a class="headerlink" href="#tutorials" title="Permalink to this heading">¶</a></h1>
-<section id="contributing-to-open-and-reproducible-science">
-<h2>Contributing to open and reproducible science.<a class="headerlink" href="#contributing-to-open-and-reproducible-science" title="Permalink to this heading">¶</a></h2>
-<section id="goals-learn-how-to-create-a-research-and-code-handbook-preprocess-fmri-data-map-cortical-responses-using-custom-techniques-visualize-results-and-more">
-<h3><strong>Goals:</strong> Learn how to create a research (and code) handbook, preprocess fMRI data, map cortical responses using custom techniques, visualize results, and more.<a class="headerlink" href="#goals-learn-how-to-create-a-research-and-code-handbook-preprocess-fmri-data-map-cortical-responses-using-custom-techniques-visualize-results-and-more" title="Permalink to this heading">¶</a></h3>
+  <section id="lab-tutorials">
+<h1><strong>Lab tutorials</strong><a class="headerlink" href="#lab-tutorials" title="Permalink to this heading">¶</a></h1>
+<section id="towards-open-and-reproducible-neuroimaging-research">
+<h2><em>Towards open and reproducible NeuroImaging research</em><a class="headerlink" href="#towards-open-and-reproducible-neuroimaging-research" title="Permalink to this heading">¶</a></h2>
+<section id="goals-learn-how-to-create-a-research-and-code-handbook-preprocess-fmri-data-map-cortical-responses-using-custom-techniques-and-visualize-results">
+<h3><strong>Goals:</strong> Learn how to create a research (<em>and code</em>) handbook, preprocess fMRI data, map cortical responses using custom techniques and visualize results.<a class="headerlink" href="#goals-learn-how-to-create-a-research-and-code-handbook-preprocess-fmri-data-map-cortical-responses-using-custom-techniques-and-visualize-results" title="Permalink to this heading">¶</a></h3>
 <p>The tutorials presented here are inspired on <a class="reference external" href="https://goodresearch.dev">The Good Research Code Handbook</a>, by <a class="reference external" href="https://scholar.google.com/citations?user=gpQg9uQAAAAJ&amp;hl=en">Patrick Mineault</a>. I serve them as a Github repo based on <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>, <a class="reference external" href="https://daringfireball.net/projects/markdown/">Markdown</a> and <a class="reference external" href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">reStructuredText</a> (rendered using <a class="reference external" href="https://jekyllrb.com/docs/github-pages/">Github pages</a>). The first tutorial is a guide to produce a personalised <em>research log</em> that can be easily adapted to one’s individual needs. As a bonus, it comes with an example on how to set up a python project and document its code and functions using <a class="reference external" href="https://en.wikipedia.org/wiki/Docstring">docstring</a>. The second tutorial is about how to implement a simple yet clear preprocessing pipeline for surface reconstruction of fMRI data. The third is still on the making and it will be a an extension of the second one, aiming to compute population receptive models using, again, simple yet clear open source packages.</p>
 <p>Before we begin, I wanted to share a couple of stories, both as a primer for the tutorials and as an example of how to write in reStructuredText. You can consider the following as a very personal <em>Lorem ipsum</em>.</p>
 <p>Recently, I encountered an article discussing the ongoing replication crisis in biology <a class="footnote-reference brackets" href="#footcite-oza-2023" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Why so often, the article stressed, results obtained by different teams using the same data (and following the same inquiries) are difficult to replicate <a class="footnote-reference brackets" href="#footcite-nezer-2020" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. According to the article, scientists tend to integrate their beliefs into their hypothesis-making machinery (<em>i.e.</em> in the form of a <em>toolbox</em>) to every problem they stumble upon in the field. While the need for collective consensus is clear, potentially diverging decisions taken during a statistical assessment may bring forth confusion rather than clarity. With all its good intentions, excess trust in a method should not lead us into the realm of extreme scientific belief or <a class="reference external" href="https://www.merriam-webster.com/dictionary/scientism">scientificism/scientism</a> (i.e. <em>the urge to trust on the temporary answers our good ol’ metric provide rather than the underlying problem that inspired them in first place</em>). Coincidentally, while trying to reach consensus in my own work, I stumbled upon another noteworthy piece in the now defunct Twitter. The <a class="reference external" href="https://twitter.com/lakens/status/1718654122516156777">post</a> provided the much needed, <em>so zu sagen</em>, plumber’s perspective:</p>
@@ -121,6 +121,24 @@
 <p>For a simple and clear critique of the <em>Sufficiency and Necessity Principle</em> limitations, I recommend this recent article by <a class="reference external" href="https://scholar.google.com/citations?user=4kETHY4AAAAJ&amp;hl=en">Grace Lindsay</a> on <a class="reference external" href="https://doi.org/10.53053/IHMY3378">The Transmitter: Claims of necessity and sufficiency are not well suited for the study of complex systems</a> or  <a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-319-57363-2_11">Causal Circuit Explanations of Behavior: Are Necessity and Sufficiency Necessary and Sufficient?</a> by <a class="reference external" href="https://scholar.google.com/citations?user=JKt3ReoAAAAJ&amp;hl=en">Alex Gomez-Marin</a>.</p>
 <p>Do not take what is written here textual. To be clear, there is no endorsement here of the so-called <em>Sufficiency and Necessity Principle</em> or pointers to an assumed correlation-causality link. Moreover, this text is intentionally human-like and meant <em>to be</em> rather <em>mysteriös und rätselhaft</em>, instead of <em>crystal</em>-clear, as it is my own <strong>non-chatGPT</strong> <em>Lorem ipsum</em> (and English is not my mother tongue!) as well as an ongoing exercise in public/collaborative writing. From humans to humans. As such, it may/will contains errors and mutate from time to time. Finally, this online resource is meant to be a <em>living document</em> that will be updated regularly to keep track of my thoughts, ideas, and progress regarding scientific blogging and teaching. It is also a way to spread with the broader scientific community an enthusiasm to share and connect, to get feedback, and to learn from others.</p>
 <p>I hope you find the tutorial useful and interesting. If you have any comments or suggestions, please feel free to contact me. I would love to hear from you.</p>
+<dl class="simple">
+<dt>&lt;script src=”<a class="reference external" href="https://giscus.app/client.js">https://giscus.app/client.js</a>”</dt><dd><p>data-repo=”nicogravel/researchLog_template”
+data-repo-id=”R_kgDON90EnA”
+data-category=”Giscus!”
+data-category-id=”DIC_kwDON90EnM4CnVS9”
+data-mapping=”pathname”
+data-strict=”0”
+data-reactions-enabled=”1”
+data-emit-metadata=”0”
+data-input-position=”bottom”
+data-theme=”gruvbox”
+data-lang=”en”
+data-loading=”lazy”
+crossorigin=”anonymous”
+async&gt;</p>
+</dd>
+</dl>
+<p>&lt;/script&gt;</p>
 </section>
 <section id="content">
 <h3>Content<a class="headerlink" href="#content" title="Permalink to this heading">¶</a></h3>

@@ -1,12 +1,12 @@
 ----------------
-**Tutorials**    
+**Lab tutorials**    
 ----------------
 
-Contributing to open and reproducible science.
+*Towards open and reproducible NeuroImaging research*
 #######################################################
   
 *************************************************************************************************************************************************************************
-**Goals:** Learn how to create a research (and code) handbook, preprocess fMRI data, map cortical responses using custom techniques, visualize results, and more.
+**Goals:** Learn how to create a research (*and code*) handbook, preprocess fMRI data, map cortical responses using custom techniques and visualize results.
 *************************************************************************************************************************************************************************
   
 The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. I serve them as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and `reStructuredText <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>`_ (rendered using `Github pages <https://jekyllrb.com/docs/github-pages/>`_). The first tutorial is a guide to produce a personalised *research log* that can be easily adapted to one's individual needs. As a bonus, it comes with an example on how to set up a python project and document its code and functions using `docstring <https://en.wikipedia.org/wiki/Docstring>`_. The second tutorial is about how to implement a simple yet clear preprocessing pipeline for surface reconstruction of fMRI data. The third is still on the making and it will be a an extension of the second one, aiming to compute population receptive models using, again, simple yet clear open source packages.      
@@ -38,7 +38,23 @@ Do not take what is written here textual. To be clear, there is no endorsement h
   
 I hope you find the tutorial useful and interesting. If you have any comments or suggestions, please feel free to contact me. I would love to hear from you.
   
-
+  
+<script src="https://giscus.app/client.js"
+        data-repo="nicogravel/researchLog_template"
+        data-repo-id="R_kgDON90EnA"
+        data-category="Giscus!"
+        data-category-id="DIC_kwDON90EnM4CnVS9"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="gruvbox"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 
     
 **********
