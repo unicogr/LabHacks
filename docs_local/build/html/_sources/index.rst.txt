@@ -5,14 +5,9 @@
 Contributing to open and reproducible science.
 #######################################################
   
-***********
-**Goals:** 
-***********
-Learn how to create a research (and code) handbook, preprocess fMRI data,
-*************************************************************************************
-*************************************************************************************
-map cortical responses using custom techniques, visualize results, and more.
-*************************************************************************************
+*************************************************************************************************************************************************************************
+**Goals:** Learn how to create a research (and code) handbook, preprocess fMRI data, map cortical responses using custom techniques, visualize results, and more.
+*************************************************************************************************************************************************************************
   
 The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. I serve them as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and `reStructuredText <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>`_ (rendered using `Github pages <https://jekyllrb.com/docs/github-pages/>`_). The first tutorial is a guide to produce a personalised *research log* that can be easily adapted to one's individual needs. As a bonus, it comes with an example on how to set up a python project and document its code and functions using `docstring <https://en.wikipedia.org/wiki/Docstring>`_. The second tutorial is about how to implement a simple yet clear preprocessing pipeline for surface reconstruction of fMRI data. The third is still on the making and it will be a an extension of the second one, aiming to compute population receptive models using, again, simple yet clear open source packages.      
   
