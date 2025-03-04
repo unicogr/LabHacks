@@ -1,18 +1,20 @@
 ----------------
-**Tutorial I:**    
+**UNICOG tutorials:**    
 ----------------
 
-Documenting research with *Sphinx*
-###################################
+Contributing to open and reproducible science.
+#######################################################
   
 *************************************************************
-**Goal:** keep track of progress during the research process.   
+**Goals:** earn how to create a research (and code) handbook,
+preprocess fMRI data, map cortical responses using custom techniques,
+visualize results, and more.
 *************************************************************
   
-This `tutorial <https://github.com/nicogravel/UNICOG_ResearchLog>`_ is an adaptation of `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. It is delivered as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and `reStructuredText <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>`_ (rendered using `Github pages <https://jekyllrb.com/docs/github-pages/>`_). Its purpose is to provide us with a scaffold for a personalised *research log* that can be easily adapted to one's individual needs.     
+The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. I serve them as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and `reStructuredText <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>`_ (rendered using `Github pages <https://jekyllrb.com/docs/github-pages/>`_). The first tutorial is a guide to produce a personalised *research log* that can be easily adapted to one's individual needs. As a bonus, it comes with an example on how to set up a python project and document its code and functions using `docstring <https://en.wikipedia.org/wiki/Docstring>`_. The second tutorial is about how to implement a simple yet clear preprocessing pipeline for surface reconstruction of fMRI data. The third is still on the making and it will be a an extension of the second one, aiming to compute population receptive models using, again, simple yet clear open source packages.      
   
   
-Before we begin, I wanted to share a couple of stories, both as a primer and as an example of how to use the resource, its functionalities, etc. 
+Before we begin, I wanted to share a couple of stories, both as a primer for the tutorials and as an example of how to write in reStructuredText. You can consider the following as a very personal *Lorem ipsum*. 
     
 Recently, I encountered an article discussing the ongoing replication crisis in biology :footcite:p:`Oza_2023`. Why so often, the article stressed, results obtained by different teams using the same data (and following the same inquiries) are difficult to replicate :footcite:p:`Nezer_2020`. According to the article, scientists tend to integrate their beliefs into their hypothesis-making machinery (*i.e.* in the form of a *toolbox*) to every problem they stumble upon in the field. While the need for collective consensus is clear, potentially diverging decisions taken during a statistical assessment may bring forth confusion rather than clarity. With all its good intentions, excess trust in a method should not lead us into the realm of extreme scientific belief or `scientificism/scientism <https://www.merriam-webster.com/dictionary/scientism>`_ (i.e. *the urge to trust on the temporary answers our good ol' metric provide rather than the underlying problem that inspired them in first place*). Coincidentally, while trying to reach consensus in my own work, I stumbled upon another noteworthy piece in the now defunct Twitter. The `post <https://twitter.com/lakens/status/1718654122516156777>`_ provided the much needed, *so zu sagen*, plumber's perspective: 
 
@@ -48,11 +50,9 @@ Content
       :maxdepth: 2
       :numbered:          
 
-      1_intro
-      2_okr
-      3_results
-      4_tutorials
-      5_refs
+      1_Sphinx
+      2_fMRI
+      References
       
 
    

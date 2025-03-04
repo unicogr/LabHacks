@@ -1,10 +1,19 @@
 ---
 layout: default
-title: "Results"
+title: "fMRI"
 comments: true
 ---
 
-# <span style="color:black"> Results </span>
+# <span style="color:black"> Cortical surface reconstruction of fMRI data </span>
+
+
+An important step in using functional MRI is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007, Schira_2010`. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling. In this tutorial, we will learn how to process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. 
+
+The requirements for Friday's tutorial are:
+
+* Linux. Here I use Ubuntu 22. 
+* For the shell-script based part: `AFNI`, `Freesurfer`, `FSL` and `ANTS` (optional for now).
+* For the python based part: scipy, numpy, ipyvolume, and -crucially, neuropythy.
 
 
 ## Example pipeline: pRF maping using 7T-fMRI data
@@ -113,7 +122,7 @@ done
 ```
 
 
-And convert the 'dicom' files within these folders to 'nifti':
+And convert the `dicom` files within these folders to `nifti`:
 
 ```shell
 
@@ -178,7 +187,7 @@ echo "Motion correction completed for moving images."
 
 ```
 
-Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use 'fsl' here but 'AFNI' or 'ANTS' may in some cases be preferable. 
+Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use `fsl` here but `AFNI` or `ANTS` may in some cases be preferable. 
 
 ```shell
 ## Compute warps and apply distortion correction for each run
@@ -219,7 +228,7 @@ echo "Distortion correction completed for all moving images."
 
 ```
 
-Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run 'freesurfer' successfully on a 1*mm* iso-volumetric resampled anatomical data of the subject:
+Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run `freesurfer` successfully on a 1*mm* iso-volumetric resampled anatomical data of the subject:
 
 
 ```shell
@@ -276,7 +285,7 @@ echo "Verification with tkregister2 completed for all corrected moving images."
 
 ```
 
-Let us have a look at the registered data for a single run using **freeview**:
+Let us have a look at the registered data for a single run using `freeview`:
 
 ```shell
 #!/bin/bash
@@ -306,10 +315,9 @@ freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
 
 So far all semi-automatic! Next steps:
 
-* Fine tune coregsitration of anatomical to functional using 'antsRegistration'.
+* Fine tunning of the functional-to-anaotmical volume coregsitration (*e.g.* using `antsRegistration`).
 * Compute pRFs using an occipital mask.
-* Refactoring this to preprocess more subjects.
-* Organize the results in BIDS format.
+* Refactoring this to preprocess more subjects and organize the inputs and outputs results in **BIDS** format.
 
 
 Now we switch to python. The following has been adapted from excellent Noah Benson's [tutorial](https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb):
@@ -382,7 +390,7 @@ v1_rights
 
 ```
 
-Use neuropythy projection method to get the flat patch indices in the original surface:
+Use `neuropythy` projection method to get the flat patch indices in the original surface:
 
 
 ```python
