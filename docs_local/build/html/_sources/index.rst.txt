@@ -36,7 +36,7 @@ For a simple and clear critique of the *Sufficiency and Necessity Principle* lim
 
 Do not take what is written here textual. To be clear, there is no endorsement here of the so-called *Sufficiency and Necessity Principle* or pointers to an assumed correlation-causality link. Moreover, this text is intentionally human-like and meant *to be* rather *mysteriös und rätselhaft*, instead of *crystal*-clear, as it is my own **non-chatGPT** *Lorem ipsum* (and English is not my mother tongue!) as well as an ongoing exercise in public/collaborative writing. From humans to humans. As such, it may/will contains errors and mutate from time to time. Finally, this online resource is meant to be a *living document* that will be updated regularly to keep track of my thoughts, ideas, and progress regarding scientific blogging and teaching. It is also a way to spread with the broader scientific community an enthusiasm to share and connect, to get feedback, and to learn from others.  
   
-I hope you find the tutorial useful and interesting. If you have any comments or suggestions, please feel free to contact me. I would love to hear from you.
+I hope you find the tutorials useful and interesting. If you have any comments or suggestions, please feel free to contact me. I would love to hear from you.
   
   
 **********

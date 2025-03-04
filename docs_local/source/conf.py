@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "new "questions" section on tutorial II"
+git commit -m "added instructions for tutorial II"
 git push -u origin main
 
 

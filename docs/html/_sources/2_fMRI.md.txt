@@ -7,13 +7,17 @@ comments: true
 # <span style="color:black">Surface-based fMRI</span>
 
 
-An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007, Schira_2010`. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling. In this tutorial, we will learn how to process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. 
+An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007, Schira_2010`. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling. 
+  
+In the first part of this tutorial, we will learn how to (prep)process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. Still on the making is the second part of this tutorial: *pRF maping using 7T-fMRI data*. 
 
 The requirements for Friday's tutorial are:
 
 * Linux. Here I use Ubuntu 22. 
 * For the shell-script based part: `AFNI`, `Freesurfer`, `FSL` and `ANTS` (optional for now).
 * For the python based part: `scipy`, `numpy`, `ipyvolume`, and -crucially, `neuropythy`.
+* If you bring your own data, be sure to run *freesurfer's* `recon-all` on the anatomical volume. 
+
 
 ## <span style="color:lightblue">Questions? 🦉</span>
 
@@ -36,7 +40,9 @@ The requirements for Friday's tutorial are:
         async>
 </script>
 
-## Example pipeline: pRF maping using 7T-fMRI data
+
+
+## 1st part: Mapping fMRI data to a cortical surface reconstruction
 
 
 > *This is a work in progress!*  
