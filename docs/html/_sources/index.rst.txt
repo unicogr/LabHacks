@@ -38,7 +38,14 @@ Do not take what is written here textual. To be clear, there is no endorsement h
   
 I hope you find the tutorial useful and interesting. If you have any comments or suggestions, please feel free to contact me. I would love to hear from you.
   
-.. raw:: html  
+  
+**********
+Comments
+**********
+
+.. raw :: html
+
+    <div class="giscus-container">
 	<script src="https://giscus.app/client.js"
 		data-repo="nicogravel/researchLog_template"
 		data-repo-id="R_kgDON90EnA"
@@ -52,11 +59,12 @@ I hope you find the tutorial useful and interesting. If you have any comments or
 		data-theme="gruvbox"
 		data-lang="en"
 		data-loading="lazy"
-		crossorigin="anonymous"
-		async>
+	        crossorigin="anonymous"
+	        async>
 	</script>
-
-	    
+    </div>
+    
+    	    
 **********
 Content
 **********
