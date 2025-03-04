@@ -144,7 +144,10 @@
 <blockquote>
 <div><p><em>This is a work in progress!</em></p>
 </div></blockquote>
-<p>Here the preprocessing for the functional retinotopy data. First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths:</p>
+<p>Here I have documented the essential preprocessing steps for the functional retinotopy data.</p>
+<section id="set-environment">
+<h3><span class="section-number">2.2.1. </span>Set environment<a class="headerlink" href="#set-environment" title="Permalink to this heading">¶</a></h3>
+<p>First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">FSLDIR</span><span class="o">=</span>/home/nicolas/Programas/fsl<span class="w"> </span>
 .<span class="w"> </span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/etc/fslconf/fsl.sh
@@ -185,6 +188,9 @@
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj_id</span><span class="si">}</span>
 </pre></div>
 </div>
+</section>
+<section id="define-file-names-and-paths">
+<h3><span class="section-number">2.2.2. </span>Define file names and paths<a class="headerlink" href="#define-file-names-and-paths" title="Permalink to this heading">¶</a></h3>
 <p>Next, we find the files with RET1, RET2, RET* in their name, excluding those with SBRef:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef</span>
 <span class="nv">ret_folders</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*AP-RET*&quot;</span><span class="w"> </span>!<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*SBRef*&quot;</span><span class="k">)</span>
@@ -233,6 +239,9 @@
 <span class="k">done</span>
 </pre></div>
 </div>
+</section>
+<section id="get-nifti-files">
+<h3><span class="section-number">2.2.3. </span>Get <strong>nifti</strong> files<a class="headerlink" href="#get-nifti-files" title="Permalink to this heading">¶</a></h3>
 <p>And convert the <code class="docutils literal notranslate"><span class="pre">dicom</span></code> files within these folders to <code class="docutils literal notranslate"><span class="pre">nifti</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run dcm2niix_afni for moving_images and static_images in ascending order</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
@@ -252,7 +261,9 @@
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;dcm2niix_afni processing and renaming completed for all images.&quot;</span>
 </pre></div>
 </div>
-<p>Apply slice timing correction:</p>
+</section>
+<section id="apply-slice-timing-correction">
+<h3><span class="section-number">2.2.4. </span>Apply slice timing correction<a class="headerlink" href="#apply-slice-timing-correction" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Slice time correct the NIfTI files using 3dTshift</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span><span class="nv">moving_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
@@ -271,7 +282,9 @@
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Slice time correction completed for all images.&quot;</span>
 </pre></div>
 </div>
-<p>Then motion correction:</p>
+</section>
+<section id="apply-motion-correction">
+<h3><span class="section-number">2.2.5. </span>Apply motion correction<a class="headerlink" href="#apply-motion-correction" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Motion correct the output of moving_images using 3dvolreg</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span><span class="nv">tshift_moving_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/tshift_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
@@ -285,6 +298,9 @@
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Motion correction completed for moving images.&quot;</span>
 </pre></div>
 </div>
+</section>
+<section id="distortion-correction">
+<h3><span class="section-number">2.2.6. </span>Distortion correction<a class="headerlink" href="#distortion-correction" title="Permalink to this heading">¶</a></h3>
 <p>Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use <code class="docutils literal notranslate"><span class="pre">fsl</span></code> here but <code class="docutils literal notranslate"><span class="pre">AFNI</span></code> or <code class="docutils literal notranslate"><span class="pre">ANTS</span></code> may in some cases be preferable.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1">## Compute warps and apply distortion correction for each run</span>
 <span class="c1"># Create the acquisition parameters file</span>
@@ -323,36 +339,9 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Distortion correction completed for all moving images.&quot;</span>
 </pre></div>
 </div>
-<p>Now we can align corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run <code class="docutils literal notranslate"><span class="pre">freesurfer</span></code> successfully on a 1<em>mm</em> iso-volumetric resampled anatomical data of the subject:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Align corrected data to the subject&#39;s anatomical image</span>
-
-<span class="c1"># Define the FreeSurfer subject directory</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">SUBJECTS_DIR</span><span class="o">=</span><span class="nv">$FREESURFER_HOME</span>/subjects
-<span class="nb">export</span><span class="w"> </span><span class="nv">subj</span><span class="o">=</span>sub-00_iso
-<span class="nb">export</span><span class="w"> </span><span class="nv">pth</span><span class="o">=</span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/sub-00/func
-
-<span class="c1"># Perform affine registration using FreeSurfer&#39;s bbregister for all corrected_moving_images_*</span>
-<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">    </span><span class="nv">corrected_moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/corrected_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz
-<span class="w">    </span><span class="nv">registered_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registered_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>_iso.nii.gz
-<span class="w">    </span><span class="nv">registration_matrix</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registration_matrix_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.dat
-
-<span class="w">    </span><span class="c1"># Find the brain.mgz file for the current subject</span>
-<span class="w">    </span><span class="nv">brain_mgz</span><span class="o">=</span><span class="si">${</span><span class="nv">SUBJECTS_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj</span><span class="si">}</span>/mri/brain.mgz
-
-<span class="w">    </span><span class="c1"># Run bbregister for affine registration</span>
-<span class="w">    </span>bbregister<span class="w"> </span>--s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span><span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--init-header<span class="w"> </span>--init-fsl<span class="w"> </span>--t2<span class="w"> </span>--bold
-
-<span class="w">    </span><span class="c1"># Apply the registration to the functional image</span>
-<span class="w">    </span>mri_vol2vol<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--targ<span class="w"> </span><span class="si">${</span><span class="nv">brain_mgz</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--o<span class="w"> </span><span class="si">${</span><span class="nv">registered_image</span><span class="si">}</span><span class="w"> </span>--no-resample
-
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for corrected moving image </span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.&quot;</span>
-<span class="k">done</span>
-
-<span class="c1"># Print completion message</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for all corrected moving images.&quot;</span>
-</pre></div>
-</div>
+</section>
+<section id="cortical-surface-reconstruction">
+<h3><span class="section-number">2.2.7. </span>Cortical surface reconstruction<a class="headerlink" href="#cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h3>
 <details>
   <summary><span style="color:#3382FF">Wondering how to run `recon-all` ?</span></summary>  
 <p>The anatomical volume used in this tutorial was obtained as follows:</p>
@@ -403,6 +392,42 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </pre></div>
 </div>
 </details>
+</section>
+<section id="alignment">
+<h3><span class="section-number">2.2.8. </span>Alignment<a class="headerlink" href="#alignment" title="Permalink to this heading">¶</a></h3>
+<p>Now we can align (<em>co-register</em>) corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run <code class="docutils literal notranslate"><span class="pre">freesurfer</span></code> successfully on a 1<em>mm</em> iso-volumetric resampled anatomical data of the subject:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Align corrected data to the subject&#39;s anatomical image</span>
+
+<span class="c1"># Define the FreeSurfer subject directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SUBJECTS_DIR</span><span class="o">=</span><span class="nv">$FREESURFER_HOME</span>/subjects
+<span class="nb">export</span><span class="w"> </span><span class="nv">subj</span><span class="o">=</span>sub-00_iso
+<span class="nb">export</span><span class="w"> </span><span class="nv">pth</span><span class="o">=</span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/sub-00/func
+
+<span class="c1"># Perform affine registration using FreeSurfer&#39;s bbregister for all corrected_moving_images_*</span>
+<span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">corrected_moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/corrected_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.nii.gz
+<span class="w">    </span><span class="nv">registered_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registered_moving_images_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>_iso.nii.gz
+<span class="w">    </span><span class="nv">registration_matrix</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registration_matrix_<span class="si">${</span><span class="nv">index</span><span class="si">}</span>.dat
+
+<span class="w">    </span><span class="c1"># Find the brain.mgz file for the current subject</span>
+<span class="w">    </span><span class="nv">brain_mgz</span><span class="o">=</span><span class="si">${</span><span class="nv">SUBJECTS_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj</span><span class="si">}</span>/mri/brain.mgz
+
+<span class="w">    </span><span class="c1"># Run bbregister for affine registration</span>
+<span class="w">    </span>bbregister<span class="w"> </span>--s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span><span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--init-header<span class="w"> </span>--init-fsl<span class="w"> </span>--t2<span class="w"> </span>--bold
+
+<span class="w">    </span><span class="c1"># Apply the registration to the functional image</span>
+<span class="w">    </span>mri_vol2vol<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span>--targ<span class="w"> </span><span class="si">${</span><span class="nv">brain_mgz</span><span class="si">}</span><span class="w"> </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>--o<span class="w"> </span><span class="si">${</span><span class="nv">registered_image</span><span class="si">}</span><span class="w"> </span>--no-resample
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for corrected moving image </span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="k">done</span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for all corrected moving images.&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="fine-tune-alignment">
+<h3><span class="section-number">2.2.9. </span>Fine-tune alignment<a class="headerlink" href="#fine-tune-alignment" title="Permalink to this heading">¶</a></h3>
 <p>Finally, for now, we check the results visually and apply manual corrections if needed:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use tkregister2 to verify the registration</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
@@ -419,6 +444,9 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Verification with tkregister2 completed for all corrected moving images.&quot;</span><span class="w"> </span>
 </pre></div>
 </div>
+</section>
+<section id="visual-inspection">
+<h3><span class="section-number">2.2.10. </span>Visual inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this heading">¶</a></h3>
 <p>Let us have a look at the registered data for a single run using <code class="docutils literal notranslate"><span class="pre">freeview</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
@@ -448,12 +476,18 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </tr>
 </tbody>
 </table>
+</section>
+<section id="summary-i">
+<h3><span class="section-number">2.2.11. </span>Summary I<a class="headerlink" href="#summary-i" title="Permalink to this heading">¶</a></h3>
 <p>So far all semi-automatic! Next steps:</p>
 <ul class="simple">
-<li><p>Fine tunning of the functional-to-anaotmical volume coregsitration (<em>e.g.</em> using <code class="docutils literal notranslate"><span class="pre">antsRegistration</span></code>).</p></li>
+<li><p>Fine-tuning of the functional-to-anaotmical volume alignment/co-registration (<em>e.g.</em> using <code class="docutils literal notranslate"><span class="pre">antsRegistration</span></code>).</p></li>
 <li><p>Compute pRFs using an occipital mask.</p></li>
 <li><p>Refactoring this to preprocess more subjects and organize the inputs and outputs results in <strong>BIDS</strong> format.</p></li>
 </ul>
+</section>
+<section id="get-to-jupyter">
+<h3><span class="section-number">2.2.12. </span>Get to Jupyter<a class="headerlink" href="#get-to-jupyter" title="Permalink to this heading">¶</a></h3>
 <p>Now we switch to python. The following has been adapted from excellent Noah Benson’s <a class="reference external" href="https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb">tutorial</a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -474,7 +508,9 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 <span class="n">sub</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">([</span><span class="n">fs_pth</span> <span class="o">+</span> <span class="n">subject_id</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Get V1 coordinats fom the fsaverage registration of the subjects</p>
+</section>
+<section id="get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">
+<h3><span class="section-number">2.2.13. </span>Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fsaverage</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 
 <span class="n">v1_centers</span> <span class="o">=</span> <span class="p">{}</span>
@@ -520,6 +556,9 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 
 </pre></div>
 </div>
+</section>
+<section id="map-functional-data-to-a-cortical-mesh">
+<h3><span class="section-number">2.2.14. </span>Map functional data to a cortical mesh<a class="headerlink" href="#map-functional-data-to-a-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Use <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> projection method to get the flat patch indices in the original surface:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;orthographic&#39;</span> <span class="c1"># or: equirectangular, sinusoidal, mercator</span>
 <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
@@ -577,6 +616,9 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 <span class="n">right_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>   
 </pre></div>
 </div>
+</section>
+<section id="plotting-on-the-cortical-mesh">
+<h3><span class="section-number">2.2.15. </span>Plotting on the cortical mesh<a class="headerlink" href="#plotting-on-the-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Load co-registered and surface projected time series and compute t-SNR:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -647,8 +689,15 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </tbody>
 </table>
 <p>Remember, this is work in progress!</p>
+</section>
+<section id="summary-ii">
+<h3><span class="section-number">2.2.16. </span>Summary II<a class="headerlink" href="#summary-ii" title="Permalink to this heading">¶</a></h3>
 <p>The neuroimaging python package <strong>Neuropythy</strong> is very versatile but a little cumbersome to learn. See here for its <a class="reference external" href="https://nben.net/docs/neuropythy/html/genindex.html">documentation</a>, and <a class="reference external" href="https://nben.net/Retinotopy-Tutorial/">here</a> for a nice retinotopy tutorial, and <a class="reference external" href="https://nben.net/MRI-Geometry/">here</a> for details on MRI Data Representation and Geometry.</p>
+</section>
+<section id="whats-next">
+<h3><span class="section-number">2.2.17. </span>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this heading">¶</a></h3>
 <p><strong>Next</strong>: using <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps.</p>
+</section>
 </section>
 </section>
 

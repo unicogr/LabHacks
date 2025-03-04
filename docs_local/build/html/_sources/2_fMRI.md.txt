@@ -48,7 +48,12 @@ The requirements for Friday's tutorial are:
 > *This is a work in progress!*  
 
 
-Here the preprocessing for the functional retinotopy data. First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we "summon" our favorite neuroimaging software packages and define paths:
+Here I have documented the essential preprocessing steps for the functional retinotopy data. 
+
+
+### Set environment
+
+First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we "summon" our favorite neuroimaging software packages and define paths:
 
 
 ```shell
@@ -93,7 +98,8 @@ cd ${data_folder}/${subj_id}
 
 ```
   
-  
+### Define file names and paths
+
 Next, we find the files with RET1, RET2, RET* in their name, excluding those with SBRef:
 
 
@@ -148,6 +154,7 @@ done
 ```
 
 
+### Get **nifti** files
 And convert the `dicom` files within these folders to `nifti`:
 
 ```shell
@@ -172,7 +179,7 @@ echo "dcm2niix_afni processing and renaming completed for all images."
 
 ```
 
-Apply slice timing correction:
+### Apply slice timing correction
 
 ```shell
 # Slice time correct the NIfTI files using 3dTshift
@@ -195,7 +202,7 @@ echo "Slice time correction completed for all images."
 
 ```
 
-Then motion correction:
+### Apply motion correction
 
 
 ```shell
@@ -212,6 +219,8 @@ done
 echo "Motion correction completed for moving images."
 
 ```
+
+### Distortion correction
 
 Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use `fsl` here but `AFNI` or `ANTS` may in some cases be preferable. 
 
@@ -254,42 +263,7 @@ echo "Distortion correction completed for all moving images."
 
 ```
 
-Now we can align corrected data to the subject's anatomical image using "boundary based registration", provided we have run `freesurfer` successfully on a 1*mm* iso-volumetric resampled anatomical data of the subject:
-
-
-```shell
-
-# Align corrected data to the subject's anatomical image
-
-# Define the FreeSurfer subject directory
-export SUBJECTS_DIR=$FREESURFER_HOME/subjects
-export subj=sub-00_iso
-export pth=${data_folder}/sub-00/func
-
-# Perform affine registration using FreeSurfer's bbregister for all corrected_moving_images_*
-for index in $(seq 1 ${#moving_images[@]}); do
-    corrected_moving_image=${pth}/corrected_moving_images_${index}.nii.gz
-    registered_image=${pth}/registered_moving_images_${index}_iso.nii.gz
-    registration_matrix=${pth}/registration_matrix_${index}.dat
-
-    # Find the brain.mgz file for the current subject
-    brain_mgz=${SUBJECTS_DIR}/${subj}/mri/brain.mgz
-
-    # Run bbregister for affine registration
-    bbregister --s ${subj} --mov ${corrected_moving_image} --reg ${registration_matrix} --init-header --init-fsl --t2 --bold
-
-    # Apply the registration to the functional image
-    mri_vol2vol --mov ${corrected_moving_image} --targ ${brain_mgz} --reg ${registration_matrix} --o ${registered_image} --no-resample
-
-    echo "Affine registration completed for corrected moving image ${index}."
-done
-
-# Print completion message
-echo "Affine registration completed for all corrected moving images."
-
-
-```
-
+### Cortical surface reconstruction
 <details>
   <summary><span style="color:#3382FF">Wondering how to run `recon-all` ?</span></summary>  
 
@@ -344,6 +318,48 @@ The anatomical volume used in this tutorial was obtained as follows:
 ```
 </details>
 
+
+
+### Alignment
+  
+Now we can align (*co-register*) corrected data to the subject's anatomical image using "boundary based registration", provided we have run `freesurfer` successfully on a 1*mm* iso-volumetric resampled anatomical data of the subject:
+
+
+```shell
+
+# Align corrected data to the subject's anatomical image
+
+# Define the FreeSurfer subject directory
+export SUBJECTS_DIR=$FREESURFER_HOME/subjects
+export subj=sub-00_iso
+export pth=${data_folder}/sub-00/func
+
+# Perform affine registration using FreeSurfer's bbregister for all corrected_moving_images_*
+for index in $(seq 1 ${#moving_images[@]}); do
+    corrected_moving_image=${pth}/corrected_moving_images_${index}.nii.gz
+    registered_image=${pth}/registered_moving_images_${index}_iso.nii.gz
+    registration_matrix=${pth}/registration_matrix_${index}.dat
+
+    # Find the brain.mgz file for the current subject
+    brain_mgz=${SUBJECTS_DIR}/${subj}/mri/brain.mgz
+
+    # Run bbregister for affine registration
+    bbregister --s ${subj} --mov ${corrected_moving_image} --reg ${registration_matrix} --init-header --init-fsl --t2 --bold
+
+    # Apply the registration to the functional image
+    mri_vol2vol --mov ${corrected_moving_image} --targ ${brain_mgz} --reg ${registration_matrix} --o ${registered_image} --no-resample
+
+    echo "Affine registration completed for corrected moving image ${index}."
+done
+
+# Print completion message
+echo "Affine registration completed for all corrected moving images."
+
+
+```
+
+### Fine-tune alignment 
+
 Finally, for now, we check the results visually and apply manual corrections if needed:
 
 ```shell
@@ -364,6 +380,8 @@ echo "Verification with tkregister2 completed for all corrected moving images."
 
 
 ```
+
+### Visual inspection
 
 Let us have a look at the registered data for a single run using `freeview`:
 
@@ -392,13 +410,15 @@ freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
 |**Freeview**. We can clearly see the modulation of the signal by the drifting bar used in the visual field mapping stimuli. We are going to use this later in order to compute pRF maps.|
 
 
+### Summary I
 
 So far all semi-automatic! Next steps:
 
-* Fine tunning of the functional-to-anaotmical volume coregsitration (*e.g.* using `antsRegistration`).
+* Fine-tuning of the functional-to-anaotmical volume alignment/co-registration (*e.g.* using `antsRegistration`).
 * Compute pRFs using an occipital mask.
 * Refactoring this to preprocess more subjects and organize the inputs and outputs results in **BIDS** format.
 
+### Get to Jupyter  
 
 Now we switch to python. The following has been adapted from excellent Noah Benson's [tutorial](https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb):
 
@@ -422,7 +442,7 @@ subject_id = 'sub-00_iso'
 sub = ny.freesurfer_subject([fs_pth + subject_id])
 ```
 
-Get V1 coordinats fom the fsaverage registration of the subjects
+### Get V1 coordinats fom the *fsaverage* registration of the subjects
 
 ```python
 fsaverage = ny.freesurfer_subject('fsaverage')
@@ -469,6 +489,8 @@ v1_rights
 
 
 ```
+
+### Map functional data to a cortical mesh
 
 Use `neuropythy` projection method to get the flat patch indices in the original surface:
 
@@ -532,6 +554,7 @@ left_ax.axis('off')
 right_ax.axis('off');   
 ```
 
+### Plotting on the cortical mesh
 
 Load co-registered and surface projected time series and compute t-SNR:
 
@@ -599,10 +622,12 @@ Remember, this is work in progress!
 
 
 
-
+### Summary II
 
 
 The neuroimaging python package **Neuropythy** is very versatile but a little cumbersome to learn. See here for its [documentation](https://nben.net/docs/neuropythy/html/genindex.html), and [here](https://nben.net/Retinotopy-Tutorial/) for a nice retinotopy tutorial, and [here](https://nben.net/MRI-Geometry/) for details on MRI Data Representation and Geometry.
+
+### What's next?
 
 **Next**: using [prfpy](https://github.com/VU-Cog-Sci/prfpy) to compute population receptive field maps.
 
