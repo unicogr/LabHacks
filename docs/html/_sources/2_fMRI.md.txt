@@ -290,6 +290,60 @@ echo "Affine registration completed for all corrected moving images."
 
 ```
 
+<details>
+  <summary><span style="color:#3382FF">Wondering how to run `recon-all` ?</span></summary>  
+
+
+The anatomical volume used in this tutorial was obtained as follows:
+
+```shell
+    export FREESURFER_HOME=/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
+    source $FREESURFER_HOME/SetUpFreeSurfer.sh
+    export PATH=/home/nicolas/Programas/ants-2.5.4/bin:$PATH
+
+    #### Divide UNI by T1 
+    fslmaths ${subj}_uni.nii.gz -div ${subj}_t1.nii.gz ${subj}_unit1_div.nii.gz -odt float
+
+    #### Check UNI by T1 division to find baseline noise empirically
+    #fsleyes ${subj}_unit1_div.nii.gz
+
+    #### Binarize INV2 (keep non-baseline values)
+    fslmaths ${subj}_inv2.nii.gz -thr 150 ${subj}_inv2_bin.nii.gz -odt float
+
+    #### Mask UNI by T1 division results with binarized INV2
+    fslmaths  ${subj}_unit1_div.nii.gz -mas ${subj}_inv2_bin.nii.gz  ${subj}_t1_tmp.nii.gz -odt float
+
+    #### Check masked UNI by T1 division to find outlier values
+    #fsleyes ${subj}_t1_tmp.nii.gz
+
+    #### Threshold UNI by T1 division to remove outliers
+    fslmaths ${subj}_t1_tmp.nii.gz -uthr 5 ${subj}_t1_thr.nii.gz -odt float
+
+    #### Correct T1 inhomogeneity (N4 algorithm) using ANTs
+    N4BiasFieldCorrection -i ${subj}_t1_thr.nii.gz -o ${subj}_t1_corrected_N4.nii.gz -v -s 4 -c [50x50x50x50] -b [200] -t [0.15] -d 3
+
+    #### Normalize between 0-256 using Freesurfer's mri_normalize
+    mri_normalize -g 1 -mprage ${subj}_t1_corrected_N4.nii.gz ${subj}_t1_norm.nii.gz
+
+    #### Check normalized T1
+    fsleyes ${subj}_t1_corrected.nii.gz ${subj}_t1_norm.nii.gz
+
+    #### Remove skull from corrected T1 using FSL (the -f 0.1 and -g 0.1 parameters are somewhat arbitrary and can be adjusted)
+    bet ${subj}_t1_norm.nii.gz ${subj}_t1_brain.nii.gz -f 0 -g 0 -R -S -v
+
+    # Remove redundant files, keep original inputs + t1_norm + t1_brain
+    rm ${subj}_unit1_div.nii.gz ${subj}_inv2_bin.nii.gz ${subj}_t1_tmp.nii.gz ${subj}_t1_thr.nii.gz 
+
+    #### Try recon-all with isotropic voxel size
+    flirt -in ${subj}_t1_brain.nii.gz -ref ${subj}_t1_brain.nii.gz -applyisoxfm 1.0 -nosearch -out ${subj}_t1_brain_iso.nii.gz 
+
+    recon-all -i ${subj}_t1_brain_iso.nii.gz -subjid ${subj}_iso -all
+    recon-all -skullstrip -no-wsgcaatlas -s ${subj}_iso
+    recon-all -autorecon2 -autorecon3 -s ${subj}_iso
+    recon-all -i ${subj}_t1_brain_iso.nii.gz -subjid ${subj}_iso -make -no-isrunning
+```
+</details>
+
 Finally, for now, we check the results visually and apply manual corrections if needed:
 
 ```shell

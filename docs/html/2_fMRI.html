@@ -353,6 +353,56 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for all corrected moving images.&quot;</span>
 </pre></div>
 </div>
+<details>
+  <summary><span style="color:#3382FF">Wondering how to run `recon-all` ?</span></summary>  
+<p>The anatomical volume used in this tutorial was obtained as follows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">FREESURFER_HOME</span><span class="o">=</span>/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span><span class="nv">$FREESURFER_HOME</span>/SetUpFreeSurfer.sh
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
+
+<span class="w">    </span><span class="c1">#### Divide UNI by T1 </span>
+<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_uni.nii.gz<span class="w"> </span>-div<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Check UNI by T1 division to find baseline noise empirically</span>
+<span class="w">    </span><span class="c1">#fsleyes ${subj}_unit1_div.nii.gz</span>
+
+<span class="w">    </span><span class="c1">#### Binarize INV2 (keep non-baseline values)</span>
+<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2.nii.gz<span class="w"> </span>-thr<span class="w"> </span><span class="m">150</span><span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Mask UNI by T1 division results with binarized INV2</span>
+<span class="w">    </span>fslmaths<span class="w">  </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span>-mas<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w">  </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Check masked UNI by T1 division to find outlier values</span>
+<span class="w">    </span><span class="c1">#fsleyes ${subj}_t1_tmp.nii.gz</span>
+
+<span class="w">    </span><span class="c1">#### Threshold UNI by T1 division to remove outliers</span>
+<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span>-uthr<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Correct T1 inhomogeneity (N4 algorithm) using ANTs</span>
+<span class="w">    </span>N4BiasFieldCorrection<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected_N4.nii.gz<span class="w"> </span>-v<span class="w"> </span>-s<span class="w"> </span><span class="m">4</span><span class="w"> </span>-c<span class="w"> </span><span class="o">[</span>50x50x50x50<span class="o">]</span><span class="w"> </span>-b<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span>-t<span class="w"> </span><span class="o">[</span><span class="m">0</span>.15<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span><span class="m">3</span>
+
+<span class="w">    </span><span class="c1">#### Normalize between 0-256 using Freesurfer&#39;s mri_normalize</span>
+<span class="w">    </span>mri_normalize<span class="w"> </span>-g<span class="w"> </span><span class="m">1</span><span class="w"> </span>-mprage<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected_N4.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz
+
+<span class="w">    </span><span class="c1">#### Check normalized T1</span>
+<span class="w">    </span>fsleyes<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz
+
+<span class="w">    </span><span class="c1">#### Remove skull from corrected T1 using FSL (the -f 0.1 and -g 0.1 parameters are somewhat arbitrary and can be adjusted)</span>
+<span class="w">    </span>bet<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-f<span class="w"> </span><span class="m">0</span><span class="w"> </span>-g<span class="w"> </span><span class="m">0</span><span class="w"> </span>-R<span class="w"> </span>-S<span class="w"> </span>-v
+
+<span class="w">    </span><span class="c1"># Remove redundant files, keep original inputs + t1_norm + t1_brain</span>
+<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>
+
+<span class="w">    </span><span class="c1">#### Try recon-all with isotropic voxel size</span>
+<span class="w">    </span>flirt<span class="w"> </span>-in<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-ref<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-applyisoxfm<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>-nosearch<span class="w"> </span>-out<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>
+
+<span class="w">    </span>recon-all<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>-subjid<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso<span class="w"> </span>-all
+<span class="w">    </span>recon-all<span class="w"> </span>-skullstrip<span class="w"> </span>-no-wsgcaatlas<span class="w"> </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso
+<span class="w">    </span>recon-all<span class="w"> </span>-autorecon2<span class="w"> </span>-autorecon3<span class="w"> </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso
+<span class="w">    </span>recon-all<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>-subjid<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso<span class="w"> </span>-make<span class="w"> </span>-no-isrunning
+</pre></div>
+</div>
+</details>
 <p>Finally, for now, we check the results visually and apply manual corrections if needed:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use tkregister2 to verify the registration</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
