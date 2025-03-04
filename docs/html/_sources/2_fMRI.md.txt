@@ -13,13 +13,33 @@ The requirements for Friday's tutorial are:
 
 * Linux. Here I use Ubuntu 22. 
 * For the shell-script based part: `AFNI`, `Freesurfer`, `FSL` and `ANTS` (optional for now).
-* For the python based part: scipy, numpy, ipyvolume, and -crucially, neuropythy.
+* For the python based part: `scipy`, `numpy`, `ipyvolume`, and -crucially, `neuropythy`.
 
+## <span style="color:lightblue">Questions? 🦉</span>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="nicogravel/researchLog_template"
+        data-repo-id="R_kgDON90EnA"
+        data-category="Giscus!"
+        data-category-id="DIC_kwDON90EnM4CnVS9"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="gruvbox"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 
 ## Example pipeline: pRF maping using 7T-fMRI data
 
 
-> This is a work in progress!  
+> *This is a work in progress!*  
 
 
 Here the preprocessing for the functional retinotopy data. First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we "summon" our favorite neuroimaging software packages and define paths:
