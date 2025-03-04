@@ -4,7 +4,7 @@ title: "Sphinx tutorial"
 comments: true
 ---
 
-# <span style="color:black">Documenting research with *Sphinx*l</span>
+# <span style="color:black">Research handbook</span>
 
 Same as in [README](https://github.com/nicogravel/researchLog_template):
 

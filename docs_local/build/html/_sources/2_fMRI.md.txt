@@ -4,10 +4,10 @@ title: "fMRI"
 comments: true
 ---
 
-# <span style="color:black"> Cortical surface reconstruction of fMRI data </span>
+# <span style="color:black">Surface-based fMRI</span>
 
 
-An important step in using functional MRI is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007, Schira_2010`. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling. In this tutorial, we will learn how to process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. 
+An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007, Schira_2010`. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling. In this tutorial, we will learn how to process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. 
 
 The requirements for Friday's tutorial are:
 

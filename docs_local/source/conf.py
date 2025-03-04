@@ -88,7 +88,7 @@ html_theme_options = {
     'description_font_style': 'Caslon',
     'page_width': '100%',
     'body_max_width': 'auto',
-    'sidebar_width': '15%',
+    'sidebar_width': '20%',
     'show_relbars': True,
     'show_powered_by' : False,
     'fixed_sidebar': True
