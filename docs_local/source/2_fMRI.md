@@ -42,7 +42,7 @@ The requirements for Friday's tutorial are:
 
 
 
-## 1st part: Mapping fMRI data to a cortical surface reconstruction
+## **1st part**: Mapping fMRI data to a cortical surface reconstruction
 
 
 > *This is a work in progress!*  
