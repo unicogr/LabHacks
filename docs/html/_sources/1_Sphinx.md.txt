@@ -42,6 +42,8 @@ Inside docs/index.html we add:
   ```
 The folder `docs/html` will be copied from `docs_local/build/html` once we build the docs, as explained below. Meanwhile, the folder `docs_local` is added to `.gitignore`.
 
+> <span style="color:#3382FF">Typically, for a private or special repository, the docs_local directory should be included in .gitignore. However, I chose not to add it to .gitignore in this case to allow users to clone the repository, modify the contents locally, and start learning through hands-on experimentation. This aligns with the purpose of a template repository —to provide a starting point for exploration and customization.</span>
+
 </details>
 
 <br>
