@@ -48,25 +48,26 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="1_Sphinx.html">1. <span style="color:black">Research handbook</span></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. <span style="color:black">Surface-based fMRI</span></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#questions">2.1. <span style="color:lightblue">Questions? 🦉</span></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">2.2. <strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#set-environment">2.2.1. Set environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#define-file-names-and-paths">2.2.2. Define file names and paths</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-nifti-files">2.2.3. Get <strong>nifti</strong> files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-slice-timing-correction">2.2.4. Apply slice timing correction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#apply-motion-correction">2.2.5. Apply motion correction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#distortion-correction">2.2.6. Distortion correction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cortical-surface-reconstruction">2.2.7. Cortical surface reconstruction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#alignment">2.2.8. Alignment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fine-tune-alignment">2.2.9. Fine-tune alignment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#visual-inspection">2.2.10. Visual inspection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#summary-i">2.2.11. Summary I</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-to-jupyter">2.2.12. Get to Jupyter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">2.2.13. Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#map-functional-data-to-a-cortical-mesh">2.2.14. Map functional data to a cortical mesh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plotting-on-the-cortical-mesh">2.2.15. Plotting on the cortical mesh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#summary-ii">2.2.16. Summary II</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#whats-next">2.2.17. What’s next?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-we-will-learn-wht-is-the-goal">2.1. What we will learn? Wht is the goal?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions">2.2. <span style="color:lightblue">Questions? 🦉</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">2.3. <strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-environment">2.3.1. Set environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#define-file-names-and-paths">2.3.2. Define file names and paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-nifti-files">2.3.3. Get <strong>nifti</strong> files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apply-slice-timing-correction">2.3.4. Apply slice timing correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apply-motion-correction">2.3.5. Apply motion correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distortion-correction">2.3.6. Distortion correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cortical-surface-reconstruction">2.3.7. Cortical surface reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alignment">2.3.8. Alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fine-tune-alignment">2.3.9. Fine-tune alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visual-inspection">2.3.10. Visual inspection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-i">2.3.11. Summary I</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-to-jupyter">2.3.12. Get to Jupyter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">2.3.13. Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#map-functional-data-to-a-cortical-mesh">2.3.14. Map functional data to a cortical mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-on-the-cortical-mesh">2.3.15. Plotting on the cortical mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-ii">2.3.16. Summary II</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#whats-next">2.3.17. What’s next?</a></li>
 </ul>
 </li>
 </ul>
@@ -130,17 +131,29 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="surface-based-fmri">
 <h1><span class="section-number">2. </span><span style="color:black">Surface-based fMRI</span><a class="headerlink" href="#surface-based-fmri" title="Permalink to this heading">¶</a></h1>
-<p>An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (<em>e.g.</em>, rotating wedges, expanding rings, drifting bars) <span id="id1"><sup><a class="reference internal" href="References.html#id8" title="Wandel BA. Dumoulin SO. Brewer AA. Visual field maps in human cortex. Neuron, 56(6):366-368, 2007. doi:10.1016/j.neuron.2007.10.012.">1</a>,<a class="reference internal" href="References.html#id5" title="Mark M. Schira, Christopher W. Tyler, Branka Spehar, and Michael Breakspear. Modeling magnification and anisotropy in the primate foveal confluence. PLoS Computational Biology, 6(1):e1000651, 2010. doi:10.1371/journal.pcbi.1000651.">2</a></sup></span>. These types of stimuli enable the mapping of retinotopic cortical areas using methods such as population receptive field (pRF) modeling.</p>
-<p>In the first part of this tutorial, we will learn how to (prep)-process fMRI and anatomical MRI data to project the BOLD time series to a cortical surface reconstruction. Additionally, we will learn some basic shell script commands and python. Still on the making is the second part of this tutorial: <em>pRF mapping using 7T-fMRI data</em>.</p>
-<p>The requirements for Friday’s tutorial are:</p>
+<p>An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (<em>e.g.</em>, rotating wedges, expanding rings, drifting bars) <span id="id1"><sup><a class="reference internal" href="References.html#id8" title="Wandel BA. Dumoulin SO. Brewer AA. Visual field maps in human cortex. Neuron, 56(6):366-368, 2007. doi:10.1016/j.neuron.2007.10.012.">1</a></sup></span>. Provided we have a good alignment between fMRI images (<em>e.g.</em> T2) and anatomical mages(<em>e.g.</em> T1), these stimuli enable the mapping of receptive field properties at the population level. However, fMRI and MRI images must be preprocessed in non-trivial ways to achieve. There is no out of the box solution for this, meaning that a <em>one-size-fits-all</em> preprocessing pipeline is not only lacking but it is impossible.</p>
+<p>In this tutorial, we will use a single subject from the iCORTEX 7T-fMRI dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.</p>
+<section id="what-we-will-learn-wht-is-the-goal">
+<h2><span class="section-number">2.1. </span>What we will learn? Wht is the goal?<a class="headerlink" href="#what-we-will-learn-wht-is-the-goal" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Linux. Here I use Ubuntu 22.</p></li>
+<li><p>We will not learn today how to use BIDS or run an out-of-the-box toolbox. Today’s tutorial does not cover this.</p></li>
+<li><p>We will try demystify the mystery around fMRI preprocessing by showing a simple, yet clear and transparent pipeline with one subject and one single run.</p></li>
+<li><p>Additionally, we will learn some basic shell script commands and python.</p></li>
+</ul>
+<blockquote>
+<div><p><em>For multiple runs, between-scan motion correction is needed. SBRef scans (not used here) or T1 copies matched to each run can improve co-registration by aligning functional-matched T1s to the original T1 used for segmentation. We’ll cover this in part two.</em></p>
+</div></blockquote>
+<p>Still on the making is the second part of this tutorial: <em>pRF mapping using 7T-fMRI data</em>.</p>
+<p>Requirements:</p>
+<ul class="simple">
+<li><p>Linux. Here we use Ubuntu 22 or 24.</p></li>
 <li><p>For the shell-script based part: <code class="docutils literal notranslate"><span class="pre">AFNI</span></code>, <code class="docutils literal notranslate"><span class="pre">Freesurfer</span></code>, <code class="docutils literal notranslate"><span class="pre">FSL</span></code> and <code class="docutils literal notranslate"><span class="pre">ANTS</span></code> (optional for now).</p></li>
 <li><p>For the python based part: <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">ipyvolume</span></code>, and -crucially, <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code>.</p></li>
 <li><p>If you bring your own data, be sure to run <em>freesurfer’s</em> <code class="docutils literal notranslate"><span class="pre">recon-all</span></code> on the anatomical volume.</p></li>
 </ul>
+</section>
 <section id="questions">
-<h2><span class="section-number">2.1. </span><span style="color:lightblue">Questions? 🦉</span><a class="headerlink" href="#questions" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">2.2. </span><span style="color:lightblue">Questions? 🦉</span><a class="headerlink" href="#questions" title="Permalink to this heading">¶</a></h2>
 <script src="https://giscus.app/client.js"
         data-repo="nicogravel/researchLog_template"
         data-repo-id="R_kgDON90EnA"
@@ -159,13 +172,12 @@
 </script>
 </section>
 <section id="st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">
-<h2><span class="section-number">2.2. </span><strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction<a class="headerlink" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h2>
-<blockquote>
-<div><p><em>This is a work in progress!</em></p>
-</div></blockquote>
+<h2><span class="section-number">2.3. </span><strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction<a class="headerlink" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h2>
 <p>Here I have documented the essential preprocessing steps for the functional retinotopy data.</p>
+<p>The folder tree for the data ued in this tutorial:</p>
+<p><code class="docutils literal notranslate"><span class="pre">shell</span> <span class="pre">/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX</span> <span class="pre">├──</span> <span class="pre">cg220008-2898_001</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000001_AAHScout</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000002_AAHScout-MPR</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000003_b1-map-xfl-sag-Amplitude</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000004_b1-map-xfl-sag-Phase</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000005_b1-map-xfl-sag-B1-Ampli-CP-mode</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000006_b1-map-xfl-sag-VR</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000007_b0-gre-field-mapping</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000008_b0-gre-field-mapping</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000009_TEST-SAR-BOLD-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000010_TEST-SAR-BOLD</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000011_mbep2d-TR1-1pt6mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000012_mbep2d-TR1-1pt6mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000014_mbep2d-TR1-1pt6mm-AP-REST1</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000015_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000016_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000018_mbep2d-TR2-1pt2mm-AP-RET1</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000019_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000020_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000021_mbep2d-TR2-1pt2mm-AP-RET2-SBone-size-fits-allRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000022_mbep2d-TR2-1pt2mm-AP-RET2</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000023_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000024_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000025_mbep2d-TR2-1pt2mm-AP-RET3-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000026_mbep2d-TR2-1pt2mm-AP-RET3</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000027_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000028_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000029_mbep2d-TR2-1pt2mm-AP-RET4-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000030_mbep2d-TR2-1pt2mm-AP-RET4</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000031_mbep2d-TR1-1pt6mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000032_mbep2d-TR1-1pt6mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000033_mbep2d-TR1-1pt6mm-AP-REST2-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000034_mbep2d-TR1-1pt6mm-AP-REST2</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000035_t1-mp2rage-sag-iso0.75mm-INV1</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000036_t1-mp2rage-sag-iso0.75mm-INV1-PHS</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000037_t1-mp2rage-sag-iso0.75mm-INV2</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000038_t1-mp2rage-sag-iso0.75mm-INV2-PHS</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000039_t1-mp2rage-sag-iso0.75mm-T1-Images</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000040_t1-mp2rage-sag-iso0.75mm-UNI-DEN</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000041_t1-mp2rage-sag-iso0.75mm-UNI-Images</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000042_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000043_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000044_mbep2d-TR2-1pt2mm-AP-CATV-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000045_mbep2d-TR2-1pt2mm-AP-CATV</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000046_mbep2d-TR2-1pt2mm-AP-CATV-SBRef-split-1</span> <span class="pre">│  </span> <span class="pre">└──</span> <span class="pre">nifti</span> <span class="pre">├──</span> <span class="pre">pRF_log_images</span> <span class="pre">└──</span> <span class="pre">sub-00</span>&#160;&#160;&#160;&#160; <span class="pre">├──</span> <span class="pre">anat</span>&#160;&#160;&#160;&#160; <span class="pre">├──</span> <span class="pre">func</span>&#160;&#160;&#160;&#160; <span class="pre">└──</span> <span class="pre">retinotopy</span> </code></p>
 <section id="set-environment">
-<h3><span class="section-number">2.2.1. </span>Set environment<a class="headerlink" href="#set-environment" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.1. </span>Set environment<a class="headerlink" href="#set-environment" title="Permalink to this heading">¶</a></h3>
 <p>First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">FSLDIR</span><span class="o">=</span>/home/nicolas/Programas/fsl<span class="w"> </span>
@@ -209,7 +221,7 @@
 </div>
 </section>
 <section id="define-file-names-and-paths">
-<h3><span class="section-number">2.2.2. </span>Define file names and paths<a class="headerlink" href="#define-file-names-and-paths" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.2. </span>Define file names and paths<a class="headerlink" href="#define-file-names-and-paths" title="Permalink to this heading">¶</a></h3>
 <p>Next, we find the files with RET1, RET2, RET* in their name, excluding those with SBRef:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef</span>
 <span class="nv">ret_folders</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*AP-RET*&quot;</span><span class="w"> </span>!<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*SBRef*&quot;</span><span class="k">)</span>
@@ -260,7 +272,7 @@
 </div>
 </section>
 <section id="get-nifti-files">
-<h3><span class="section-number">2.2.3. </span>Get <strong>nifti</strong> files<a class="headerlink" href="#get-nifti-files" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.3. </span>Get <strong>nifti</strong> files<a class="headerlink" href="#get-nifti-files" title="Permalink to this heading">¶</a></h3>
 <p>And convert the <code class="docutils literal notranslate"><span class="pre">dicom</span></code> files within these folders to <code class="docutils literal notranslate"><span class="pre">nifti</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run dcm2niix_afni for moving_images and static_images in ascending order</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
@@ -282,7 +294,7 @@
 </div>
 </section>
 <section id="apply-slice-timing-correction">
-<h3><span class="section-number">2.2.4. </span>Apply slice timing correction<a class="headerlink" href="#apply-slice-timing-correction" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.4. </span>Apply slice timing correction<a class="headerlink" href="#apply-slice-timing-correction" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Slice time correct the NIfTI files using 3dTshift</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span><span class="nv">moving_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
@@ -303,7 +315,7 @@
 </div>
 </section>
 <section id="apply-motion-correction">
-<h3><span class="section-number">2.2.5. </span>Apply motion correction<a class="headerlink" href="#apply-motion-correction" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.5. </span>Apply motion correction<a class="headerlink" href="#apply-motion-correction" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Motion correct the output of moving_images using 3dvolreg</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span><span class="nv">tshift_moving_nifti</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span><span class="s2">/tshift_moving_images_</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">.nii.gz&quot;</span>
@@ -319,7 +331,7 @@
 </div>
 </section>
 <section id="distortion-correction">
-<h3><span class="section-number">2.2.6. </span>Distortion correction<a class="headerlink" href="#distortion-correction" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.6. </span>Distortion correction<a class="headerlink" href="#distortion-correction" title="Permalink to this heading">¶</a></h3>
 <p>Now is time for distortion correction. Note that the fieldmap is computed using the original data, and the results applied to the slice-timing and motion corrected data. For illustration purposes, here we use <code class="docutils literal notranslate"><span class="pre">fsl</span></code> here but <code class="docutils literal notranslate"><span class="pre">AFNI</span></code> or <code class="docutils literal notranslate"><span class="pre">ANTS</span></code> may in some cases be preferable.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1">## Compute warps and apply distortion correction for each run</span>
 <span class="c1"># Create the acquisition parameters file</span>
@@ -360,7 +372,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </div>
 </section>
 <section id="cortical-surface-reconstruction">
-<h3><span class="section-number">2.2.7. </span>Cortical surface reconstruction<a class="headerlink" href="#cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.7. </span>Cortical surface reconstruction<a class="headerlink" href="#cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h3>
 <details>
   <summary><span style="color:#3382FF">Wondering how to run `recon-all` ?</span></summary>  
 <p>The anatomical volume used in this tutorial was obtained as follows:</p>
@@ -413,7 +425,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </details>
 </section>
 <section id="alignment">
-<h3><span class="section-number">2.2.8. </span>Alignment<a class="headerlink" href="#alignment" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.8. </span>Alignment<a class="headerlink" href="#alignment" title="Permalink to this heading">¶</a></h3>
 <p>Now we can align (<em>co-register</em>) corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run <code class="docutils literal notranslate"><span class="pre">freesurfer</span></code> successfully on a 1<em>mm</em> iso-volumetric resampled anatomical data of the subject:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Align corrected data to the subject&#39;s anatomical image</span>
 
@@ -444,9 +456,33 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for all corrected moving images.&quot;</span>
 </pre></div>
 </div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
+
+<span class="n">anat_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/anat/&#39;</span>
+<span class="n">func_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/func/&#39;</span>
+
+<span class="n">T1</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">anat_pth</span> <span class="o">+</span> <span class="s1">&#39;sub-00_t1_norm.nii.gz&#39;</span><span class="p">)</span>
+<span class="n">T2</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">func_pth</span> <span class="o">+</span> <span class="s1">&#39;registered_moving_images_1_iso_Tmean.nii.gz&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dimensions of meanFunc: </span><span class="si">{</span><span class="n">T2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">plotting</span><span class="o">.</span><span class="n">plot_stat_map</span><span class="p">(</span><span class="n">T2</span><span class="p">,</span><span class="n">bg_img</span><span class="o">=</span><span class="n">T1</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;T2 to T1 alignment&#39;</span><span class="p">,</span><span class="n">display_mode</span><span class="o">=</span><span class="s1">&#39;ortho&#39;</span><span class="p">,</span><span class="n">cut_coords</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">draw_cross</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/alignment.png"><img alt="" class="align-center" src="_images/alignment.png" style="height: 400px;" /></a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><strong>Example alignment</strong>.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="fine-tune-alignment">
-<h3><span class="section-number">2.2.9. </span>Fine-tune alignment<a class="headerlink" href="#fine-tune-alignment" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.9. </span>Fine-tune alignment<a class="headerlink" href="#fine-tune-alignment" title="Permalink to this heading">¶</a></h3>
 <p>Finally, for now, we check the results visually and apply manual corrections if needed:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use tkregister2 to verify the registration</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
@@ -465,7 +501,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </div>
 </section>
 <section id="visual-inspection">
-<h3><span class="section-number">2.2.10. </span>Visual inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.10. </span>Visual inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this heading">¶</a></h3>
 <p>Let us have a look at the registered data for a single run using <code class="docutils literal notranslate"><span class="pre">freeview</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
@@ -497,7 +533,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </table>
 </section>
 <section id="summary-i">
-<h3><span class="section-number">2.2.11. </span>Summary I<a class="headerlink" href="#summary-i" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.11. </span>Summary I<a class="headerlink" href="#summary-i" title="Permalink to this heading">¶</a></h3>
 <p>So far all semi-automatic! Next steps:</p>
 <ul class="simple">
 <li><p>Fine-tuning of the functional-to-anaotmical volume alignment/co-registration (<em>e.g.</em> using <code class="docutils literal notranslate"><span class="pre">antsRegistration</span></code>).</p></li>
@@ -506,7 +542,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </ul>
 </section>
 <section id="get-to-jupyter">
-<h3><span class="section-number">2.2.12. </span>Get to Jupyter<a class="headerlink" href="#get-to-jupyter" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.12. </span>Get to Jupyter<a class="headerlink" href="#get-to-jupyter" title="Permalink to this heading">¶</a></h3>
 <p>Now we switch to python. The following has been adapted from excellent Noah Benson’s <a class="reference external" href="https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb">tutorial</a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -529,7 +565,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 </section>
 <section id="get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">
-<h3><span class="section-number">2.2.13. </span>Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.13. </span>Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fsaverage</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 
 <span class="n">v1_centers</span> <span class="o">=</span> <span class="p">{}</span>
@@ -577,7 +613,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 </section>
 <section id="map-functional-data-to-a-cortical-mesh">
-<h3><span class="section-number">2.2.14. </span>Map functional data to a cortical mesh<a class="headerlink" href="#map-functional-data-to-a-cortical-mesh" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.14. </span>Map functional data to a cortical mesh<a class="headerlink" href="#map-functional-data-to-a-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Use <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> projection method to get the flat patch indices in the original surface:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;orthographic&#39;</span> <span class="c1"># or: equirectangular, sinusoidal, mercator</span>
 <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
@@ -637,7 +673,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 </section>
 <section id="plotting-on-the-cortical-mesh">
-<h3><span class="section-number">2.2.15. </span>Plotting on the cortical mesh<a class="headerlink" href="#plotting-on-the-cortical-mesh" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.15. </span>Plotting on the cortical mesh<a class="headerlink" href="#plotting-on-the-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Load co-registered and surface projected time series and compute t-SNR:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -710,11 +746,11 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 <p>Remember, this is work in progress!</p>
 </section>
 <section id="summary-ii">
-<h3><span class="section-number">2.2.16. </span>Summary II<a class="headerlink" href="#summary-ii" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.16. </span>Summary II<a class="headerlink" href="#summary-ii" title="Permalink to this heading">¶</a></h3>
 <p>The neuroimaging python package <strong>Neuropythy</strong> is very versatile but a little cumbersome to learn. See here for its <a class="reference external" href="https://nben.net/docs/neuropythy/html/genindex.html">documentation</a>, and <a class="reference external" href="https://nben.net/Retinotopy-Tutorial/">here</a> for a nice retinotopy tutorial, and <a class="reference external" href="https://nben.net/MRI-Geometry/">here</a> for details on MRI Data Representation and Geometry.</p>
 </section>
 <section id="whats-next">
-<h3><span class="section-number">2.2.17. </span>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.17. </span>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this heading">¶</a></h3>
 <p><strong>Next</strong>: using <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps.</p>
 </section>
 </section>
