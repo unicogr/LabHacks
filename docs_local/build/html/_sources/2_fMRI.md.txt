@@ -68,7 +68,7 @@ Here I have documented the essential preprocessing steps for the functional reti
 The folder tree for the data ued in this tutorial:
 
 
-`shell
+
 /home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX
 ├── cg220008-2898_001
 │   ├── 000001_AAHScout
@@ -81,7 +81,7 @@ The folder tree for the data ued in this tutorial:
 │   ├── 000008_b0-gre-field-mapping
 │   ├── 000009_TEST-SAR-BOLD-SBRef
 │   ├── 000010_TEST-SAR-BOLD
-│   ├── 000011_mbep2d-TR1-1pt6mm-PA-SBRef
+│   ├── 000`shell011_mbep2d-TR1-1pt6mm-PA-SBRef
 │   ├── 000012_mbep2d-TR1-1pt6mm-PA
 │   ├── 000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef
 │   ├── 000014_mbep2d-TR1-1pt6mm-AP-REST1
@@ -123,7 +123,7 @@ The folder tree for the data ued in this tutorial:
     ├── anat
     ├── func
     └── retinotopy
-`
+
 
 ### Set environment
 

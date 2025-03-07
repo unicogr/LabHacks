@@ -175,7 +175,60 @@
 <h2><span class="section-number">2.3. </span><strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction<a class="headerlink" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h2>
 <p>Here I have documented the essential preprocessing steps for the functional retinotopy data.</p>
 <p>The folder tree for the data ued in this tutorial:</p>
-<p><code class="docutils literal notranslate"><span class="pre">shell</span> <span class="pre">/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX</span> <span class="pre">├──</span> <span class="pre">cg220008-2898_001</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000001_AAHScout</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000002_AAHScout-MPR</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000003_b1-map-xfl-sag-Amplitude</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000004_b1-map-xfl-sag-Phase</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000005_b1-map-xfl-sag-B1-Ampli-CP-mode</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000006_b1-map-xfl-sag-VR</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000007_b0-gre-field-mapping</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000008_b0-gre-field-mapping</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000009_TEST-SAR-BOLD-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000010_TEST-SAR-BOLD</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000011_mbep2d-TR1-1pt6mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000012_mbep2d-TR1-1pt6mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000014_mbep2d-TR1-1pt6mm-AP-REST1</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000015_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000016_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000018_mbep2d-TR2-1pt2mm-AP-RET1</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000019_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000020_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000021_mbep2d-TR2-1pt2mm-AP-RET2-SBone-size-fits-allRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000022_mbep2d-TR2-1pt2mm-AP-RET2</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000023_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000024_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000025_mbep2d-TR2-1pt2mm-AP-RET3-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000026_mbep2d-TR2-1pt2mm-AP-RET3</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000027_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000028_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000029_mbep2d-TR2-1pt2mm-AP-RET4-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000030_mbep2d-TR2-1pt2mm-AP-RET4</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000031_mbep2d-TR1-1pt6mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000032_mbep2d-TR1-1pt6mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000033_mbep2d-TR1-1pt6mm-AP-REST2-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000034_mbep2d-TR1-1pt6mm-AP-REST2</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000035_t1-mp2rage-sag-iso0.75mm-INV1</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000036_t1-mp2rage-sag-iso0.75mm-INV1-PHS</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000037_t1-mp2rage-sag-iso0.75mm-INV2</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000038_t1-mp2rage-sag-iso0.75mm-INV2-PHS</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000039_t1-mp2rage-sag-iso0.75mm-T1-Images</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000040_t1-mp2rage-sag-iso0.75mm-UNI-DEN</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000041_t1-mp2rage-sag-iso0.75mm-UNI-Images</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000042_mbep2d-TR2-1pt2mm-PA-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000043_mbep2d-TR2-1pt2mm-PA</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000044_mbep2d-TR2-1pt2mm-AP-CATV-SBRef</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000045_mbep2d-TR2-1pt2mm-AP-CATV</span> <span class="pre">│  </span> <span class="pre">├──</span> <span class="pre">000046_mbep2d-TR2-1pt2mm-AP-CATV-SBRef-split-1</span> <span class="pre">│  </span> <span class="pre">└──</span> <span class="pre">nifti</span> <span class="pre">├──</span> <span class="pre">pRF_log_images</span> <span class="pre">└──</span> <span class="pre">sub-00</span>&#160;&#160;&#160;&#160; <span class="pre">├──</span> <span class="pre">anat</span>&#160;&#160;&#160;&#160; <span class="pre">├──</span> <span class="pre">func</span>&#160;&#160;&#160;&#160; <span class="pre">└──</span> <span class="pre">retinotopy</span> </code></p>
+<p>/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX
+├── cg220008-2898_001
+│   ├── 000001_AAHScout
+│   ├── 000002_AAHScout-MPR
+│   ├── 000003_b1-map-xfl-sag-Amplitude
+│   ├── 000004_b1-map-xfl-sag-Phase
+│   ├── 000005_b1-map-xfl-sag-B1-Ampli-CP-mode
+│   ├── 000006_b1-map-xfl-sag-VR
+│   ├── 000007_b0-gre-field-mapping
+│   ├── 000008_b0-gre-field-mapping
+│   ├── 000009_TEST-SAR-BOLD-SBRef
+│   ├── 000010_TEST-SAR-BOLD
+│   ├── 000`shell011_mbep2d-TR1-1pt6mm-PA-SBRef
+│   ├── 000012_mbep2d-TR1-1pt6mm-PA
+│   ├── 000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef
+│   ├── 000014_mbep2d-TR1-1pt6mm-AP-REST1
+│   ├── 000015_mbep2d-TR2-1pt2mm-PA-SBRef
+│   ├── 000016_mbep2d-TR2-1pt2mm-PA
+│   ├── 000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef
+│   ├── 000018_mbep2d-TR2-1pt2mm-AP-RET1
+│   ├── 000019_mbep2d-TR2-1pt2mm-PA-SBRef
+│   ├── 000020_mbep2d-TR2-1pt2mm-PA
+│   ├── 000021_mbep2d-TR2-1pt2mm-AP-RET2-SBone-size-fits-allRef
+│   ├── 000022_mbep2d-TR2-1pt2mm-AP-RET2
+│   ├── 000023_mbep2d-TR2-1pt2mm-PA-SBRef
+│   ├── 000024_mbep2d-TR2-1pt2mm-PA
+│   ├── 000025_mbep2d-TR2-1pt2mm-AP-RET3-SBRef
+│   ├── 000026_mbep2d-TR2-1pt2mm-AP-RET3
+│   ├── 000027_mbep2d-TR2-1pt2mm-PA-SBRef
+│   ├── 000028_mbep2d-TR2-1pt2mm-PA
+│   ├── 000029_mbep2d-TR2-1pt2mm-AP-RET4-SBRef
+│   ├── 000030_mbep2d-TR2-1pt2mm-AP-RET4
+│   ├── 000031_mbep2d-TR1-1pt6mm-PA-SBRef
+│   ├── 000032_mbep2d-TR1-1pt6mm-PA
+│   ├── 000033_mbep2d-TR1-1pt6mm-AP-REST2-SBRef
+│   ├── 000034_mbep2d-TR1-1pt6mm-AP-REST2
+│   ├── 000035_t1-mp2rage-sag-iso0.75mm-INV1
+│   ├── 000036_t1-mp2rage-sag-iso0.75mm-INV1-PHS
+│   ├── 000037_t1-mp2rage-sag-iso0.75mm-INV2
+│   ├── 000038_t1-mp2rage-sag-iso0.75mm-INV2-PHS
+│   ├── 000039_t1-mp2rage-sag-iso0.75mm-T1-Images
+│   ├── 000040_t1-mp2rage-sag-iso0.75mm-UNI-DEN
+│   ├── 000041_t1-mp2rage-sag-iso0.75mm-UNI-Images
+│   ├── 000042_mbep2d-TR2-1pt2mm-PA-SBRef
+│   ├── 000043_mbep2d-TR2-1pt2mm-PA
+│   ├── 000044_mbep2d-TR2-1pt2mm-AP-CATV-SBRef
+│   ├── 000045_mbep2d-TR2-1pt2mm-AP-CATV
+│   ├── 000046_mbep2d-TR2-1pt2mm-AP-CATV-SBRef-split-1
+│   └── nifti
+├── pRF_log_images
+└── sub-00
+├── anat
+├── func
+└── retinotopy</p>
 <section id="set-environment">
 <h3><span class="section-number">2.3.1. </span>Set environment<a class="headerlink" href="#set-environment" title="Permalink to this heading">¶</a></h3>
 <p>First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths:</p>
