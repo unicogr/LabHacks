@@ -7,23 +7,23 @@ comments: true
 # <span style="color:black">Surface-based fMRI</span>
 
 
-An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007`. Provided we have a good alignment between fMRI images (*e.g.* T2) and anatomical mages(*e.g.* T1), these stimuli enable the mapping of receptive field properties at the population level. However, fMRI and MRI images must be preprocessed in non-trivial ways to achieve. There is no out of the box solution for this, meaning that a *one-size-fits-all* preprocessing pipeline is not only lacking but it is impossible. 
+An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007`. Provided we have a good alignment between functional (*e.g.* T2) and anatomical (*e.g.* T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example wil help us achieve this.
   
-In this tutorial, we will use a single subject from the iCORTEX 7T-fMRI dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.
+In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.
 
-### What we will learn? What is the goal?
+### What we will learn? 
 
 
-* We will not learn today how to use BIDS or run an out-of-the-box toolbox. Today's tutorial does not cover this. 
+* We will **not** learn today how to use BIDS or run an out-of-the-box toolbox. Today's tutorial does not cover this. 
 
-* We will try demystify the mystery around fMRI preprocessing by showing a simple, yet clear and transparent pipeline with one subject and one single run.
+* To demystify the mystery around fMRI preprocessing by showing a simple, yet clear and transparent pipeline with one subject and one single run.
 
 * Additionally, we will learn some basic shell script commands and python. 
 
 
 > *For multiple runs, between-scan motion correction is needed. SBRef scans (not used here) or T1 copies matched to each run can improve co-registration by aligning functional-matched T1s to the original T1 used for segmentation. We’ll cover this in part two.*    
 
-Still on the making is the second part of this tutorial: *pRF mapping using 7T-fMRI data*. 
+Still on the making is the follow up part of this tutorial: *pRF mapping using 7T-fMRI data*. 
 
 
 Requirements:
@@ -69,7 +69,7 @@ The folder tree for the data ued in this tutorial:
 
 
 
-/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX 
+/home/... ... /fMRIdata/iCORTEX   
 ├── cg220008-2898_001  
 │   ├── 000001_AAHScout  
 │   ├── 000002_AAHScout-MPR  
@@ -81,14 +81,14 @@ The folder tree for the data ued in this tutorial:
 │   ├── 000008_b0-gre-field-mapping  
 │   ├── 000009_TEST-SAR-BOLD-SBRef  
 │   ├── 000010_TEST-SAR-BOLD  
-│   ├── 000`shell011_mbep2d-TR1-1pt6mm-PA-SBRef  
+│   ├── 00011_mbep2d-TR1-1pt6mm-PA-SBRef  
 │   ├── 000012_mbep2d-TR1-1pt6mm-PA  
 │   ├── 000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef  
 │   ├── 000014_mbep2d-TR1-1pt6mm-AP-REST1  
 │   ├── 000015_mbep2d-TR2-1pt2mm-PA-SBRef  
 │   ├── 000016_mbep2d-TR2-1pt2mm-PA  
-│   ├── 000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef 
-│   ├── 000018_mbep2d-TR2-1pt2mm-AP-RET1  
+│   ├── 000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef   
+│   ├── 000018_mbep2d-TR2-1pt2mm-AP-RET1    
 │   ├── 000019_mbep2d-TR2-1pt2mm-PA-SBRef  
 │   ├── 000020_mbep2d-TR2-1pt2mm-PA  
 │   ├── 000021_mbep2d-TR2-1pt2mm-AP-RET2-SBone-size-fits-allRef  
@@ -265,9 +265,7 @@ for index in $(seq 1 ${#moving_images[@]}); do
         3dTshift -verbose -TR 2 -tpattern altplus -ignore 0 -tzero 0 -Fourier -prefix "${pth}/tshift_moving_images_${index}.nii.gz" "${moving_nifti}"
     fi
 
-    if [ -f "${static_nifti}" ]; then
-        3dTshift -verbose -TR 2 -tpattern altplus -ignore 0 -tzero 0 -Fourier -prefix "${pth}/tshift_static_images_${index}.nii.gz" "${static_nifti}"
-    fi
+ 
 done
 
 # Print completion message

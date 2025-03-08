@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "made explicit the reason for not adding docs_local to .gitignore"
+git commit -m "added goals for today"
 git push -u origin main
 
 
