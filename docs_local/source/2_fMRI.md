@@ -499,7 +499,7 @@ freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
 
 ```
 
-|![](/figures/Freeview.png){width="400px" align=center}|
+|![](/figures/Freeview.png){width="800px" align=center}|
 |:--:|
 |**Freeview**. We can clearly see the modulation of the signal by the drifting bar used in the visual field mapping stimuli. We are going to use this later in order to compute pRF maps.|
 
@@ -580,7 +580,7 @@ subject_id = 'sub-00_iso'
 sub = ny.freesurfer_subject([fs_pth + subject_id])
 ```
 
-### Get V1 coordinats fom the *fsaverage* registration of the subjects
+### Get V1 coordinates fom the *fsaverage* registration of the subjects
 
 ```python
 fsaverage = ny.freesurfer_subject('fsaverage')
@@ -859,7 +859,7 @@ plt.show()
 
 |![](/figures/bold.png){width="800px" align=center}|
 |:--:|
-|**BOLD signals**. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the travelling waves? Yeah, these are evoked by the drifting bar.|
+|**BOLD signals**. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the travelling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
  
 
 Remember, this is work in progress! 

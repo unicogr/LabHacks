@@ -64,7 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#summary-i">2.3.11. Summary I</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#project-times-series-to-cortical-surface">2.3.12. Project times series to cortical surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#get-to-jupyter">2.3.13. Get to Jupyter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">2.3.14. Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subjects">2.3.14. Get V1 coordinates fom the <em>fsaverage</em> registration of the subjects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#map-functional-data-to-a-cortical-mesh">2.3.15. Map functional data to a cortical mesh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#plotting-the-temporal-signal-to-noise-ratio-t-snr-on-the-cortical-mesh">2.3.16. Plotting the temporal signal to noise ratio (t-SNR) on the cortical mesh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obtaining-bold-percentage-signal-change">2.3.17. Obtaining BOLD percentage signal change</a></li>
@@ -576,7 +576,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/Freeview.png"><img alt="" class="align-center" src="_images/Freeview.png" style="width: 400px;" /></a></p></th>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/Freeview.png"><img alt="" class="align-center" src="_images/Freeview.png" style="width: 800px;" /></a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -657,8 +657,8 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </pre></div>
 </div>
 </section>
-<section id="get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">
-<h3><span class="section-number">2.3.14. </span>Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
+<section id="get-v1-coordinates-fom-the-fsaverage-registration-of-the-subjects">
+<h3><span class="section-number">2.3.14. </span>Get V1 coordinates fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fsaverage</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 
 <span class="n">v1_centers</span> <span class="o">=</span> <span class="p">{}</span>
@@ -934,7 +934,7 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p><strong>BOLD signals</strong>. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. <strong>Never take preprocessing for granted!</strong>. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the travelling waves? Yeah, these are evoked by the drifting bar.</p></td>
+<tr class="row-even"><td class="text-center"><p><strong>BOLD signals</strong>. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. <strong>Never take preprocessing for granted!</strong>. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the travelling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a>, is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.</p></td>
 </tr>
 </tbody>
 </table>
