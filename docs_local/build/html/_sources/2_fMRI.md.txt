@@ -707,9 +707,112 @@ Some preliminary figures:
 |**Temporal SNR in V1**.|
 
 
-|![](/figures/tSNR_outsideV1.png){height="400px" align=center}|
-|:--:|
-|**Temporal SNR outside V1**.|
+
+### Obtaining BOLD percentage signal change
+
+Load co-registered and surface projected time series and compute t-SNR:
+
+```python
+# Load the .mgh files
+# Define the path to the functional image
+pth = '/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/func/'
+
+
+# Load the projected time series
+lh_time_series_path = os.path.join(pth, 'lh.corrected_moving_images_1_iso.mgh')
+rh_time_series_path = os.path.join(pth, 'rh.corrected_moving_images_1_iso.mgh')
+
+lh_time_series = np.squeeze(nib.load(lh_time_series_path ).get_fdata())
+rh_time_series = np.squeeze(nib.load(rh_time_series_path).get_fdata())
+
+print(lh_time_series.shape)
+
+flatmaps = {h: mp(sub.hemis[h]) for (h,mp) in map_projs.items()}
+
+lh_cortex_index = flatmaps['lh'].prop('index')
+rh_cortex_index = flatmaps['rh'].prop('index')
+
+
+# Calculate the temporal-SNR (temporal standard deviation of the time series)
+lh_tsnr_ = np.std(lh_time_series[lh_cortex_index,:], axis=1)
+rh_tsnr_ = np.std(rh_time_series[rh_cortex_index,:], axis=1)
+
+
+print(lh_tsnr_.shape)
+
+
+# Subtract the mean of each time series (channel) from the time series data
+print('lh_time_series shape: ', lh_time_series.shape)
+lh_tSeries = lh_time_series - np.mean(lh_time_series, axis=1, keepdims=True)
+rh_tSeries = rh_time_series - np.mean(rh_time_series, axis=1, keepdims=True)
+
+# Subtract global mean from each time series
+lh_tSeries = lh_time_series - np.mean(lh_time_series.flatten(), keepdims=True)
+rh_tSeries = rh_time_series - np.mean(rh_time_series.flatten(), keepdims=True)
+print('demeaned time series shape: ', lh_tSeries.shape)
+
+# Extract V1 time series for the left hemisphere
+V1_ix = lh_v1_weight > 0.5
+print(V1_ix.shape)
+V1_ts_lh = lh_tSeries[lh_cortex_index[V1_ix],:]
+print(V1_ts_lh.shape)
+
+# Extract V1 time series for the right hemisphere
+V1_ix = rh_v1_weight > 0.5
+print(V1_ix.shape)
+V1_ts_rh = rh_tSeries[rh_cortex_index[V1_ix],:]
+print(V1_ts_rh.shape)
+
+# Remove trends and convert to percent signal change
+detrend     = True
+standardize = 'psc'
+
+
+print('V1_ts_lh shape: ', V1_ts_lh.shape)   
+
+
+
+#V1_ts_lh = V1_ts_lh - 
+#V1_ts_rh = V1_ts_rh - np.mean(V1_ts_rh, axis=1)
+
+low_pass    = 0.08      
+high_pass   = 0.02     
+TR          = 2      
+confounds   = None      
+
+V1_ts_lh  = signal.clean(V1_ts_lh.T, confounds=confounds, detrend=detrend, standardize=standardize, 
+                           filter='butterworth', low_pass=low_pass, high_pass=high_pass, tr=TR)
+
+V1_ts_rh  = signal.clean(V1_ts_rh.T, confounds=confounds, detrend=detrend, standardize=standardize, 
+                           filter='butterworth', low_pass=low_pass, high_pass=high_pass, tr=TR)
+
+
+# Zscore
+V1_ts_lh = stats.zscore(V1_ts_lh, axis=0)
+V1_ts_rh = stats.zscore(V1_ts_rh, axis=0)
+
+
+# Plot the time series
+fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+
+# Plot the left hemisphere time series
+plt.sca(axs[0])
+plt.imshow(V1_ts_lh[:,1:100].T, cmap='Spectral_r', aspect='auto')
+plt.ylabel('site', fontsize=10)
+plt.xlabel('TR', fontsize=10)
+plt.colorbar()
+
+# Plot the right hemisphere time series
+plt.sca(axs[1])
+plt.imshow(V1_ts_rh[:,1:100].T, cmap='Spectral_r', aspect='auto')
+plt.xlabel('TR', fontsize=10)
+plt.colorbar()
+
+plt.show()
+
+```
+
+
 
 
 Remember, this is work in progress! 
