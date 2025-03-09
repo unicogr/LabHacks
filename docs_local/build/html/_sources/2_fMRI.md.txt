@@ -512,6 +512,50 @@ So far all semi-automatic! Next steps:
 * Compute pRFs using an occipital mask.
 * Refactoring this to preprocess more subjects and organize the inputs and outputs results in **BIDS** format.
 
+
+### Project times series to cortical surface
+
+```shell
+# Define the FreeSurfer subject directory
+export SUBJECTS_DIR=$FREESURFER_HOME/subjects
+
+# Define the paths for the input and output files
+corrected_moving_image=${pth}/registered_moving_images_1_iso.nii.gz
+lh_output_surface=${pth}/lh.corrected_moving_images_1_iso.mgh
+rh_output_surface=${pth}/rh.corrected_moving_images_1_iso.mgh
+registration_matrix=${pth}/registration_matrix_1.dat
+nvoxfile=${pth}/nvoxfile_1.dat
+
+# Find the brain.mgz file for the current subject
+brain_mgz=${SUBJECTS_DIR}/${subj}/mri/orig.mgz
+
+# Project the volumetric data onto the left hemisphere surface
+mri_vol2surf --mov ${corrected_moving_image} \
+  --projfrac 0.1 \
+  --interp nearest \
+  --hemi lh \
+  --out ${lh_output_surface} \
+  --surf white \
+  --nvox ${nvoxfile} \
+  --reg ${registration_matrix} 
+
+# Project the volumetric data onto the right hemisphere surface
+mri_vol2surf --mov ${corrected_moving_image} \
+  --projfrac 0.1 \
+  --interp nearest \
+  --hemi rh \
+  --out ${rh_output_surface} \
+  --surf white \
+  --nvox ${nvoxfile} \
+  --reg ${registration_matrix} 
+
+# Print completion message
+echo "Projection of volumetric data onto the surface completed for corrected_moving_images_1.nii.gz."
+
+
+```
+
+
 ### Get to Jupyter  
 
 Now we switch to python. The following has been adapted from excellent Noah Benson's [tutorial](https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb):
@@ -648,7 +692,7 @@ left_ax.axis('off')
 right_ax.axis('off');   
 ```
 
-### Plotting on the cortical mesh
+### Plotting the temporal signal to noise ratio (t-SNR) on the cortical mesh
 
 Load co-registered and surface projected time series and compute t-SNR:
 
@@ -700,7 +744,7 @@ left_ax.axis('off')
 right_ax.axis('off');
 ```
 
-Some preliminary figures:
+
 
 |![](/figures/tSNR_V1.png){height="400px" align=center}|
 |:--:|

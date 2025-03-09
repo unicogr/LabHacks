@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "new section obtaining BOLD preprocessing (demeaning, filtering, detrending, percentage signal change, z-score, etc"
+git commit -m "Project times series to cortical surface"
 git push -u origin main
 
 

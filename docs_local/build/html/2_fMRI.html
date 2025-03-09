@@ -62,13 +62,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#fine-tune-alignment">2.3.9. Fine-tune alignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#visual-inspection">2.3.10. Visual inspection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#summary-i">2.3.11. Summary I</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-to-jupyter">2.3.12. Get to Jupyter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">2.3.13. Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#map-functional-data-to-a-cortical-mesh">2.3.14. Map functional data to a cortical mesh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plotting-on-the-cortical-mesh">2.3.15. Plotting on the cortical mesh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obtaining-bold-percentage-signal-change">2.3.16. Obtaining BOLD percentage signal change</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#summary-ii">2.3.17. Summary II</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#whats-next">2.3.18. What’s next?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-times-series-to-cortical-surface">2.3.12. Project times series to cortical surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-to-jupyter">2.3.13. Get to Jupyter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">2.3.14. Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#map-functional-data-to-a-cortical-mesh">2.3.15. Map functional data to a cortical mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-the-temporal-signal-to-noise-ratio-t-snr-on-the-cortical-mesh">2.3.16. Plotting the temporal signal to noise ratio (t-SNR) on the cortical mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtaining-bold-percentage-signal-change">2.3.17. Obtaining BOLD percentage signal change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-ii">2.3.18. Summary II</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#whats-next">2.3.19. What’s next?</a></li>
 </ul>
 </li>
 </ul>
@@ -593,8 +594,48 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 <li><p>Refactoring this to preprocess more subjects and organize the inputs and outputs results in <strong>BIDS</strong> format.</p></li>
 </ul>
 </section>
+<section id="project-times-series-to-cortical-surface">
+<h3><span class="section-number">2.3.12. </span>Project times series to cortical surface<a class="headerlink" href="#project-times-series-to-cortical-surface" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the FreeSurfer subject directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SUBJECTS_DIR</span><span class="o">=</span><span class="nv">$FREESURFER_HOME</span>/subjects
+
+<span class="c1"># Define the paths for the input and output files</span>
+<span class="nv">corrected_moving_image</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registered_moving_images_1_iso.nii.gz
+<span class="nv">lh_output_surface</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/lh.corrected_moving_images_1_iso.mgh
+<span class="nv">rh_output_surface</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/rh.corrected_moving_images_1_iso.mgh
+<span class="nv">registration_matrix</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/registration_matrix_1.dat
+<span class="nv">nvoxfile</span><span class="o">=</span><span class="si">${</span><span class="nv">pth</span><span class="si">}</span>/nvoxfile_1.dat
+
+<span class="c1"># Find the brain.mgz file for the current subject</span>
+<span class="nv">brain_mgz</span><span class="o">=</span><span class="si">${</span><span class="nv">SUBJECTS_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj</span><span class="si">}</span>/mri/orig.mgz
+
+<span class="c1"># Project the volumetric data onto the left hemisphere surface</span>
+mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--projfrac<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--interp<span class="w"> </span>nearest<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hemi<span class="w"> </span>lh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span><span class="si">${</span><span class="nv">lh_output_surface</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--surf<span class="w"> </span>white<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--nvox<span class="w"> </span><span class="si">${</span><span class="nv">nvoxfile</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>
+
+<span class="c1"># Project the volumetric data onto the right hemisphere surface</span>
+mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--projfrac<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--interp<span class="w"> </span>nearest<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hemi<span class="w"> </span>rh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span><span class="si">${</span><span class="nv">rh_output_surface</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--surf<span class="w"> </span>white<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--nvox<span class="w"> </span><span class="si">${</span><span class="nv">nvoxfile</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reg<span class="w"> </span><span class="si">${</span><span class="nv">registration_matrix</span><span class="si">}</span><span class="w"> </span>
+
+<span class="c1"># Print completion message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Projection of volumetric data onto the surface completed for corrected_moving_images_1.nii.gz.&quot;</span>
+</pre></div>
+</div>
+</section>
 <section id="get-to-jupyter">
-<h3><span class="section-number">2.3.12. </span>Get to Jupyter<a class="headerlink" href="#get-to-jupyter" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.13. </span>Get to Jupyter<a class="headerlink" href="#get-to-jupyter" title="Permalink to this heading">¶</a></h3>
 <p>Now we switch to python. The following has been adapted from excellent Noah Benson’s <a class="reference external" href="https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb">tutorial</a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -617,7 +658,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 </section>
 <section id="get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects">
-<h3><span class="section-number">2.3.13. </span>Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.14. </span>Get V1 coordinats fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinats-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fsaverage</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 
 <span class="n">v1_centers</span> <span class="o">=</span> <span class="p">{}</span>
@@ -665,7 +706,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </div>
 </section>
 <section id="map-functional-data-to-a-cortical-mesh">
-<h3><span class="section-number">2.3.14. </span>Map functional data to a cortical mesh<a class="headerlink" href="#map-functional-data-to-a-cortical-mesh" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.15. </span>Map functional data to a cortical mesh<a class="headerlink" href="#map-functional-data-to-a-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Use <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> projection method to get the flat patch indices in the original surface:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;orthographic&#39;</span> <span class="c1"># or: equirectangular, sinusoidal, mercator</span>
 <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
@@ -724,8 +765,8 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </pre></div>
 </div>
 </section>
-<section id="plotting-on-the-cortical-mesh">
-<h3><span class="section-number">2.3.15. </span>Plotting on the cortical mesh<a class="headerlink" href="#plotting-on-the-cortical-mesh" title="Permalink to this heading">¶</a></h3>
+<section id="plotting-the-temporal-signal-to-noise-ratio-t-snr-on-the-cortical-mesh">
+<h3><span class="section-number">2.3.16. </span>Plotting the temporal signal to noise ratio (t-SNR) on the cortical mesh<a class="headerlink" href="#plotting-the-temporal-signal-to-noise-ratio-t-snr-on-the-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Load co-registered and surface projected time series and compute t-SNR:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -774,7 +815,6 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 <span class="n">right_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Some preliminary figures:</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/tSNR_V1.png"><img alt="" class="align-center" src="_images/tSNR_V1.png" style="height: 400px;" /></a></p></th>
@@ -787,7 +827,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </table>
 </section>
 <section id="obtaining-bold-percentage-signal-change">
-<h3><span class="section-number">2.3.16. </span>Obtaining BOLD percentage signal change<a class="headerlink" href="#obtaining-bold-percentage-signal-change" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.17. </span>Obtaining BOLD percentage signal change<a class="headerlink" href="#obtaining-bold-percentage-signal-change" title="Permalink to this heading">¶</a></h3>
 <p>Load co-registered and surface projected time series and compute t-SNR:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the .mgh files</span>
 <span class="c1"># Define the path to the functional image</span>
@@ -891,11 +931,11 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 <p>Remember, this is work in progress!</p>
 </section>
 <section id="summary-ii">
-<h3><span class="section-number">2.3.17. </span>Summary II<a class="headerlink" href="#summary-ii" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.18. </span>Summary II<a class="headerlink" href="#summary-ii" title="Permalink to this heading">¶</a></h3>
 <p>The neuroimaging python package <strong>Neuropythy</strong> is very versatile but a little cumbersome to learn. See here for its <a class="reference external" href="https://nben.net/docs/neuropythy/html/genindex.html">documentation</a>, and <a class="reference external" href="https://nben.net/Retinotopy-Tutorial/">here</a> for a nice retinotopy tutorial, and <a class="reference external" href="https://nben.net/MRI-Geometry/">here</a> for details on MRI Data Representation and Geometry.</p>
 </section>
 <section id="whats-next">
-<h3><span class="section-number">2.3.18. </span>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.3.19. </span>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this heading">¶</a></h3>
 <p><strong>Next</strong>: using <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps.</p>
 </section>
 </section>
