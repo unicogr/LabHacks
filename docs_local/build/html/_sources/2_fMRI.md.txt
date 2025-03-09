@@ -499,7 +499,7 @@ freeview -f $SUBJECTS_DIR/${subj}/surf/lh.white -viewport 3d \
 
 ```
 
-|![](/figures/Freeview.png){height="600px" align=center}|
+|![](/figures/Freeview.png){width="400px" align=center}|
 |:--:|
 |**Freeview**. We can clearly see the modulation of the signal by the drifting bar used in the visual field mapping stimuli. We are going to use this later in order to compute pRF maps.|
 
@@ -746,7 +746,7 @@ right_ax.axis('off');
 
 
 
-|![](/figures/tSNR_V1.png){height="400px" align=center}|
+|![](/figures/tSNR_V1.png){width="800px" align=center}|
 |:--:|
 |**Temporal SNR in V1**.|
 
@@ -857,7 +857,7 @@ plt.show()
 ```
 
 
-|![](/figures/bold.png){height="600px" align=center}|
+|![](/figures/bold.png){width="800px" align=center}|
 |:--:|
 |**BOLD signals*. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. Never take preprocessing for granted! |
  
