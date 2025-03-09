@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "Project times series to cortical surface"
+git commit -m "BOLD signal, how?"
 git push -u origin main
 
 
