@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "BOLD signal, how?"
+git commit -m "caption for new figure on BOLD"
 git push -u origin main
 
 
