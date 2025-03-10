@@ -857,7 +857,7 @@ plt.show()
 ```
 
 
-|![](/figures/bold.png){width="800px" align=center}|
+|![](/figures/bold_pct.png){width="800px" align=center}|
 |:--:|
 |**BOLD signals**. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the travelling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
  
@@ -878,7 +878,7 @@ The neuroimaging python package **Neuropythy** is very versatile but a little cu
 ## Preliminary results for pRF mapping
 
 
-|![](/figures/tSNR_V1.png){width="800px" align=center}|
+|![](/figures/pRF_position.png){width="800px" align=center}|
 |:--:|
 |**Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling**. A single run was used|
 
@@ -1158,6 +1158,12 @@ ax[3].set_xlabel('VE', fontsize=10)
 ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 
 ```
+
+
+|![](/figures/pRF_params.png){width="800px" align=center}|
+|:--:|
+|**Distribution of pRF parameters**.|
+
 
 Not perfect but gettint there!
 

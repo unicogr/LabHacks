@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "changed 'fixed_sidebar': True to 'fixed_sidebar': False, as the document grows, the sidebar will be too long"
+git commit -m "added pRF plots"
 git push -u origin main
 
 
