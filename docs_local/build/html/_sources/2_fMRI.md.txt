@@ -1165,7 +1165,9 @@ ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 |**Distribution of pRF parameters**.|
 
 
-Not perfect but gettint there!
+As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.
+
+
 
 ### Plot pRF maps on the flattened cortical surface
 
@@ -1189,3 +1191,5 @@ ny.cortex_plot(flatmaps['lh'], axes=right_ax,
 left_ax.axis('off')
 right_ax.axis('off')
 ```
+
+Work in progres!
