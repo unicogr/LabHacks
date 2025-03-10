@@ -91,7 +91,7 @@ html_theme_options = {
     'sidebar_width': '20%',
     'show_relbars': True,
     'show_powered_by' : False,
-    'fixed_sidebar': True
+    'fixed_sidebar': False
 
 }
 
@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "pRF preliminaries: adjusting the grid and iterative fitting options"
+git commit -m "changed 'fixed_sidebar': True to 'fixed_sidebar': False, as the document grows, the sidebar will be too long"
 git push -u origin main
 
 
