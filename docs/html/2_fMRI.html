@@ -878,9 +878,8 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </tr>
 </tbody>
 </table>
-</section>
 <section id="but-how-ok-on-jupiter-define-file-names-and-paths">
-<h2><span class="section-number">2.5. </span>But how? Ok, on Jupiter: define file names and paths<a class="headerlink" href="#but-how-ok-on-jupiter-define-file-names-and-paths" title="Permalink to this heading">¶</a></h2>
+<h3><span class="section-number">2.4.1. </span>But how? Ok, on Jupiter: define file names and paths<a class="headerlink" href="#but-how-ok-on-jupiter-define-file-names-and-paths" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
@@ -920,8 +919,9 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 <span class="n">sub</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">([</span><span class="n">fs_pth</span> <span class="o">+</span> <span class="n">subject_id</span><span class="p">])</span>
 </pre></div>
 </div>
+</section>
 <section id="get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">
-<h3><span class="section-number">2.5.1. </span>Get V1 coordinates fom the fsaverage registration of the subject<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.4.2. </span>Get V1 coordinates fom the fsaverage registration of the subject<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject" title="Permalink to this heading">¶</a></h3>
 <p>We did this in step  2.3.14. No we jujst load these:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the time series</span>
 <span class="n">load_path</span> <span class="o">=</span> <span class="s1">&#39;/home/... ... fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
@@ -957,10 +957,10 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </div>
 </section>
 <section id="we-run-prf-mapping">
-<h3><span class="section-number">2.5.2. </span>We run pRF mapping !<a class="headerlink" href="#we-run-prf-mapping" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.4.3. </span>We run pRF mapping !<a class="headerlink" href="#we-run-prf-mapping" title="Permalink to this heading">¶</a></h3>
 <p>We use the output from section 2.3.17.</p>
 <section id="prepare-stimulus">
-<h4><span class="section-number">2.5.2.1. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">2.4.3.1. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pRF_images_path</span> <span class="o">=</span><span class="s1">&#39;/home/... .../iCORTEX/pRF_log_images/&#39;</span>
 
 <span class="c1"># Initialize an empty list to store the data</span>
@@ -1014,7 +1014,7 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </div>
 </section>
 <section id="compute-prfs">
-<h4><span class="section-number">2.5.2.2. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h4>
+<h4><span class="section-number">2.4.3.2. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">normalize_RFs</span><span class="o">=</span><span class="kc">True</span>
 
 
@@ -1091,7 +1091,7 @@ Each batch contains approx. 875 voxels.<br />
 </section>
 </section>
 <section id="plot-prf-parameter-histograms">
-<h3><span class="section-number">2.5.3. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.4.4. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the pRF parameters</span>
 
 <span class="c1"># Get the parameters from the iterative fit</span>
@@ -1159,7 +1159,7 @@ Each batch contains approx. 875 voxels.<br />
 <p>Not perfect but gettint there!</p>
 </section>
 <section id="plot-prf-maps-on-the-flattened-cortical-surface">
-<h3><span class="section-number">2.5.4. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.4.5. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="c1"># Plot</span>
 <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">left_ax</span><span class="p">,</span> <span class="n">right_ax</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
@@ -1250,12 +1250,12 @@ Each batch contains approx. 875 voxels.<br />
 <li class="toctree-l3"><a class="reference internal" href="#whats-next">2.3.19. What’s next?</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#preliminary-results-for-prf-mapping">2.4. Preliminary results for pRF mapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#but-how-ok-on-jupiter-define-file-names-and-paths">2.5. But how? Ok, on Jupiter: define file names and paths</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">2.5.1. Get V1 coordinates fom the fsaverage registration of the subject</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#we-run-prf-mapping">2.5.2. We run pRF mapping !</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plot-prf-parameter-histograms">2.5.3. Plot pRF parameter histograms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plot-prf-maps-on-the-flattened-cortical-surface">2.5.4. Plot pRF maps on the flattened cortical surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preliminary-results-for-prf-mapping">2.4. Preliminary results for pRF mapping</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#but-how-ok-on-jupiter-define-file-names-and-paths">2.4.1. But how? Ok, on Jupiter: define file names and paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">2.4.2. Get V1 coordinates fom the fsaverage registration of the subject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#we-run-prf-mapping">2.4.3. We run pRF mapping !</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-prf-parameter-histograms">2.4.4. Plot pRF parameter histograms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-prf-maps-on-the-flattened-cortical-surface">2.4.5. Plot pRF maps on the flattened cortical surface</a></li>
 </ul>
 </li>
 </ul>
