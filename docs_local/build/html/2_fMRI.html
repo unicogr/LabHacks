@@ -72,6 +72,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#whats-next">2.3.19. What’s next?</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#preliminary-results-for-prf-mapping">2.4. Preliminary results for pRF mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#but-how-ok-in-juputer-define-file-names-and-paths">2.5. But how? Ok, in Juputer: Define file names and paths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">2.5.1. Get V1 coordinates fom the fsaverage registration of the subject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#we-run-prf-mapping">2.5.2. We run pRF mapping !</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-prf-parameter-histograms">2.5.3. Plot pRF parameter histograms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-prf-maps-on-the-flattened-cortical-surface">2.5.4. Plot pRF maps on the flattened cortical surface</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="References.html">3. <span style="color:black">References</span></a></li>
@@ -611,8 +619,8 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 
 <span class="c1"># Project the volumetric data onto the left hemisphere surface</span>
 mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--projfrac<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--interp<span class="w"> </span>nearest<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--projfrac<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--interp<span class="w"> </span>trilinear<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--hemi<span class="w"> </span>lh<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--out<span class="w"> </span><span class="si">${</span><span class="nv">lh_output_surface</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--surf<span class="w"> </span>white<span class="w"> </span><span class="se">\</span>
@@ -621,8 +629,8 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 
 <span class="c1"># Project the volumetric data onto the right hemisphere surface</span>
 mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si">${</span><span class="nv">corrected_moving_image</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--projfrac<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--interp<span class="w"> </span>nearest<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--projfrac<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--interp<span class="w"> </span>trilinear<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--hemi<span class="w"> </span>rh<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--out<span class="w"> </span><span class="si">${</span><span class="nv">rh_output_surface</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--surf<span class="w"> </span>white<span class="w"> </span><span class="se">\</span>
@@ -947,6 +955,312 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 <section id="whats-next">
 <h3><span class="section-number">2.3.19. </span>What’s next?<a class="headerlink" href="#whats-next" title="Permalink to this heading">¶</a></h3>
 <p><strong>Next</strong>: using <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps.</p>
+</section>
+</section>
+<section id="preliminary-results-for-prf-mapping">
+<h2><span class="section-number">2.4. </span>Preliminary results for pRF mapping<a class="headerlink" href="#preliminary-results-for-prf-mapping" title="Permalink to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/tSNR_V1.png"><img alt="" class="align-center" src="_images/tSNR_V1.png" style="width: 800px;" /></a></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><strong>Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling</strong>. A single run was used</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="but-how-ok-in-juputer-define-file-names-and-paths">
+<h2><span class="section-number">2.5. </span>But how? Ok, in Juputer: Define file names and paths<a class="headerlink" href="#but-how-ok-in-juputer-define-file-names-and-paths" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+
+
+<span class="c1"># The neuropythy library is a swiss-army-knife for handling MRI data, especially</span>
+<span class="c1"># anatomical/structural data such as that produced by FreeSurfer or the HCP.</span>
+<span class="c1"># https://github.com/noahbenson/neuropythy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">neuropythy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ny</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipyvolume</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipv</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.stimulus</span><span class="w"> </span><span class="kn">import</span> <span class="n">PRFStimulus2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iso2DGaussianModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.fit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iso2DGaussianFitter</span>
+
+
+<span class="c1"># Load the time series</span>
+<span class="n">load_path</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
+<span class="n">V1_ts_lh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;V1_ts_lh.npy&#39;</span><span class="p">)</span>
+<span class="n">V1_ts_rh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;V1_ts_rh.npy&#39;</span><span class="p">)</span>
+
+
+<span class="n">fs_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer/subjects/&#39;</span>
+<span class="n">subject_id</span> <span class="o">=</span> <span class="s1">&#39;sub-00_iso&#39;</span>
+<span class="n">sub</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">([</span><span class="n">fs_pth</span> <span class="o">+</span> <span class="n">subject_id</span><span class="p">])</span>
+</pre></div>
+</div>
+<section id="get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">
+<h3><span class="section-number">2.5.1. </span>Get V1 coordinates fom the fsaverage registration of the subject<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject" title="Permalink to this heading">¶</a></h3>
+<p>We did this in step  2.3.14. No we jujst load these:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the time series</span>
+<span class="n">load_path</span> <span class="o">=</span> <span class="s1">&#39;/home/... ... fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
+<span class="n">v1_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;v1_centers.npy&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">v1_rights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;v1_rights.npy&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+
+<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;orthographic&#39;</span> <span class="c1"># or: equirectangular, sinusoidal, mercator</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span> <span class="c1">#np.pi/2</span>
+
+<span class="c1"># Now, we make the projections:</span>
+<span class="n">map_projs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">,</span> <span class="s1">&#39;rh&#39;</span><span class="p">]:</span> 
+<span class="c1">#for h in [0, 1]:     </span>
+    <span class="n">mp</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">map_projection</span><span class="p">(</span><span class="n">chirality</span><span class="o">=</span><span class="n">h</span><span class="p">,</span>
+                           <span class="n">center</span><span class="o">=</span><span class="n">v1_centers</span><span class="p">[</span><span class="n">h</span><span class="p">],</span>
+                           <span class="n">center_right</span><span class="o">=</span><span class="n">v1_rights</span><span class="p">[</span><span class="n">h</span><span class="p">],</span>
+                           <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+                           <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
+                           <span class="n">registration</span><span class="o">=</span><span class="s1">&#39;native&#39;</span><span class="p">)</span>
+    <span class="n">map_projs</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">mp</span>
+
+<span class="c1"># See what this created.</span>
+<span class="n">map_projs</span>
+
+<span class="n">flatmaps</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span> <span class="n">mp</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">hemis</span><span class="p">[</span><span class="n">h</span><span class="p">])</span> <span class="k">for</span> <span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">mp</span><span class="p">)</span> <span class="ow">in</span> <span class="n">map_projs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">flatmaps</span>
+
+<span class="n">lh_cortex_label</span> <span class="o">=</span> <span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="n">rh_cortex_label</span> <span class="o">=</span> <span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;rh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+<span class="n">lh_cortex_label</span>
+</pre></div>
+</div>
+</section>
+<section id="we-run-prf-mapping">
+<h3><span class="section-number">2.5.2. </span>We run pRF mapping !<a class="headerlink" href="#we-run-prf-mapping" title="Permalink to this heading">¶</a></h3>
+<p>We use the output from section 2.3.17.</p>
+<section id="prepare-stimulus">
+<h4><span class="section-number">2.5.2.1. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pRF_images_path</span> <span class="o">=</span><span class="s1">&#39;/home/... .../iCORTEX/pRF_log_images/&#39;</span>
+
+<span class="c1"># Initialize an empty list to store the data</span>
+<span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Loop through the files in the folder</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">):</span>
+    <span class="c1"># Load the .png file</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pRF_images_path</span><span class="p">,</span><span class="s1">&#39;run5_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Stack the data along the third dimension to create the design matrix</span>
+<span class="n">design_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Design matrix shape: </span><span class="si">{</span><span class="n">design_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">design_matrix</span><span class="p">)[</span><span class="mi">2</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">design_matrix</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gist_gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Frame </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+
+<span class="c1"># screen size parameters</span>
+<span class="n">screen_height_cm</span>   <span class="o">=</span> <span class="mf">39.29</span> <span class="c1">#69.84 #12.65</span>
+<span class="n">screen_size_cm</span>     <span class="o">=</span> <span class="n">screen_height_cm</span><span class="o">/</span><span class="mi">2</span> 
+<span class="n">screen_distance_cm</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1">#5.0</span>
+
+<span class="c1"># calculate max stim ecc</span>
+<span class="n">max_ecc</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">screen_size_cm</span><span class="o">/</span><span class="n">screen_distance_cm</span><span class="p">)</span>
+<span class="c1">#max_ecc = math.atan(screen_height_cm/screen_distance_cm)/np.pi*2; # in degrees</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max ecc in rad: &#39;</span><span class="p">,</span> <span class="n">max_ecc</span><span class="p">)</span>
+<span class="n">max_ecc_deg</span>        <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">max_ecc</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max ecc in deg: &#39;</span><span class="p">,</span> <span class="n">max_ecc_deg</span><span class="p">)</span>
+<span class="n">max_ecc_deg</span>
+
+<span class="n">prf_stim</span> <span class="o">=</span> <span class="n">PRFStimulus2D</span><span class="p">(</span><span class="n">screen_size_cm</span><span class="o">=</span><span class="n">screen_size_cm</span><span class="p">,</span>
+                             <span class="n">screen_distance_cm</span><span class="o">=</span><span class="n">screen_distance_cm</span><span class="p">,</span>
+                             <span class="n">design_matrix</span><span class="o">=</span><span class="n">design_matrix</span><span class="p">,</span>
+                             <span class="n">TR</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-prfs">
+<h4><span class="section-number">2.5.2.2. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">normalize_RFs</span><span class="o">=</span><span class="kc">True</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data shape: &#39;</span><span class="p">,</span> <span class="n">V1_ts_lh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">V1_ts_lh</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data shape: &#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># pRF type</span>
+<span class="n">n_procs</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">gg</span> <span class="o">=</span> <span class="n">Iso2DGaussianModel</span><span class="p">(</span><span class="n">stimulus</span><span class="o">=</span><span class="n">prf_stim</span><span class="p">,</span><span class="n">normalize_RFs</span><span class="o">=</span><span class="n">normalize_RFs</span><span class="p">)</span>
+<span class="n">gf</span> <span class="o">=</span> <span class="n">Iso2DGaussianFitter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">gg</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_procs</span><span class="p">)</span>
+
+<span class="c1"># Gid fit</span>
+<span class="n">ecc_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">polar_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">size_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">max_ecc_size</span>  <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">max_ecc_deg</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>        
+<span class="n">n_batches</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="c1">#IMPORTANT: fixing bold baseline to 0 (recommended), and only allowing positive prfs</span>
+<span class="c1">#fixed_grid_baseline=0</span>
+<span class="n">gauss_grid_bounds</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="c1">#bound on prf amplitudes (only positive)</span>
+
+
+<span class="n">gf</span><span class="o">.</span><span class="n">grid_fit</span><span class="p">(</span><span class="n">ecc_grid</span><span class="o">=</span><span class="n">ecc_grid</span><span class="p">,</span>
+            <span class="n">polar_grid</span><span class="o">=</span><span class="n">polar_grid</span><span class="p">,</span>
+            <span class="n">size_grid</span><span class="o">=</span><span class="n">size_grid</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">n_batches</span><span class="o">=</span><span class="n">n_batches</span><span class="p">,</span>
+            <span class="n">grid_bounds</span><span class="o">=</span><span class="n">gauss_grid_bounds</span><span class="p">)</span>
+            <span class="c1">#fixed_grid_baseline=fixed_grid_baseline,</span>
+
+
+<span class="c1"># Iterative fit</span>
+<span class="c1"># </span>
+<span class="c1"># rsq_threshold=0.001</span>
+<span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">gauss_bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">),</span>  <span class="c1"># x</span>
+                <span class="p">(</span><span class="o">-</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">),</span>  <span class="c1"># y</span>
+                <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>  <span class="c1"># prf size</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># prf amplitude</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>  <span class="c1"># bold baseline</span>
+<span class="n">gauss_bounds</span> <span class="o">+=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span> <span class="c1">#hrf bounds. if want it fixed to some value, specify e.g. (4,4) (0,0)</span>
+
+
+<span class="c1">#iterative fit acts as a wrapper of optimize.minimize and passes all the arguments</span>
+<span class="n">gf</span><span class="o">.</span><span class="n">iterative_fit</span><span class="p">(</span><span class="n">rsq_threshold</span><span class="o">=</span><span class="n">rsq_threshold</span><span class="p">,</span> 
+                 <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">gauss_bounds</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>Output:</p>
+<p>Data shape:  (17483, 150)<br />
+Each batch contains approx. 875 voxels.<br />
+[Parallel(n_jobs=1)]: Done  49 tasks      | elapsed:  1.3min<br />
+[Parallel(n_jobs=1)]: Done 199 tasks      | elapsed:  5.6min
+[Parallel(n_jobs=1)]: Done 449 tasks      | elapsed: 12.1min<br />
+[Parallel(n_jobs=1)]: Done 799 tasks      | elapsed: 21.4min<br />
+[Parallel(n_jobs=1)]: Done 1249 tasks      | elapsed: 34.7min<br />
+[Parallel(n_jobs=1)]: Done 1799 tasks      | elapsed: 50.3min<br />
+[Parallel(n_jobs=1)]: Done 2449 tasks      | elapsed: 69.3min<br />
+[Parallel(n_jobs=1)]: Done 3199 tasks      | elapsed: 91.9min<br />
+[Parallel(n_jobs=1)]: Done 4049 tasks      | elapsed: 115.2min<br />
+[Parallel(n_jobs=1)]: Done 4999 tasks      | elapsed: 142.6min<br />
+[Parallel(n_jobs=1)]: Done 6049 tasks      | elapsed: 170.7min<br />
+[Parallel(n_jobs=1)]: Done 7199 tasks      | elapsed: 201.3min<br />
+[Parallel(n_jobs=1)]: Done 8449 tasks      | elapsed: 233.1min<br />
+[Parallel(n_jobs=1)]: Done 9799 tasks      | elapsed: 265.4min<br />
+[Parallel(n_jobs=1)]: Done 11249 tasks      | elapsed: 299.0min<br />
+[Parallel(n_jobs=1)]: Done 12799 tasks      | elapsed: 335.9min<br />
+[Parallel(n_jobs=1)]: Done 14449 tasks      | elapsed: 373.6min<br />
+[Parallel(n_jobs=1)]: Done 16199 tasks      | elapsed: 420.3min</p>
+</section>
+</section>
+<section id="plot-prf-parameter-histograms">
+<h3><span class="section-number">2.5.3. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the pRF parameters</span>
+
+<span class="c1"># Get the parameters from the iterative fit</span>
+<span class="n">x</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sigma</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">total_rsq</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate polar angle and eccentricity maps</span>
+<span class="n">polar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ecc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Examining the shape of the output</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Polar shape: &#39;</span><span class="p">,</span> <span class="n">polar</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max ecc: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ecc</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max polar: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">polar</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max sigma: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max rsq: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">total_rsq</span><span class="p">))</span> 
+
+<span class="c1"># Save the pRF parameters</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">pRF_params</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gf</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">pRF_params</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="n">sigma</span><span class="p">,</span> <span class="s1">&#39;total_rsq&#39;</span><span class="p">:</span> <span class="n">total_rsq</span><span class="p">}</span>   
+
+
+<span class="n">save_path</span> <span class="o">=</span> <span class="s1">&#39;/home/... .../fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_path</span> <span class="o">+</span> <span class="s1">&#39;pRF_params_lh.npy&#39;</span><span class="p">,</span> <span class="n">pRF_params</span><span class="p">)</span>
+
+
+<span class="c1"># Plot the time series</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the left hemisphere time series</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ecc</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Eccentricity&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>  <span class="c1"># Adjust the limits as needed</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">polar</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Polar angle&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Sigma&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>  <span class="c1"># Adjust the limits as needed</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">total_rsq</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;VE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">])</span>  <span class="c1"># Adjust the limits as needed</span>
+
+</pre></div>
+</div>
+<p>Not perfect but gettint there!</p>
+</section>
+<section id="plot-prf-maps-on-the-flattened-cortical-surface">
+<h3><span class="section-number">2.5.4. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Plot</span>
+<span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">left_ax</span><span class="p">,</span> <span class="n">right_ax</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">ny</span><span class="o">.</span><span class="n">cortex_plot</span><span class="p">(</span><span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">],</span> <span class="n">axes</span><span class="o">=</span><span class="n">left_ax</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">ecc</span><span class="p">,</span> <span class="c1">#_map,</span>
+                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span>
+                <span class="n">mask</span><span class="o">=</span><span class="n">total_rsq</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">vmin</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+
+<span class="n">ny</span><span class="o">.</span><span class="n">cortex_plot</span><span class="p">(</span><span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">],</span> <span class="n">axes</span><span class="o">=</span><span class="n">right_ax</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">polar</span><span class="p">),</span>
+                <span class="n">mask</span><span class="o">=</span><span class="n">total_rsq</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">,</span>
+                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;polar_angle_lh&#39;</span><span class="p">)</span>
+
+<span class="n">left_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">right_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>

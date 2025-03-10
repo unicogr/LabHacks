@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "caption for new figure on BOLD"
+git commit -m "pRF preliminaries: adjusting the grid and iterative fitting options"
 git push -u origin main
 
 
