@@ -11,7 +11,7 @@ An important step in using functional MRI (fMRI) is the design of stimuli to tar
   
 In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.
 
-### What we will learn? 
+ > **What we will learn?** 
 
 
 * We will **not** learn today how to use BIDS or run an out-of-the-box toolbox. Today's tutorial does not cover this. 
@@ -36,7 +36,7 @@ Requirements:
 
 
 
-## <span style="color:lightblue">Questions? 🦉</span>
+### <span style="color:lightblue">Questions? 🦉</span>
 
 
 
@@ -859,7 +859,7 @@ plt.show()
 
 |![](/figures/bold_pct.png){width="800px" align=center}|
 |:--:|
-|**BOLD signals**. Blood oxygen level dependent signals are computed are estimated after subtracting the mean of each channel (centering at zero), the global mean (optional), detrending, filtering between 0.01 and 0.1 Hz (approx, depends on protocol), obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the travelling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
+|**BOLD signals**. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (**e.g.** using a discrete cosine transform with basis two, etc), filtering (**e.g.** 0.01 *Hz* and 0.1 *Hz*, depending on the protocol) and remocing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user's needs and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
  
 
 Remember, this is work in progress! 
@@ -869,7 +869,7 @@ Remember, this is work in progress!
 ### Summary II
 
 
-The neuroimaging python package **Neuropythy** is very versatile but a little cumbersome to learn. See here for its [documentation](https://nben.net/docs/neuropythy/html/genindex.html), and [here](https://nben.net/Retinotopy-Tutorial/) for a nice retinotopy tutorial, and [here](https://nben.net/MRI-Geometry/) for details on MRI Data Representation and Geometry.
+The neuroimaging python package **Neuropythy** is very versatile but a little cumbersome. See here for its [documentation](https://nben.net/docs/neuropythy/html/genindex.html), and [here](https://nben.net/Retinotopy-Tutorial/) for a nice retinotopy tutorial, and [here](https://nben.net/MRI-Geometry/) for details on MRI Data Representation and Geometry.
 
 ### What's next?
 
@@ -882,7 +882,7 @@ Here some preliminary results, as proof of concept.
 
 |![](/figures/pRF_position.png){width="800px" align=center}|
 |:--:|
-|**Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling**. Data for a single subject and run.|
+|**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
 
 ### We use and `neuropythy` and `prfpy` to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run 
