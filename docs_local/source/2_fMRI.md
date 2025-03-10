@@ -880,7 +880,7 @@ The neuroimaging python package **Neuropythy** is very versatile but a little cu
 
 |![](/figures/pRF_position.png){width="800px" align=center}|
 |:--:|
-|**Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling**. A single run was used|
+|**Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling**. Data for a single subject and run.|
 
 
 ## But how? Ok, on Jupiter: define file names and paths
