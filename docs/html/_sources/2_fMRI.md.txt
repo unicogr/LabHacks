@@ -883,7 +883,7 @@ The neuroimaging python package **Neuropythy** is very versatile but a little cu
 |**Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling**. A single run was used|
 
 
-## But how? Ok, in Juputer: Define file names and paths
+## But how? Ok, on Jupiter: define file names and paths
 
 ```python
 import os, sys, six # six provides python 2/3 compatibility
