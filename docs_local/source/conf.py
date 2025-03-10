@@ -91,7 +91,7 @@ html_theme_options = {
     'sidebar_width': '20%',
     'show_relbars': True,
     'show_powered_by' : False,
-    'fixed_sidebar': False
+    'fixed_sidebar': True
 
 }
 
@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "added pRF plots"
+git commit -m "typesetting details"
 git push -u origin main
 
 
