@@ -885,7 +885,7 @@ Here some preliminary results, as proof of concept.
 |**Cortical site (vertex) selectivity to visual field position estimatd using pRF modeling**. Data for a single subject and run.|
 
 
-### But how? Ok, on Jupiter: define file names and paths
+### We use and `neuropythy` and `prfpy` to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run 
 
 ```python
 import os, sys, six # six provides python 2/3 compatibility
