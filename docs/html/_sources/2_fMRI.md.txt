@@ -59,7 +59,7 @@ Requirements:
 
 
 
-## **1st part**: Mapping fMRI data to a cortical surface reconstruction
+## **1st part**: Preprocessing of MRI and fMRI data at 7T
 
 
 Here I have documented the essential preprocessing steps for the functional retinotopy data. 
@@ -513,7 +513,7 @@ So far all semi-automatic! Next steps:
 * Refactoring this to preprocess more subjects and organize the inputs and outputs results in **BIDS** format.
 
 
-## **2nd part**:  Project times series to cortical surface
+## **2nd part**:  Mapping fMRI data to a cortical surface reconstruction
 
 ```shell
 # Define the FreeSurfer subject directory

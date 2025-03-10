@@ -50,8 +50,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. <span style="color:black">Surface-based fMRI</span></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-we-will-learn">2.1. What we will learn?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#questions">2.2. <span style="color:lightblue">Questions? 🦉</span></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">2.3. <strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#nd-part-project-times-series-to-cortical-surface">2.4. <strong>2nd part</strong>:  Project times series to cortical surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#st-part-preprocessing-of-mri-and-fmri-data-at-7t">2.3. <strong>1st part</strong>: Preprocessing of MRI and fMRI data at 7T</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nd-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">2.4. <strong>2nd part</strong>:  Mapping fMRI data to a cortical surface reconstruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rd-part-prf-mapping">2.5. <strong>3rd part</strong>:  pRF mapping</a></li>
 </ul>
 </li>
@@ -154,8 +154,8 @@
         async>
 </script>
 </section>
-<section id="st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">
-<h2><span class="section-number">2.3. </span><strong>1st part</strong>: Mapping fMRI data to a cortical surface reconstruction<a class="headerlink" href="#st-part-mapping-fmri-data-to-a-cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h2>
+<section id="st-part-preprocessing-of-mri-and-fmri-data-at-7t">
+<h2><span class="section-number">2.3. </span><strong>1st part</strong>: Preprocessing of MRI and fMRI data at 7T<a class="headerlink" href="#st-part-preprocessing-of-mri-and-fmri-data-at-7t" title="Permalink to this heading">¶</a></h2>
 <p>Here I have documented the essential preprocessing steps for the functional retinotopy data.</p>
 <p>The folder tree for the data ued in this tutorial:</p>
 <p>/home/… … /fMRIdata/iCORTEX<br />
@@ -576,8 +576,8 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </ul>
 </section>
 </section>
-<section id="nd-part-project-times-series-to-cortical-surface">
-<h2><span class="section-number">2.4. </span><strong>2nd part</strong>:  Project times series to cortical surface<a class="headerlink" href="#nd-part-project-times-series-to-cortical-surface" title="Permalink to this heading">¶</a></h2>
+<section id="nd-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">
+<h2><span class="section-number">2.4. </span><strong>2nd part</strong>:  Mapping fMRI data to a cortical surface reconstruction<a class="headerlink" href="#nd-part-mapping-fmri-data-to-a-cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the FreeSurfer subject directory</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">SUBJECTS_DIR</span><span class="o">=</span><span class="nv">$FREESURFER_HOME</span>/subjects
 
