@@ -513,7 +513,7 @@ So far all semi-automatic! Next steps:
 * Refactoring this to preprocess more subjects and organize the inputs and outputs results in **BIDS** format.
 
 
-### Project times series to cortical surface
+## **2nd part**:  Project times series to cortical surface
 
 ```shell
 # Define the FreeSurfer subject directory
@@ -875,8 +875,10 @@ The neuroimaging python package **Neuropythy** is very versatile but a little cu
 
 **Next**: using [prfpy](https://github.com/VU-Cog-Sci/prfpy) to compute population receptive field maps.
 
-## Preliminary results for pRF mapping
+## **3rd part**:  pRF mapping
 
+
+Here some preliminary results, as proof of concept. 
 
 |![](/figures/pRF_position.png){width="800px" align=center}|
 |:--:|
