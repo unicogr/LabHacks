@@ -1083,7 +1083,7 @@ Output:
 Data shape:  (17483, 150)  
 Each batch contains approx. 875 voxels.  
 [Parallel(n_jobs=1)]: Done  49 tasks      | elapsed:  1.3min  
-[Parallel(n_jobs=1)]: Done 199 tasks      | elapsed:  5.6min 
+[Parallel(n_jobs=1)]: Done 199 tasks      | elapsed:  5.6min    
 [Parallel(n_jobs=1)]: Done 449 tasks      | elapsed: 12.1min  
 [Parallel(n_jobs=1)]: Done 799 tasks      | elapsed: 21.4min  
 [Parallel(n_jobs=1)]: Done 1249 tasks      | elapsed: 34.7min  
