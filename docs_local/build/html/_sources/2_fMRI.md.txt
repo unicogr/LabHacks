@@ -874,7 +874,7 @@ np.save(save_path + 'V1_ts_rh.npy', V1_ts_rh)
 ```
 
 
-|![](/figures/bold.png){width="800px" align=center}|
+|![](/figures/bold.png){width="900px" align=center}|
 |:--:|
 |**BOLD signals**. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (**e.g.** using a discrete cosine transform with basis two, etc), filtering (**e.g.** 0.01 *Hz* and 0.1 *Hz*, depending on the protocol) and remocing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user's needs and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
  
@@ -1181,7 +1181,7 @@ ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 ```
 
 
-|![](/figures/pRF_params_hist.png){width="800px" align=center}|
+|![](/figures/pRF_params_hist.png){width="900px" align=center}|
 |:--:|
 |**Distribution of pRF parameters**.|
 
@@ -1217,7 +1217,7 @@ As a proof of concept, we managed to compute retinotopic maps using one subject 
 
 Here some preliminary results, as proof of concept. 
 
-|![](/figures/pRF_position.png){width="800px" align=center}|
+|![](/figures/pRF_maps.png){width="900px" align=center}|
 |:--:|
 |**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 

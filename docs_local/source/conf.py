@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "typesetting details"
+git commit -m "included requirements for pyenv in section 1, minor edits in section 2"
 git push -u origin main
 
 
