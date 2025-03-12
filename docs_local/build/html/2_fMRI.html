@@ -113,7 +113,7 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="surface-based-fmri">
 <h1><span class="section-number">2. </span><span style="color:black">Surface-based fMRI</span><a class="headerlink" href="#surface-based-fmri" title="Permalink to this heading">¶</a></h1>
-<p>An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (<em>e.g.</em>, rotating wedges, expanding rings, drifting bars) <span id="id1"><sup><a class="reference internal" href="References.html#id8" title="Wandel BA. Dumoulin SO. Brewer AA. Visual field maps in human cortex. Neuron, 56(6):366-368, 2007. doi:10.1016/j.neuron.2007.10.012.">1</a></sup></span>. Provided we have a good alignment between functional (<em>e.g.</em> T2) and anatomical (<em>e.g.</em> T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways <span id="id2"><sup><a class="reference internal" href="References.html#id23" title="Jonathan R. Polimeni, Ville Renvall, Natalia Zaretskaya, and Bruce Fischl. Analysis strategies for high-resolution uhf-fmri data. NeuroImage, 168:296-320, 2018. Neuroimaging with Ultra-high Field MRI: Present and Future. doi:10.1016/j.neuroimage.2017.04.053.">2</a></sup></span>. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example wil help us achieve this.</p>
+<p>An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (<em>e.g.</em>, rotating wedges, expanding rings, drifting bars) <span id="id1"><sup><a class="reference internal" href="References.html#id8" title="Wandel BA. Dumoulin SO. Brewer AA. Visual field maps in human cortex. Neuron, 56(6):366-368, 2007. doi:10.1016/j.neuron.2007.10.012.">1</a></sup></span>. Provided we have a good alignment between functional (<em>e.g.</em> T2) and anatomical (<em>e.g.</em> T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways <span id="id2"><sup><a class="reference internal" href="References.html#id23" title="Jonathan R. Polimeni, Ville Renvall, Natalia Zaretskaya, and Bruce Fischl. Analysis strategies for high-resolution uhf-fmri data. NeuroImage, 168:296-320, 2018. Neuroimaging with Ultra-high Field MRI: Present and Future. doi:10.1016/j.neuroimage.2017.04.053.">2</a></sup></span>. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example helps in achieving this.</p>
 <p>In this tutorial, we will use a single subject from the <em>iCORTEX 7T-fMRI</em> dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.</p>
 <blockquote>
 <div><p><strong>What we will learn?</strong></p>
@@ -680,8 +680,8 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </pre></div>
 </div>
 </section>
-<section id="get-v1-coordinates-fom-the-fsaverage-registration-of-the-subjects">
-<h3><span class="section-number">2.3.2. </span>Get V1 coordinates fom the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
+<section id="get-v1-coordinates-from-the-fsaverage-registration-of-the-subjects">
+<h3><span class="section-number">2.3.2. </span>Get V1 coordinates from the <em>fsaverage</em> registration of the subjects<a class="headerlink" href="#get-v1-coordinates-from-the-fsaverage-registration-of-the-subjects" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fsaverage</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 
 <span class="n">v1_centers</span> <span class="o">=</span> <span class="p">{}</span>
@@ -927,7 +927,7 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p><strong>BOLD signals</strong>. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (<strong>e.g.</strong> using a discrete cosine transform with basis two, etc), filtering (<strong>e.g.</strong> 0.01 <em>Hz</em> and 0.1 <em>Hz</em>, depending on the protocol) and remocing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user’s needs and can eventually lead to confusion. <strong>Never take preprocessing for granted!</strong>. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a>, is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.</p></td>
+<tr class="row-even"><td class="text-center"><p><strong>BOLD signals</strong>. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (<strong>e.g.</strong> using a discrete cosine transform with basis two, etc), filtering (<strong>e.g.</strong> 0.01 <em>Hz</em> and 0.1 <em>Hz</em>, depending on the protocol) and removing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user’s needs and can eventually lead to confusion. <strong>Never take preprocessing for granted!</strong>. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a>, is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1082,7 +1082,7 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </section>
 <section id="compute-prfs">
 <h3><span class="section-number">2.4.5. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h3>
-<p>We first set the grid search. Setting a biophysically meaningul and computationally feasible grid for the optimisation (<em>least square minimisation</em>) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
+<p>We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation (<em>least square minimisation</em>) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">normalize_RFs</span><span class="o">=</span><span class="kc">True</span>
 
 
@@ -1255,7 +1255,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 <p>Here some preliminary results, as proof of concept.</p>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/pRF_maps.png"><img alt="" class="align-center" src="_images/pRF_maps.png" style="width: 900px;" /></a></p></th>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/pRF_maps_sphere.png"><img alt="" class="align-center" src="_images/pRF_maps_sphere.png" style="width: 900px;" /></a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -1263,7 +1263,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 </tr>
 </tbody>
 </table>
-<p>And remember…  this is work in progres!</p>
+<p>And remember…  this is work in progress!</p>
 </section>
 </section>
 </section>

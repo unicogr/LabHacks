@@ -7,7 +7,7 @@ comments: true
 # <span style="color:black">Surface-based fMRI</span>
 
 
-An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007`. Provided we have a good alignment between functional (*e.g.* T2) and anatomical (*e.g.* T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways {cite:p}`Polimeni_2018`. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example wil help us achieve this.
+An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007`. Provided we have a good alignment between functional (*e.g.* T2) and anatomical (*e.g.* T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways {cite:p}`Polimeni_2018`. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example helps in achieving this.
   
 In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.
 
@@ -630,7 +630,7 @@ subject_id = 'sub-00_iso'
 sub = ny.freesurfer_subject([fs_pth + subject_id])
 ```
 
-### Get V1 coordinates fom the *fsaverage* registration of the subjects
+### Get V1 coordinates from the *fsaverage* registration of the subjects
 
 ```python
 fsaverage = ny.freesurfer_subject('fsaverage')
@@ -878,7 +878,7 @@ np.save(save_path + 'V1_ts_rh.npy', V1_ts_rh)
 
 |![](/figures/bold.png){width="900px" align=center}|
 |:--:|
-|**BOLD signals**. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (**e.g.** using a discrete cosine transform with basis two, etc), filtering (**e.g.** 0.01 *Hz* and 0.1 *Hz*, depending on the protocol) and remocing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user's needs and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
+|**BOLD signals**. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (**e.g.** using a discrete cosine transform with basis two, etc), filtering (**e.g.** 0.01 *Hz* and 0.1 *Hz*, depending on the protocol) and removing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user's needs and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
  
 
 Remember, this is work in progress! 
@@ -1039,7 +1039,7 @@ prf_stim = PRFStimulus2D(screen_size_cm=screen_size_cm,
 ### Compute pRFs!
 
 
-We first set the grid search. Setting a biophysically meaningul and computationally feasible grid for the optimisation (*least square minimisation*) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, `n_procs` is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster. 
+We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation (*least square minimisation*) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, `n_procs` is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster. 
 
 ```python
 normalize_RFs=True
@@ -1219,9 +1219,9 @@ As a proof of concept, we managed to compute retinotopic maps using one subject 
 
 Here some preliminary results, as proof of concept. 
 
-|![](/figures/pRF_maps.png){width="900px" align=center}|
+|![](/figures/pRF_maps_sphere.png){width="900px" align=center}|
 |:--:|
 |**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
 
-And remember..  this is work in progres!
+And remember..  this is work in progress!
