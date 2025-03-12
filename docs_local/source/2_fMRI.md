@@ -228,6 +228,8 @@ done
 
 
 ### Get **nifti** files
+
+
 And convert the `dicom` files within these folders to `nifti`:
 
 ```shell
@@ -275,7 +277,7 @@ echo "Slice time correction completed for all images."
 
 ### Apply motion correction
 
-There many options, here we apply within-scan rigid-body {cite:p}`Nestares_200` using `AFNI`. 
+There many options, here we apply within-scan rigid-body {cite:p}`Nestares_2000` using `AFNI`. 
 
 ```shell
 # Motion correct the output of moving_images using 3dvolreg
