@@ -7,7 +7,7 @@ comments: true
 # <span style="color:black">Surface-based fMRI</span>
 
 
-An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007`. Provided we have a good alignment between functional (*e.g.* T2) and anatomical (*e.g.* T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example wil help us achieve this.
+An important step in using functional MRI (fMRI) is the design of stimuli to target specific cortical regions and functions. Computational neuroimaging of the human visual cortex often relies on standard retinotopic paradigms that reflect the structure of the visual cortex (*e.g.*, rotating wedges, expanding rings, drifting bars) {cite:p}`Wandell_2007`. Provided we have a good alignment between functional (*e.g.* T2) and anatomical (*e.g.* T1) MRI mages, these stimuli enable the mapping of receptive field properties at the population level. However, in order to achieve this, fMRI and MRI images must be preprocessed in non-trivial ways {cite:p}`Polimeni_2018`. There is no out-of-the box solution for this. For example, proposed solutions such as fMRIprep only work reliably after heavy customization. Else, systematic methodological error may inadvertently affect the subsequent analyses. To avoid mislead and confusion, here we illustrate the basic pre-processing steps that are part of many software packages, toolboxes and in-house pipelines customized for and by different neuroimaging labs. The final details will depend on the type of data we have at hand and what we ant to achieve. A completely open and transparent example wil help us achieve this.
   
 In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.
 
@@ -16,21 +16,20 @@ In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* datase
 
 * We will **not** learn today how to use BIDS or run an out-of-the-box toolbox. Today's tutorial does not cover this. 
 
-* To demystify the mystery around fMRI preprocessing by showing a simple, yet clear and transparent pipeline with one subject and one single run.
+* To demystify the mystery around fMRI preprocessing by showing a simple, yet clear and transparent pipeline with one subject and one single run. For multiple runs, between-scan motion correction is needed. T1 copies matched to each run can improve co-registration by aligning functional-matched T1s to the original T1 used for segmentation. We’ll cover this in part two.
 
 * Additionally, we will learn some basic shell script commands and python. 
 
+* Here we do not fully cover manual edition of the segmentation and registration. Manual improvements of these two steps can greatly improve the results. 
 
-> *For multiple runs, between-scan motion correction is needed. SBRef scans (not used here) or T1 copies matched to each run can improve co-registration by aligning functional-matched T1s to the original T1 used for segmentation. We’ll cover this in part two.*    
-
-Still on the making is the follow up part of this tutorial: *pRF mapping using 7T-fMRI data*. 
+* We intentionally leave some gaps so the user can experience the challenge of figuring out solutions too. Figuring out solution oneself is an important drive in learning.
 
 
-Requirements:
+ >   **Requirements:**
 
 * Linux. Here we use Ubuntu 22 or 24. 
 * For the shell-script based part: `AFNI`, `Freesurfer`, `FSL` and `ANTS` (optional for now).
-* For the python based part: `scipy`, `numpy`, `ipyvolume`, and -crucially, `neuropythy`.
+* For the python based part: `pyenv`, `scipy`, `numpy`, `ipyvolume`, and -crucially, `neuropythy`.
 * If you bring your own data, be sure to run *freesurfer's* `recon-all` on the anatomical volume. 
 
 
@@ -276,6 +275,7 @@ echo "Slice time correction completed for all images."
 
 ### Apply motion correction
 
+There many options, here we apply within-scan rigid-body {cite:p}`Nestares_200` using `AFNI`. 
 
 ```shell
 # Motion correct the output of moving_images using 3dvolreg
@@ -515,6 +515,11 @@ So far all semi-automatic! Next steps:
 
 ## **2nd part**:  Mapping fMRI data to a cortical surface reconstruction
 
+Here we project the fMRI data to the cortical manifold reconstruction obtaind in freesurfer. Ideally, we want to include only gray matter voxels.  To better achieve this goal we 
+
+ 
+
+
 ```shell
 # Define the FreeSurfer subject directory
 export SUBJECTS_DIR=$FREESURFER_HOME/subjects
@@ -529,32 +534,75 @@ nvoxfile=${pth}/nvoxfile_1.dat
 # Find the brain.mgz file for the current subject
 brain_mgz=${SUBJECTS_DIR}/${subj}/mri/orig.mgz
 
+# Input path for label and output names for mask
+label_dir=${SUBJECTS_DIR}/${subj}/label
+output_mask=${pth}/cortex_mask.nii.gz
+masked_func=${pth}/cortex_masked_func.nii.gz
+
+
+# Convert cortex label to volume for left hemisphere
+mri_label2vol \
+  --label ${label_dir}/lh.cortex.label \
+  --temp ${corrected_moving_image} \
+  --reg ${registration_matrix}  \
+  --subject ${subj} \
+  --hemi lh \
+  --o ${pth}/lh_cortex_mask.nii.gz \
+  --fill-ribbon
+
+# Convert cortex label to volume for right hemisphere
+mri_label2vol \
+  --label ${label_dir}/rh.cortex.label \
+  --temp ${corrected_moving_image} \
+  --reg ${registration_matrix}  \
+  --subject ${subj} \
+  --hemi rh \
+  --o ${pth}/rh_cortex_mask.nii.gz \
+  --fill-ribbon
+
+# Combine left and right hemisphere masks
+fslmaths ${pth}/lh_cortex_mask.nii.gz -add ${pth}/rh_cortex_mask.nii.gz -bin ${output_mask}
+
+# Apply mask to functional image
+fslmaths ${corrected_moving_image} -mas ${output_mask} ${masked_func}
+
+echo "Finished masking functional data with cortex label"
+```
+
+Once we have masked the gray matter, we can project it to the the cortical manifold.
+
+
+```shell
 # Project the volumetric data onto the left hemisphere surface
-mri_vol2surf --mov ${corrected_moving_image} \
-  --projfrac 0.2 \
+mri_vol2surf --mov ${pth}/cortex_masked_func.nii.gz \
+  --projfrac 0.25 \
   --interp trilinear \
   --hemi lh \
   --out ${lh_output_surface} \
   --surf white \
   --nvox ${nvoxfile} \
-  --reg ${registration_matrix} 
+  --reg ${registration_matrix} \
+  --mask ${label_dir}/lh.cortex.label
+
 
 # Project the volumetric data onto the right hemisphere surface
-mri_vol2surf --mov ${corrected_moving_image} \
-  --projfrac 0.2 \
+mri_vol2surf --mov ${pth}/cortex_masked_func.nii.gz \
+  --projfrac 0.25 \
   --interp trilinear \
   --hemi rh \
-  --out ${rh_output_surface} \
+  --out ${lh_output_surface} \
   --surf white \
+  --mask ${label_dir}/rh.cortex.label \
   --nvox ${nvoxfile} \
   --reg ${registration_matrix} 
+  
 
 # Print completion message
-echo "Projection of volumetric data onto the surface completed for corrected_moving_images_1.nii.gz."
-
+echo "Projection of volumetric data onto the surface"
 
 ```
 
+We can also add the flag `--cortex` to mask the outputs, but this misses the fact that the interpolation may have taken non-gray matter voxels as input. One can also define a mask: `--mask ${label_dir}/lh.cortex.label`.
 
 ### Get to Jupyter  
 
@@ -575,7 +623,7 @@ import matplotlib.pyplot as plt
 import ipyvolume as ipv
 
 
-fs_pth = '/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer/subjects/'
+fs_pth = '/home/... .../freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer/subjects/'
 subject_id = 'sub-00_iso'
 sub = ny.freesurfer_subject([fs_pth + subject_id])
 ```
@@ -625,7 +673,6 @@ for h in ['lh', 'rh']:
 # See what got saved.
 v1_rights
 
-
 ```
 
 ### Map functional data to a cortical mesh
@@ -659,40 +706,8 @@ rh_cortex_label = flatmaps['rh'].prop('index')
 lh_cortex_label
 ```
 
-Plot flat patches and medial wall: 
 
-```python
-# We'll make two axes, one for each hemisphere.
-(fig, (left_ax, right_ax)) = plt.subplots(1,2, figsize=(4,2), dpi=72*4)
-# Make sure there isn't a bunch of extra space around them.
-fig.subplots_adjust(0,0,1,1,0,0)
-
-ny.cortex_plot(flatmaps['lh'], axes=left_ax)
-ny.cortex_plot(flatmaps['rh'], axes=right_ax)
-
-left_ax.axis('off')
-right_ax.axis('off');
-
-(fig, (left_ax, right_ax)) = plt.subplots(1,2, figsize=(4,2), dpi=72*4)
-fig.subplots_adjust(0,0,1,1,0,0)
-
-
-lh_cortex_label = flatmaps['lh'].prop('cortex_label')
-rh_cortex_label = flatmaps['rh'].prop('cortex_label')
-
-
-ny.cortex_plot(flatmaps['lh'], axes=left_ax,
-               color=lh_cortex_label.astype('float'),
-               cmap='inferno')
-ny.cortex_plot(flatmaps['rh'], axes=right_ax,
-               color=rh_cortex_label.astype('float'),
-               cmap='inferno')
-
-left_ax.axis('off')
-right_ax.axis('off');   
-```
-
-### Plotting the temporal signal to noise ratio (t-SNR) on the cortical mesh
+### Plotting the temporal signal to noise ratio (t-SNR) onto the cortical mesh
 
 Load co-registered and surface projected time series and compute t-SNR:
 
@@ -702,10 +717,8 @@ import numpy as np
 
 # Load the .mgh files
 # Define the path to the functional image
-pth = '/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/func/'
+pth = '/home/... .../fMRIdata/iCORTEX/sub-00/func/'
 
-lh_surfBOLD = 'lh.corrected_moving_images_1_iso.mgh'
-rh_surfBOLD = 'rh.corrected_moving_images_1_iso.mgh'
 
 # Load the projected time series
 lh_time_series_path = os.path.join(pth, 'lh.corrected_moving_images_1_iso.mgh')
@@ -748,7 +761,7 @@ right_ax.axis('off');
 
 |![](/figures/tSNR_V1.png){width="800px" align=center}|
 |:--:|
-|**Temporal SNR in V1**.|
+|**Temporal SNR (tSNR) in V1**. The tSNR is temporal average of the raw fMRI recording of each individual site, not the bold signal. It highlights low intensitiy recordings ,outliers (*e.g.* draining veins), stable signal, non gray matter, etc.|
 
 
 
@@ -816,9 +829,6 @@ print('V1_ts_lh shape: ', V1_ts_lh.shape)
 
 
 
-#V1_ts_lh = V1_ts_lh - 
-#V1_ts_rh = V1_ts_rh - np.mean(V1_ts_rh, axis=1)
-
 low_pass    = 0.08      
 high_pass   = 0.02     
 TR          = 2      
@@ -831,33 +841,40 @@ V1_ts_rh  = signal.clean(V1_ts_rh.T, confounds=confounds, detrend=detrend, stand
                            filter='butterworth', low_pass=low_pass, high_pass=high_pass, tr=TR)
 
 
+
+# Plot the time series
+fig, ax = plt.subplots(1,2, figsize=(12,8), dpi=300, facecolor="w")
+aspect = 1.5
+
 # Zscore
 V1_ts_lh = stats.zscore(V1_ts_lh, axis=0)
 V1_ts_rh = stats.zscore(V1_ts_rh, axis=0)
 
-
-# Plot the time series
-fig, axs = plt.subplots(1, 2, figsize=(12, 6))
-
 # Plot the left hemisphere time series
-plt.sca(axs[0])
-plt.imshow(V1_ts_lh[:,1:100].T, cmap='Spectral_r', aspect='auto')
-plt.ylabel('site', fontsize=10)
-plt.xlabel('TR', fontsize=10)
-plt.colorbar()
+im_1 = ax[0].imshow(V1_ts_lh[:,150:200].T, cmap='bwr', aspect=aspect)
+ax[0].set_ylabel('site', fontsize=10)
+ax[0].set_xlabel('TR (2 sec)', fontsize=10)
+cbar = plt.colorbar(im_1,cax = fig.add_axes([0.23, 0.25, 0.15, 0.044 ]),extend='both',orientation='horizontal')     
+cbar.ax.tick_params(labelsize=8)
+cbar.set_label('BOLD (%)',fontsize=12)
 
 # Plot the right hemisphere time series
-plt.sca(axs[1])
-plt.imshow(V1_ts_rh[:,1:100].T, cmap='Spectral_r', aspect='auto')
-plt.xlabel('TR', fontsize=10)
-plt.colorbar()
+im_2 =ax[1].imshow(V1_ts_rh[:,50:100].T, cmap='bwr', aspect=aspect)
+ax[1].set_xlabel('TR (2 sec)', fontsize=10)
+cbar = plt.colorbar(im_2,cax = fig.add_axes([0.64, 0.25, 0.15, 0.044 ]),extend='both',orientation='horizontal')     
+cbar.ax.tick_params(labelsize=8)
+cbar.set_label('BOLD (%)',fontsize=12)
 
-plt.show()
+
+
+# Save the time series
+np.save(save_path + 'V1_ts_lh.npy', V1_ts_lh)
+np.save(save_path + 'V1_ts_rh.npy', V1_ts_rh)
 
 ```
 
 
-|![](/figures/bold_pct.png){width="800px" align=center}|
+|![](/figures/bold.png){width="800px" align=center}|
 |:--:|
 |**BOLD signals**. Blood oxygen level dependent signals are typically estimated as follows. First, by subtracting the mean of each channel (centering at zero, and optionally, the global mean too. Second, detrending a (**e.g.** using a discrete cosine transform with basis two, etc), filtering (**e.g.** 0.01 *Hz* and 0.1 *Hz*, depending on the protocol) and remocing confounds (optional). Third, obtaining the percentage signal change, and again, z-scoring along space or time if needed. All these steps are to be customized according to the user's needs and can eventually lead to confusion. **Never take preprocessing for granted!**. Here we plot the first 100 sites (vertices) for each hemisphere for illustration. Se the traveling waves? Yeah, these are evoked by the drifting bar. We are now ready to compute some pRFs! The python implementation, [prfpy](https://github.com/VU-Cog-Sci/prfpy), is non-trivial (as everything in life 😅 ?), significant work is needed to adjust (based on empirical priors that are not always obvious) the parameters needed for the grid and iterative search based optimization -crucial for finding the best fitting models.|
  
@@ -876,13 +893,6 @@ The neuroimaging python package **Neuropythy** is very versatile but a little cu
 **Next**: using [prfpy](https://github.com/VU-Cog-Sci/prfpy) to compute population receptive field maps.
 
 ## **3rd part**:  pRF mapping
-
-
-Here some preliminary results, as proof of concept. 
-
-|![](/figures/pRF_position.png){width="800px" align=center}|
-|:--:|
-|**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
 
 ### We use and `neuropythy` and `prfpy` to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run 
@@ -1026,6 +1036,9 @@ prf_stim = PRFStimulus2D(screen_size_cm=screen_size_cm,
 
 #### Compute pRFs!
 
+
+We first set the grid search. Setting a biophysically meaningul and computationally feasible grid for the optimisation (*least square minimisation*) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, `n_procs` is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster. 
+
 ```python
 normalize_RFs=True
 
@@ -1035,13 +1048,13 @@ data = V1_ts_lh.T
 print('Data shape: ', data.shape)
 
 # pRF type
-n_procs = 1
+n_procs = 8
 gg = Iso2DGaussianModel(stimulus=prf_stim,normalize_RFs=normalize_RFs)
 gf = Iso2DGaussianFitter(data=data, model=gg, n_jobs=n_procs)
 
 # Gid fit
-ecc_grid=np.linspace(1,6,10)
-polar_grid=np.linspace(-np.pi,np.pi,12)
+ecc_grid=np.linspace(0.1,7,10)
+polar_grid=np.linspace(-np.pi,np.pi,24)
 size_grid=np.linspace(0.1,10,10)
 max_ecc_size  = round(max_ecc_deg,2)
 verbose = True        
@@ -1049,7 +1062,7 @@ n_batches = 20
 
 #IMPORTANT: fixing bold baseline to 0 (recommended), and only allowing positive prfs
 #fixed_grid_baseline=0
-gauss_grid_bounds=[(0,1)] #bound on prf amplitudes (only positive)
+gauss_grid_bounds=[(0,1)] # bound on prf amplitudes (only positive)
 
 
 gf.grid_fit(ecc_grid=ecc_grid,
@@ -1058,12 +1071,17 @@ gf.grid_fit(ecc_grid=ecc_grid,
             verbose=verbose,
             n_batches=n_batches,
             grid_bounds=gauss_grid_bounds)
-            #fixed_grid_baseline=fixed_grid_baseline,
+            #fixed_grid_baseline=fixed_grid_baseline, 
+
+```
+
+Once the grid search has been defined we can continue with the iterative search, we must set the `rsq_threshold` to a small but not *too* small number. This is important. Too small, and we will get stuck on a local minima and never converge (it will take longer to compute and the solution will be wrong).
 
 
+```shell
 # Iterative fit
 # 
-# rsq_threshold=0.001
+rsq_threshold=0.0005
 verbose=True
 gauss_bounds = [(-17.5, 17.5),  # x
                 (-17.5, 17.5),  # y
@@ -1073,38 +1091,39 @@ gauss_bounds = [(-17.5, 17.5),  # x
 gauss_bounds += [(0,10),(0,0)] #hrf bounds. if want it fixed to some value, specify e.g. (4,4) (0,0)
 
 
+
+
 #iterative fit acts as a wrapper of optimize.minimize and passes all the arguments
 gf.iterative_fit(rsq_threshold=rsq_threshold, 
                  verbose=verbose, bounds=gauss_bounds)
 
 ```
 
-Output:
+ > Output:
 
+[Parallel(n_jobs=8)]: Using backend LokyBackend with 8 concurrent workers.   
+[Parallel(n_jobs=8)]: Done  34 tasks      | elapsed:    8.7s  
+[Parallel(n_jobs=8)]: Done 184 tasks      | elapsed:   36.7s  
+[Parallel(n_jobs=8)]: Done 434 tasks      | elapsed:  1.5min  
+[Parallel(n_jobs=8)]: Done 784 tasks      | elapsed:  2.5min  
+[Parallel(n_jobs=8)]: Done 1234 tasks      | elapsed:  4.1min  
+[Parallel(n_jobs=8)]: Done 1784 tasks      | elapsed:  6.3min    
+[Parallel(n_jobs=8)]: Done 2434 tasks      | elapsed:  9.2min  
+[Parallel(n_jobs=8)]: Done 3184 tasks      | elapsed: 12.4min  
+[Parallel(n_jobs=8)]: Done 4034 tasks      | elapsed: 16.2min  
+[Parallel(n_jobs=8)]: Done 4984 tasks      | elapsed: 20.1min  
+[Parallel(n_jobs=8)]: Done 6034 tasks      | elapsed: 24.6min  
+[Parallel(n_jobs=8)]: Done 7184 tasks      | elapsed: 29.7min  
+[Parallel(n_jobs=8)]: Done 8434 tasks      | elapsed: 34.8min  
+[Parallel(n_jobs=8)]: Done 9784 tasks      | elapsed: 39.6min  
+[Parallel(n_jobs=8)]: Done 11234 tasks      | elapsed: 44.8min  
+[Parallel(n_jobs=8)]: Done 12784 tasks      | elapsed: 50.6min  
+[Parallel(n_jobs=8)]: Done 14434 tasks      | elapsed: 56.6min  
+[Parallel(n_jobs=8)]: Done 16184 tasks      | elapsed: 63.5min  
+[Parallel(n_jobs=8)]: Done 17447 out of 17447 | elapsed: 68.6min finished  
+  
 
-Data shape:  (17483, 150)  
-Each batch contains approx. 875 voxels.  
-[Parallel(n_jobs=1)]: Done  49 tasks      | elapsed:  1.3min  
-[Parallel(n_jobs=1)]: Done 199 tasks      | elapsed:  5.6min    
-[Parallel(n_jobs=1)]: Done 449 tasks      | elapsed: 12.1min  
-[Parallel(n_jobs=1)]: Done 799 tasks      | elapsed: 21.4min  
-[Parallel(n_jobs=1)]: Done 1249 tasks      | elapsed: 34.7min  
-[Parallel(n_jobs=1)]: Done 1799 tasks      | elapsed: 50.3min  
-[Parallel(n_jobs=1)]: Done 2449 tasks      | elapsed: 69.3min  
-[Parallel(n_jobs=1)]: Done 3199 tasks      | elapsed: 91.9min  
-[Parallel(n_jobs=1)]: Done 4049 tasks      | elapsed: 115.2min  
-[Parallel(n_jobs=1)]: Done 4999 tasks      | elapsed: 142.6min  
-[Parallel(n_jobs=1)]: Done 6049 tasks      | elapsed: 170.7min  
-[Parallel(n_jobs=1)]: Done 7199 tasks      | elapsed: 201.3min  
-[Parallel(n_jobs=1)]: Done 8449 tasks      | elapsed: 233.1min  
-[Parallel(n_jobs=1)]: Done 9799 tasks      | elapsed: 265.4min  
-[Parallel(n_jobs=1)]: Done 11249 tasks      | elapsed: 299.0min  
-[Parallel(n_jobs=1)]: Done 12799 tasks      | elapsed: 335.9min  
-[Parallel(n_jobs=1)]: Done 14449 tasks      | elapsed: 373.6min  
-[Parallel(n_jobs=1)]: Done 16199 tasks      | elapsed: 420.3min  
-
-
-### Plot pRF parameter histograms
+#### Plot pRF parameter histograms
 
 ```python
 # Save the pRF parameters
@@ -1162,16 +1181,14 @@ ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 ```
 
 
-|![](/figures/pRF_params.png){width="800px" align=center}|
+|![](/figures/pRF_params_hist.png){width="800px" align=center}|
 |:--:|
 |**Distribution of pRF parameters**.|
 
 
-As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.
 
 
-
-### Plot pRF maps on the flattened cortical surface
+#### Plot pRF maps on the flattened cortical surface
 
 ```python
 
@@ -1179,7 +1196,7 @@ As a proof of concept, we managed to compute retinotopic maps using one subject 
 (fig, (left_ax, right_ax)) = plt.subplots(1,2, figsize=(4,2), dpi=72*4)
 
 ny.cortex_plot(flatmaps['lh'], axes=left_ax,
-                color=ecc, #_map,
+                color=ecc,
                 cmap='RdBu',
                 mask=total_rsq > 0.1,
                 vmin=0.2, vmax=6)
@@ -1194,4 +1211,15 @@ left_ax.axis('off')
 right_ax.axis('off')
 ```
 
-Work in progres!
+
+As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.
+
+
+Here some preliminary results, as proof of concept. 
+
+|![](/figures/pRF_position.png){width="800px" align=center}|
+|:--:|
+|**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
+
+
+And remember..  this is work in progres!

@@ -138,15 +138,22 @@
 </div>
 <p>The folder <code class="docutils literal notranslate"><span class="pre">docs/html</span></code> will be copied from <code class="docutils literal notranslate"><span class="pre">docs_local/build/html</span></code> once we build the docs, as explained below. Meanwhile, the folder <code class="docutils literal notranslate"><span class="pre">docs_local</span></code> is added to <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>.</p>
 <blockquote>
-<div><p><span style="color:#3382FF">Typically, for a private or special repository, the docs_local directory should be included in .gitignore. However, I chose not to add it to .gitignore in this case to allow users to clone the repository, modify the contents locally, and start learning through hands-on experimentation. This aligns with the purpose of a template repository —to provide a starting point for exploration and customization.</span></p>
+<div><p><span style="color:#b03a2e">Typically, for a private or special repository, the docs_local directory should be included in .gitignore. However, I chose not to add it to .gitignore in this case to allow users to clone the repository, modify the contents locally, and start learning through hands-on experimentation. This aligns with the purpose of a template repository —to provide a starting point for exploration and customization.</span></p>
 </div></blockquote>
 </details>
 <br>
 <details>
   <summary><span style="color:#3382FF"> 2.- Set up pyenv environment (first install pyenv)</span></summary>  
 <p>We can then create a python environment locally and install Sphinx:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>install<span class="w"> </span><span class="m">3</span>.8.19
-pyenv<span class="w"> </span>virtualenv<span class="w"> </span><span class="m">3</span>.8.19<span class="w"> </span>Sphinx
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pyenv requirements</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tk-dev<span class="w">         </span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libbz2-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libreadline-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libsqlite3-dev
+
+<span class="c1"># Install sphinx</span>
+pyenv<span class="w"> </span>install<span class="w"> </span><span class="m">3</span>.13.2
+pyenv<span class="w"> </span>virtualenv<span class="w"> </span><span class="m">3</span>.13.2<span class="w"> </span>Sphinx
 pyenv<span class="w"> </span>activate<span class="w"> </span>Sphinx
 pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
