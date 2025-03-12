@@ -1025,8 +1025,9 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 <section id="we-run-prf-mapping">
 <h3><span class="section-number">2.4.3. </span>We run pRF mapping !<a class="headerlink" href="#we-run-prf-mapping" title="Permalink to this heading">¶</a></h3>
 <p>We use the output from section 2.3.17.</p>
+</section>
 <section id="prepare-stimulus">
-<h4><span class="section-number">2.4.3.1. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h4>
+<h3><span class="section-number">2.4.4. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pRF_images_path</span> <span class="o">=</span><span class="s1">&#39;/home/... .../iCORTEX/pRF_log_images/&#39;</span>
 
 <span class="c1"># Initialize an empty list to store the data</span>
@@ -1080,7 +1081,7 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 </div>
 </section>
 <section id="compute-prfs">
-<h4><span class="section-number">2.4.3.2. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h4>
+<h3><span class="section-number">2.4.5. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h3>
 <p>We first set the grid search. Setting a biophysically meaningul and computationally feasible grid for the optimisation (<em>least square minimisation</em>) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">normalize_RFs</span><span class="o">=</span><span class="kc">True</span>
 
@@ -1162,7 +1163,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 [Parallel(n_jobs=8)]: Done 17447 out of 17447 | elapsed: 68.6min finished</p>
 </section>
 <section id="plot-prf-parameter-histograms">
-<h4><span class="section-number">2.4.3.3. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h4>
+<h3><span class="section-number">2.4.6. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the pRF parameters</span>
 
 <span class="c1"># Get the parameters from the iterative fit</span>
@@ -1229,7 +1230,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 </table>
 </section>
 <section id="plot-prf-maps-on-the-flattened-cortical-surface">
-<h4><span class="section-number">2.4.3.4. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h4>
+<h3><span class="section-number">2.4.7. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="c1"># Plot</span>
 <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">left_ax</span><span class="p">,</span> <span class="n">right_ax</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
@@ -1263,7 +1264,6 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 </tbody>
 </table>
 <p>And remember…  this is work in progres!</p>
-</section>
 </section>
 </section>
 </section>

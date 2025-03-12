@@ -982,7 +982,7 @@ lh_cortex_label
 We use the output from section 2.3.17.
 
 
-#### Prepare stimulus
+### Prepare stimulus
 ```python
 pRF_images_path ='/home/... .../iCORTEX/pRF_log_images/'
 
@@ -1036,7 +1036,7 @@ prf_stim = PRFStimulus2D(screen_size_cm=screen_size_cm,
 ```
 
 
-#### Compute pRFs!
+### Compute pRFs!
 
 
 We first set the grid search. Setting a biophysically meaningul and computationally feasible grid for the optimisation (*least square minimisation*) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, `n_procs` is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster. 
@@ -1125,7 +1125,7 @@ gf.iterative_fit(rsq_threshold=rsq_threshold,
 [Parallel(n_jobs=8)]: Done 17447 out of 17447 | elapsed: 68.6min finished  
   
 
-#### Plot pRF parameter histograms
+### Plot pRF parameter histograms
 
 ```python
 # Save the pRF parameters
@@ -1190,7 +1190,7 @@ ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 
 
 
-#### Plot pRF maps on the flattened cortical surface
+### Plot pRF maps on the flattened cortical surface
 
 ```python
 
