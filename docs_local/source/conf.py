@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "fixed refs"
+git commit -m "minor typesetting edits"
 git push -u origin main
 
 
