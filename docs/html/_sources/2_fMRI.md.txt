@@ -1219,9 +1219,10 @@ As a proof of concept, we managed to compute retinotopic maps using one subject 
 
 Here some preliminary results, as proof of concept. 
 
-|![](/figures/pRF_maps_sphere.png){width="900px" align=center}|
+|![](/figures/pRF_maps_lh.png){width="900px" align=center}
+![](/figures/pRF_maps_rh.png){width="900px" align=center}|
 |:--:|
 |**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
 
-And remember..  this is work in progress!
+And remember...  this is work in progress!
