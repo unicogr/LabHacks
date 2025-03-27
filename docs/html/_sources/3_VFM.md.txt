@@ -16,20 +16,14 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 
 * To align repeated runs of a visual field mapping fMRI acquisition.  
 
-* To 
+* Set up the right grids for the pRF parameter search space.
 
-* Additionally, we will learn some basic shell script commands and python. 
-
-* Here we do not fully cover manual edition of the segmentation and registration. Manual improvements of these two steps can greatly improve the results. 
-
-* We intentionally leave some gaps so the user can experience the challenge of figuring out solutions too. Figuring out solution oneself is an important drive in learning.
-
+* Plot the pRF maps on flatmaps and as interactive 3D surface.
 
 <figure>
-    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f9269fee2d5c51cfae3c2dbb610f5255d6442ca3/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f9269fee2d5c51cfae3c2dbb610f5255d6442ca3/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe><iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/4201f4c62f1198f754c89728de3de1b57a10fb01/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
     <figcaption>pRF eccentricity.</figcaption>
 </figure>
-
 
 
 <figure>
