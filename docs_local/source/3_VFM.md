@@ -33,8 +33,9 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 [eccentricity](/figures/pRF/lh_eccentricity_3D.html)
 
 
+
 <figure>
-    <iframe src="/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+    <iframe src="https://github.com/nicogravel/researchLog_template/blob/main/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
     <figcaption>Interactive 3D surface plot of eccentricity.</figcaption>
 </figure>
 
