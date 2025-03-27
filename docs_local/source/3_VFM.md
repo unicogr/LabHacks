@@ -25,19 +25,18 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 * We intentionally leave some gaps so the user can experience the challenge of figuring out solutions too. Figuring out solution oneself is an important drive in learning.
 
 
-|![](/figures/pRF/pRF_maps_avg_lh.png){width="900px" align=center}|
-|:--:|
-|**pRF maps**. Obtained from the averaged runs.|
-
-
-[eccentricity](/figures/pRF/lh_eccentricity_3D.html)
-
-
-
 <figure>
     <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f9269fee2d5c51cfae3c2dbb610f5255d6442ca3/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
-    <figcaption>Interactive 3D surface plot of eccentricity.</figcaption>
+    <figcaption>pRF eccentricity.</figcaption>
 </figure>
+
+#https://raw.githack.com/nicogravel/researchLog_template/main/docs_local/source/figures/pRF/lh_eccentricity_3D.html
+
+<figure>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f12c7a9b73b3c7e8875b43953abb0c3dd1e336e2/docs_local/source/figures/pRF/lh_pol_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+    <figcaption>pRF polar angle.</figcaption>
+</figure>
+
 
 
 
@@ -383,9 +382,7 @@ As a proof of concept, we managed to compute retinotopic maps using one subject 
 
 Here some preliminary results, as proof of concept. 
 
-|![](/figures/pRF_maps_lh.png){width="900px" align=center}![](/figures/pRF_maps_rh.png){width="900px" align=center}|
+|![](/figures/pRF/pRF_maps_avg_lh.png){width="900px" align=center}|
 |:--:|
 |**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
-
-And remember...  this is work in progress!
