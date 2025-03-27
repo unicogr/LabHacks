@@ -33,7 +33,7 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 
 
 <figure>
-    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f12c7a9b73b3c7e8875b43953abb0c3dd1e336e2/docs_local/source/figures/pRF/lh_pol_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/4201f4c62f1198f754c89728de3de1b57a10fb01/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
     <figcaption>pRF polar angle.</figcaption>
 </figure>
 
