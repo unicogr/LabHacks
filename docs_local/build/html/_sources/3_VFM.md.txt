@@ -30,7 +30,7 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
     <figcaption>pRF eccentricity.</figcaption>
 </figure>
 
-#https://raw.githack.com/nicogravel/researchLog_template/main/docs_local/source/figures/pRF/lh_eccentricity_3D.html
+
 
 <figure>
     <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f12c7a9b73b3c7e8875b43953abb0c3dd1e336e2/docs_local/source/figures/pRF/lh_pol_3D.html" width="100%" height="500px" frameborder="0"></iframe>
