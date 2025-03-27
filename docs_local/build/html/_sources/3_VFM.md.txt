@@ -27,19 +27,26 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 
 
 
- >   **Requirements:**
-
-* Linux. Here we use Ubuntu 22 or 24. 
-* For the shell-script based part: `AFNI`, `Freesurfer`, `FSL` and `ANTS` (optional for now).
-* For the python based part: `pyenv`, `scipy`, `numpy`, `ipyvolume`, and -crucially, `neuropythy`.
-* If you bring your own data, be sure to run *freesurfer's* `recon-all` on the anatomical volume. 
-
-
-
-
 ### <span style="color:lightblue">Questions? 🦉</span>
 
 
+
+<script src="https://giscus.app/client.js"
+        data-repo="nicogravel/researchLog_template"
+        data-repo-id="R_kgDON90EnA"
+        data-category="Giscus!"
+        data-category-id="DIC_kwDON90EnM4CnVS9"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="gruvbox"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 
 
 

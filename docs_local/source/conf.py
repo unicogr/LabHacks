@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "testing plotly html inside markdown"
+git commit -m "typesetting and layout changes in section 3"
 git push -u origin main
 
 
