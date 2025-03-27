@@ -45,7 +45,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../1_Sphinx.html">1. <span style="color:black">Research handbook</span></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../2_fMRI.html">2. <span style="color:black">Surface-based fMRI</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../References.html">3. <span style="color:black">References</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_VFM.html">3. <span style="color:black">pRF mapping</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../References.html">4. <span style="color:black">References</span></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Codebook:</span></p>
 <ul>
@@ -95,13 +96,13 @@
           <div class="body" role="main">
             
   <h1>Source code for myCodeIsYourCode.plot_tfr_rdm</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
-<div class="viewcode-block" id="plot_tfr_rdm"><a class="viewcode-back" href="../../myCodeIsYourCode.html#myCodeIsYourCode.plot_tfr_rdm.plot_tfr_rdm">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">plot_tfr_rdm</span><span class="p">(</span><span class="n">conf</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_tfr_rdm"><a class="viewcode-back" href="../../myCodeIsYourCode.html#myCodeIsYourCode.plot_tfr_rdm.plot_tfr_rdm">[docs]</a><span class="k">def</span> <span class="nf">plot_tfr_rdm</span><span class="p">(</span><span class="n">conf</span><span class="p">):</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot TFR representation dissimilarity matrices </span>

@@ -141,7 +141,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "polar angle pRF maps colored using Sabine Kastner convention"
+git commit -m "testing plotly html inside markdown"
 git push -u origin main
 
 

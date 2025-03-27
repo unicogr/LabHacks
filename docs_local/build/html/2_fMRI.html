@@ -19,7 +19,7 @@
     <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. References" href="References.html" />
+    <link rel="next" title="3. pRF mapping" href="3_VFM.html" />
     <link rel="prev" title="1. Research handbook" href="1_Sphinx.html" />
     <link href="_static/style.css" rel="stylesheet" type="text/css">
 
@@ -51,10 +51,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#questions">2.1. <span style="color:lightblue">Questions? 🦉</span></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#st-part-preprocessing-of-mri-and-fmri-data-at-7t">2.2. <strong>1st part</strong>: Preprocessing of MRI and fMRI data at 7T</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nd-part-mapping-fmri-data-to-a-cortical-surface-reconstruction">2.3. <strong>2nd part</strong>:  Mapping fMRI data to a cortical surface reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rd-part-prf-mapping">2.4. <strong>3rd part</strong>:  pRF mapping</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="References.html">3. <span style="color:black">References</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_VFM.html">3. <span style="color:black">pRF mapping</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">4. <span style="color:black">References</span></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Codebook:</span></p>
 <ul>
@@ -66,7 +66,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="1_Sphinx.html" title="previous chapter"><span class="section-number">1. </span><span style="color:black">Research handbook</span></a></li>
-      <li>Next: <a href="References.html" title="next chapter"><span class="section-number">3. </span><span style="color:black">References</span></a></li>
+      <li>Next: <a href="3_VFM.html" title="next chapter"><span class="section-number">3. </span><span style="color:black">pRF mapping</span></a></li>
   </ul></li>
 </ul>
 </div>
@@ -101,7 +101,7 @@
           <a href="1_Sphinx.html" title="Previous document"><span class="section-number">1. </span><span style="color:black">Research handbook</span></a>
         </li>
         <li>
-          <a href="References.html" title="Next document"><span class="section-number">3. </span><span style="color:black">References</span></a>
+          <a href="3_VFM.html" title="Next document"><span class="section-number">3. </span><span style="color:black">pRF mapping</span></a>
           &rarr;
         </li>
     </ul>
@@ -156,7 +156,8 @@
 <section id="st-part-preprocessing-of-mri-and-fmri-data-at-7t">
 <h2><span class="section-number">2.2. </span><strong>1st part</strong>: Preprocessing of MRI and fMRI data at 7T<a class="headerlink" href="#st-part-preprocessing-of-mri-and-fmri-data-at-7t" title="Permalink to this heading">¶</a></h2>
 <p>Here I have documented the essential preprocessing steps for the functional retinotopy data.</p>
-<p>The folder tree for the data ued in this tutorial:</p>
+<details>
+  <summary><span style="color:#3382FF"> The folder tree for the data ued in this tutorial:</span></summary>  
 <p>/home/… … /fMRIdata/iCORTEX<br />
 ├── cg220008-2898_001<br />
 │   ├── 000001_AAHScout<br />
@@ -211,23 +212,70 @@
 ├── anat<br />
 ├── func<br />
 └── retinotopy</p>
-<section id="set-environment">
-<h3><span class="section-number">2.2.1. </span>Set environment<a class="headerlink" href="#set-environment" title="Permalink to this heading">¶</a></h3>
-<p>First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="nv">FSLDIR</span><span class="o">=</span>/home/nicolas/Programas/fsl<span class="w"> </span>
-.<span class="w"> </span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/etc/fslconf/fsl.sh
-<span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/bin:<span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>
-<span class="nb">export</span><span class="w"> </span>FSLDIR<span class="w"> </span>PATH
+</details>
+<section id="cortical-surface-reconstruction">
+<h3><span class="section-number">2.2.1. </span>Cortical surface reconstruction<a class="headerlink" href="#cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h3>
+<p>The anatomical volume used in this tutorial was obtained as follows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1">#!/bin/bash</span>
+<span class="w">    </span><span class="nv">FSLDIR</span><span class="o">=</span>/home/nicolas/Programas/fsl<span class="w"> </span>
+<span class="w">    </span>.<span class="w"> </span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/etc/fslconf/fsl.sh
+<span class="w">    </span><span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">FSLDIR</span><span class="si">}</span>/bin:<span class="si">${</span><span class="nv">PATH</span><span class="si">}</span>
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span>FSLDIR<span class="w"> </span>PATH
 
 
-<span class="c1"># Data folders</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">FREESURFER_HOME</span><span class="o">=</span>/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
-<span class="nb">source</span><span class="w"> </span><span class="nv">$FREESURFER_HOME</span>/SetUpFreeSurfer.sh
-<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
+<span class="w">    </span><span class="c1"># Data folders</span>
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">FREESURFER_HOME</span><span class="o">=</span>/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span><span class="nv">$FREESURFER_HOME</span>/SetUpFreeSurfer.sh
+<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
 
 
-<span class="c1"># Clear all variables </span>
+<span class="w">    </span><span class="c1">#### Divide UNI by T1 </span>
+<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_uni.nii.gz<span class="w"> </span>-div<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Check UNI by T1 division to find baseline noise empirically</span>
+<span class="w">    </span><span class="c1">#fsleyes ${subj}_unit1_div.nii.gz</span>
+
+<span class="w">    </span><span class="c1">#### Binarize INV2 (keep non-baseline values)</span>
+<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2.nii.gz<span class="w"> </span>-thr<span class="w"> </span><span class="m">150</span><span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Mask UNI by T1 division results with binarized INV2</span>
+<span class="w">    </span>fslmaths<span class="w">  </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span>-mas<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w">  </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Check masked UNI by T1 division to find outlier values</span>
+<span class="w">    </span><span class="c1">#fsleyes ${subj}_t1_tmp.nii.gz</span>
+
+<span class="w">    </span><span class="c1">#### Threshold UNI by T1 division to remove outliers</span>
+<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span>-uthr<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
+
+<span class="w">    </span><span class="c1">#### Correct T1 inhomogeneity (N4 algorithm) using ANTs</span>
+<span class="w">    </span>N4BiasFieldCorrection<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected_N4.nii.gz<span class="w"> </span>-v<span class="w"> </span>-s<span class="w"> </span><span class="m">4</span><span class="w"> </span>-c<span class="w"> </span><span class="o">[</span>50x50x50x50<span class="o">]</span><span class="w"> </span>-b<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span>-t<span class="w"> </span><span class="o">[</span><span class="m">0</span>.15<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span><span class="m">3</span>
+
+<span class="w">    </span><span class="c1">#### Normalize between 0-256 using Freesurfer&#39;s mri_normalize</span>
+<span class="w">    </span>mri_normalize<span class="w"> </span>-g<span class="w"> </span><span class="m">1</span><span class="w"> </span>-mprage<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected_N4.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz
+
+<span class="w">    </span><span class="c1">#### Check normalized T1</span>
+<span class="w">    </span>fsleyes<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz
+
+<span class="w">    </span><span class="c1">#### Remove skull from corrected T1 using FSL (the -f 0.1 and -g 0.1 parameters are somewhat arbitrary and can be adjusted)</span>
+<span class="w">    </span>bet<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-f<span class="w"> </span><span class="m">0</span><span class="w"> </span>-g<span class="w"> </span><span class="m">0</span><span class="w"> </span>-R<span class="w"> </span>-S<span class="w"> </span>-v
+
+<span class="w">    </span><span class="c1"># Remove redundant files, keep original inputs + t1_norm + t1_brain</span>
+<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>
+
+<span class="w">    </span><span class="c1">#### Try recon-all with isotropic voxel size</span>
+<span class="w">    </span>flirt<span class="w"> </span>-in<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-ref<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-applyisoxfm<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>-nosearch<span class="w"> </span>-out<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>
+
+<span class="w">    </span>recon-all<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>-subjid<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso<span class="w"> </span>-all
+<span class="w">    </span>recon-all<span class="w"> </span>-skullstrip<span class="w"> </span>-no-wsgcaatlas<span class="w"> </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso
+<span class="w">    </span>recon-all<span class="w"> </span>-autorecon2<span class="w"> </span>-autorecon3<span class="w"> </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso
+<span class="w">    </span>recon-all<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>-subjid<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso<span class="w"> </span>-make<span class="w"> </span>-no-isrunning
+</pre></div>
+</div>
+</section>
+<section id="define-file-names-and-paths">
+<h3><span class="section-number">2.2.2. </span>Define file names and paths<a class="headerlink" href="#define-file-names-and-paths" title="Permalink to this heading">¶</a></h3>
+<p>First we create an environment with unset variables (so when we run it again things do no get scrambled). Here we “summon” our favorite neuroimaging software packages and define paths. Additionally, we find the files with RET1, RET2, RET* in their name, excluding those with SBRef:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clear all variables </span>
 <span class="nb">unset</span><span class="w"> </span>current_dir
 <span class="nb">unset</span><span class="w"> </span>data_folder
 <span class="nb">unset</span><span class="w"> </span>pth
@@ -252,13 +300,9 @@
 
 <span class="c1"># Change to the subject&#39;s data directory</span>
 <span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">data_folder</span><span class="si">}</span>/<span class="si">${</span><span class="nv">subj_id</span><span class="si">}</span>
-</pre></div>
-</div>
-</section>
-<section id="define-file-names-and-paths">
-<h3><span class="section-number">2.2.2. </span>Define file names and paths<a class="headerlink" href="#define-file-names-and-paths" title="Permalink to this heading">¶</a></h3>
-<p>Next, we find the files with RET1, RET2, RET* in their name, excluding those with SBRef:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef</span>
+
+
+<span class="c1"># Find all folders with the string RET1, RET2, RET* in their name, excluding those with SBRef</span>
 <span class="nv">ret_folders</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*AP-RET*&quot;</span><span class="w"> </span>!<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*SBRef*&quot;</span><span class="k">)</span>
 
 <span class="c1"># Declare variable for moving_images and static_images</span>
@@ -405,61 +449,8 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </pre></div>
 </div>
 </section>
-<section id="cortical-surface-reconstruction">
-<h3><span class="section-number">2.2.7. </span>Cortical surface reconstruction<a class="headerlink" href="#cortical-surface-reconstruction" title="Permalink to this heading">¶</a></h3>
-<details>
-  <summary><span style="color:#3382FF">Wondering how to run `recon-all` ?</span></summary>  
-<p>The anatomical volume used in this tutorial was obtained as follows:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">FREESURFER_HOME</span><span class="o">=</span>/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer
-<span class="w">    </span><span class="nb">source</span><span class="w"> </span><span class="nv">$FREESURFER_HOME</span>/SetUpFreeSurfer.sh
-<span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/nicolas/Programas/ants-2.5.4/bin:<span class="nv">$PATH</span>
-
-<span class="w">    </span><span class="c1">#### Divide UNI by T1 </span>
-<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_uni.nii.gz<span class="w"> </span>-div<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
-
-<span class="w">    </span><span class="c1">#### Check UNI by T1 division to find baseline noise empirically</span>
-<span class="w">    </span><span class="c1">#fsleyes ${subj}_unit1_div.nii.gz</span>
-
-<span class="w">    </span><span class="c1">#### Binarize INV2 (keep non-baseline values)</span>
-<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2.nii.gz<span class="w"> </span>-thr<span class="w"> </span><span class="m">150</span><span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
-
-<span class="w">    </span><span class="c1">#### Mask UNI by T1 division results with binarized INV2</span>
-<span class="w">    </span>fslmaths<span class="w">  </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span>-mas<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w">  </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
-
-<span class="w">    </span><span class="c1">#### Check masked UNI by T1 division to find outlier values</span>
-<span class="w">    </span><span class="c1">#fsleyes ${subj}_t1_tmp.nii.gz</span>
-
-<span class="w">    </span><span class="c1">#### Threshold UNI by T1 division to remove outliers</span>
-<span class="w">    </span>fslmaths<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span>-uthr<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>-odt<span class="w"> </span>float
-
-<span class="w">    </span><span class="c1">#### Correct T1 inhomogeneity (N4 algorithm) using ANTs</span>
-<span class="w">    </span>N4BiasFieldCorrection<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>-o<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected_N4.nii.gz<span class="w"> </span>-v<span class="w"> </span>-s<span class="w"> </span><span class="m">4</span><span class="w"> </span>-c<span class="w"> </span><span class="o">[</span>50x50x50x50<span class="o">]</span><span class="w"> </span>-b<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span>-t<span class="w"> </span><span class="o">[</span><span class="m">0</span>.15<span class="o">]</span><span class="w"> </span>-d<span class="w"> </span><span class="m">3</span>
-
-<span class="w">    </span><span class="c1">#### Normalize between 0-256 using Freesurfer&#39;s mri_normalize</span>
-<span class="w">    </span>mri_normalize<span class="w"> </span>-g<span class="w"> </span><span class="m">1</span><span class="w"> </span>-mprage<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected_N4.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz
-
-<span class="w">    </span><span class="c1">#### Check normalized T1</span>
-<span class="w">    </span>fsleyes<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_corrected.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz
-
-<span class="w">    </span><span class="c1">#### Remove skull from corrected T1 using FSL (the -f 0.1 and -g 0.1 parameters are somewhat arbitrary and can be adjusted)</span>
-<span class="w">    </span>bet<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_norm.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-f<span class="w"> </span><span class="m">0</span><span class="w"> </span>-g<span class="w"> </span><span class="m">0</span><span class="w"> </span>-R<span class="w"> </span>-S<span class="w"> </span>-v
-
-<span class="w">    </span><span class="c1"># Remove redundant files, keep original inputs + t1_norm + t1_brain</span>
-<span class="w">    </span>rm<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_unit1_div.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_inv2_bin.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_tmp.nii.gz<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_thr.nii.gz<span class="w"> </span>
-
-<span class="w">    </span><span class="c1">#### Try recon-all with isotropic voxel size</span>
-<span class="w">    </span>flirt<span class="w"> </span>-in<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-ref<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain.nii.gz<span class="w"> </span>-applyisoxfm<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>-nosearch<span class="w"> </span>-out<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>
-
-<span class="w">    </span>recon-all<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>-subjid<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso<span class="w"> </span>-all
-<span class="w">    </span>recon-all<span class="w"> </span>-skullstrip<span class="w"> </span>-no-wsgcaatlas<span class="w"> </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso
-<span class="w">    </span>recon-all<span class="w"> </span>-autorecon2<span class="w"> </span>-autorecon3<span class="w"> </span>-s<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso
-<span class="w">    </span>recon-all<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_t1_brain_iso.nii.gz<span class="w"> </span>-subjid<span class="w"> </span><span class="si">${</span><span class="nv">subj</span><span class="si">}</span>_iso<span class="w"> </span>-make<span class="w"> </span>-no-isrunning
-</pre></div>
-</div>
-</details>
-</section>
 <section id="alignment">
-<h3><span class="section-number">2.2.8. </span>Alignment<a class="headerlink" href="#alignment" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.2.7. </span>Alignment<a class="headerlink" href="#alignment" title="Permalink to this heading">¶</a></h3>
 <p>Now we can align (<em>co-register</em>) corrected data to the subject’s anatomical image using “boundary based registration”, provided we have run <code class="docutils literal notranslate"><span class="pre">freesurfer</span></code> successfully on a 1<em>mm</em> iso-volumetric resampled anatomical data of the subject:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Align corrected data to the subject&#39;s anatomical image</span>
 
@@ -490,7 +481,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Affine registration completed for all corrected moving images.&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
 
 <span class="n">anat_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/anat/&#39;</span>
 <span class="n">func_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/func/&#39;</span>
@@ -516,7 +507,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </table>
 </section>
 <section id="fine-tune-alignment">
-<h3><span class="section-number">2.2.9. </span>Fine-tune alignment<a class="headerlink" href="#fine-tune-alignment" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.2.8. </span>Fine-tune alignment<a class="headerlink" href="#fine-tune-alignment" title="Permalink to this heading">¶</a></h3>
 <p>Finally, for now, we check the results visually and apply manual corrections if needed:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use tkregister2 to verify the registration</span>
 <span class="k">for</span><span class="w"> </span>index<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="si">${#</span><span class="nv">moving_images</span><span class="p">[@]</span><span class="si">}</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
@@ -535,7 +526,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOT &gt; ${pth}/acqparams.txt
 </div>
 </section>
 <section id="visual-inspection">
-<h3><span class="section-number">2.2.10. </span>Visual inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.2.9. </span>Visual inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this heading">¶</a></h3>
 <p>Let us have a look at the registered data for a single run using <code class="docutils literal notranslate"><span class="pre">freeview</span></code>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
@@ -567,7 +558,7 @@ freeview<span class="w"> </span>-f<span class="w"> </span><span class="nv">$SUBJ
 </table>
 </section>
 <section id="summary-i">
-<h3><span class="section-number">2.2.11. </span>Summary I<a class="headerlink" href="#summary-i" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">2.2.10. </span>Summary I<a class="headerlink" href="#summary-i" title="Permalink to this heading">¶</a></h3>
 <p>So far all semi-automatic! Next steps:</p>
 <ul class="simple">
 <li><p>Fine-tuning of the functional-to-anaotmical volume alignment/co-registration (<em>e.g.</em> using <code class="docutils literal notranslate"><span class="pre">antsRegistration</span></code>).</p></li>
@@ -660,18 +651,18 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 <section id="get-to-jupyter">
 <h3><span class="section-number">2.3.1. </span>Get to Jupyter<a class="headerlink" href="#get-to-jupyter" title="Permalink to this heading">¶</a></h3>
 <p>Now we switch to python. The following has been adapted from excellent Noah Benson’s <a class="reference external" href="https://github.com/noahbenson/neuropythy-tutorials/blob/master/tutorials/plotting-2D.ipynb">tutorial</a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 
 <span class="c1"># The neuropythy library is a swiss-army-knife for handling MRI data, especially</span>
 <span class="c1"># anatomical/structural data such as that produced by FreeSurfer or the HCP.</span>
 <span class="c1"># https://github.com/noahbenson/neuropythy</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">neuropythy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ny</span>
+<span class="kn">import</span> <span class="nn">neuropythy</span> <span class="k">as</span> <span class="nn">ny</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">ipyvolume</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipv</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">ipyvolume</span> <span class="k">as</span> <span class="nn">ipv</span>
 
 
 <span class="n">fs_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/... .../freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer/subjects/&#39;</span>
@@ -759,8 +750,8 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 <section id="plotting-the-temporal-signal-to-noise-ratio-t-snr-onto-the-cortical-mesh">
 <h3><span class="section-number">2.3.4. </span>Plotting the temporal signal to noise ratio (t-SNR) onto the cortical mesh<a class="headerlink" href="#plotting-the-temporal-signal-to-noise-ratio-t-snr-onto-the-cortical-mesh" title="Permalink to this heading">¶</a></h3>
 <p>Load co-registered and surface projected time series and compute t-SNR:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Load the .mgh files</span>
 <span class="c1"># Define the path to the functional image</span>
@@ -942,330 +933,6 @@ mri_vol2surf<span class="w"> </span>--mov<span class="w"> </span><span class="si
 <p><strong>Next</strong>: using <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps.</p>
 </section>
 </section>
-<section id="rd-part-prf-mapping">
-<h2><span class="section-number">2.4. </span><strong>3rd part</strong>:  pRF mapping<a class="headerlink" href="#rd-part-prf-mapping" title="Permalink to this heading">¶</a></h2>
-<section id="we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run">
-<h3><span class="section-number">2.4.1. </span>We use and <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> and <code class="docutils literal notranslate"><span class="pre">prfpy</span></code> to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run<a class="headerlink" href="#we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
-
-
-<span class="c1"># The neuropythy library is a swiss-army-knife for handling MRI data, especially</span>
-<span class="c1"># anatomical/structural data such as that produced by FreeSurfer or the HCP.</span>
-<span class="c1"># https://github.com/noahbenson/neuropythy</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">neuropythy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ny</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">ipyvolume</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipv</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">math</span> 
-<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.stimulus</span><span class="w"> </span><span class="kn">import</span> <span class="n">PRFStimulus2D</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iso2DGaussianModel</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.fit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iso2DGaussianFitter</span>
-
-
-<span class="c1"># Load the time series</span>
-<span class="n">load_path</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Documents/Paris/UNICOG/Analyses/fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
-<span class="n">V1_ts_lh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;V1_ts_lh.npy&#39;</span><span class="p">)</span>
-<span class="n">V1_ts_rh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;V1_ts_rh.npy&#39;</span><span class="p">)</span>
-
-
-<span class="n">fs_pth</span> <span class="o">=</span> <span class="s1">&#39;/home/nicolas/Programas/freesurfer-linux-ubuntu22_amd64-7.4.0/freesurfer/subjects/&#39;</span>
-<span class="n">subject_id</span> <span class="o">=</span> <span class="s1">&#39;sub-00_iso&#39;</span>
-<span class="n">sub</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">([</span><span class="n">fs_pth</span> <span class="o">+</span> <span class="n">subject_id</span><span class="p">])</span>
-</pre></div>
-</div>
-</section>
-<section id="get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">
-<h3><span class="section-number">2.4.2. </span>Get V1 coordinates fom the fsaverage registration of the subject<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject" title="Permalink to this heading">¶</a></h3>
-<p>We did this in step  2.3.14. No we jujst load these:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the time series</span>
-<span class="n">load_path</span> <span class="o">=</span> <span class="s1">&#39;/home/... ... fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
-<span class="n">v1_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;v1_centers.npy&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-<span class="n">v1_rights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_path</span> <span class="o">+</span> <span class="s1">&#39;v1_rights.npy&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-
-
-<span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;orthographic&#39;</span> <span class="c1"># or: equirectangular, sinusoidal, mercator</span>
-<span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span> <span class="c1">#np.pi/2</span>
-
-<span class="c1"># Now, we make the projections:</span>
-<span class="n">map_projs</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">,</span> <span class="s1">&#39;rh&#39;</span><span class="p">]:</span> 
-<span class="c1">#for h in [0, 1]:     </span>
-    <span class="n">mp</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">map_projection</span><span class="p">(</span><span class="n">chirality</span><span class="o">=</span><span class="n">h</span><span class="p">,</span>
-                           <span class="n">center</span><span class="o">=</span><span class="n">v1_centers</span><span class="p">[</span><span class="n">h</span><span class="p">],</span>
-                           <span class="n">center_right</span><span class="o">=</span><span class="n">v1_rights</span><span class="p">[</span><span class="n">h</span><span class="p">],</span>
-                           <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-                           <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
-                           <span class="n">registration</span><span class="o">=</span><span class="s1">&#39;native&#39;</span><span class="p">)</span>
-    <span class="n">map_projs</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">mp</span>
-
-<span class="c1"># See what this created.</span>
-<span class="n">map_projs</span>
-
-<span class="n">flatmaps</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span> <span class="n">mp</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">hemis</span><span class="p">[</span><span class="n">h</span><span class="p">])</span> <span class="k">for</span> <span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">mp</span><span class="p">)</span> <span class="ow">in</span> <span class="n">map_projs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-<span class="n">flatmaps</span>
-
-<span class="n">lh_cortex_label</span> <span class="o">=</span> <span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
-<span class="n">rh_cortex_label</span> <span class="o">=</span> <span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;rh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
-<span class="n">lh_cortex_label</span>
-</pre></div>
-</div>
-</section>
-<section id="we-run-prf-mapping">
-<h3><span class="section-number">2.4.3. </span>We run pRF mapping !<a class="headerlink" href="#we-run-prf-mapping" title="Permalink to this heading">¶</a></h3>
-<p>We use the output from section 2.3.17.</p>
-</section>
-<section id="prepare-stimulus">
-<h3><span class="section-number">2.4.4. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pRF_images_path</span> <span class="o">=</span><span class="s1">&#39;/home/... .../iCORTEX/pRF_log_images/&#39;</span>
-
-<span class="c1"># Initialize an empty list to store the data</span>
-<span class="n">data_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># Loop through the files in the folder</span>
-<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">):</span>
-    <span class="c1"># Load the .png file</span>
-    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pRF_images_path</span><span class="p">,</span><span class="s1">&#39;run5_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># Stack the data along the third dimension to create the design matrix</span>
-<span class="n">design_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Design matrix shape: </span><span class="si">{</span><span class="n">design_matrix</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">design_matrix</span><span class="p">)[</span><span class="mi">2</span><span class="p">]):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">design_matrix</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">],</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gist_gray&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Frame </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-
-
-<span class="c1"># screen size parameters</span>
-<span class="n">screen_height_cm</span>   <span class="o">=</span> <span class="mf">39.29</span> <span class="c1">#69.84 #12.65</span>
-<span class="n">screen_size_cm</span>     <span class="o">=</span> <span class="n">screen_height_cm</span><span class="o">/</span><span class="mi">2</span> 
-<span class="n">screen_distance_cm</span> <span class="o">=</span> <span class="mi">200</span> <span class="c1">#5.0</span>
-
-<span class="c1"># calculate max stim ecc</span>
-<span class="n">max_ecc</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">screen_size_cm</span><span class="o">/</span><span class="n">screen_distance_cm</span><span class="p">)</span>
-<span class="c1">#max_ecc = math.atan(screen_height_cm/screen_distance_cm)/np.pi*2; # in degrees</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max ecc in rad: &#39;</span><span class="p">,</span> <span class="n">max_ecc</span><span class="p">)</span>
-<span class="n">max_ecc_deg</span>        <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">max_ecc</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max ecc in deg: &#39;</span><span class="p">,</span> <span class="n">max_ecc_deg</span><span class="p">)</span>
-<span class="n">max_ecc_deg</span>
-
-<span class="n">prf_stim</span> <span class="o">=</span> <span class="n">PRFStimulus2D</span><span class="p">(</span><span class="n">screen_size_cm</span><span class="o">=</span><span class="n">screen_size_cm</span><span class="p">,</span>
-                             <span class="n">screen_distance_cm</span><span class="o">=</span><span class="n">screen_distance_cm</span><span class="p">,</span>
-                             <span class="n">design_matrix</span><span class="o">=</span><span class="n">design_matrix</span><span class="p">,</span>
-                             <span class="n">TR</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="compute-prfs">
-<h3><span class="section-number">2.4.5. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h3>
-<p>We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation (<em>least square minimisation</em>) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">normalize_RFs</span><span class="o">=</span><span class="kc">True</span>
-
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data shape: &#39;</span><span class="p">,</span> <span class="n">V1_ts_lh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">V1_ts_lh</span><span class="o">.</span><span class="n">T</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data shape: &#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-<span class="c1"># pRF type</span>
-<span class="n">n_procs</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">gg</span> <span class="o">=</span> <span class="n">Iso2DGaussianModel</span><span class="p">(</span><span class="n">stimulus</span><span class="o">=</span><span class="n">prf_stim</span><span class="p">,</span><span class="n">normalize_RFs</span><span class="o">=</span><span class="n">normalize_RFs</span><span class="p">)</span>
-<span class="n">gf</span> <span class="o">=</span> <span class="n">Iso2DGaussianFitter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">gg</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_procs</span><span class="p">)</span>
-
-<span class="c1"># Gid fit</span>
-<span class="n">ecc_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">polar_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">24</span><span class="p">)</span>
-<span class="n">size_grid</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">max_ecc_size</span>  <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">max_ecc_deg</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span>        
-<span class="n">n_batches</span> <span class="o">=</span> <span class="mi">20</span>
-
-<span class="c1">#IMPORTANT: fixing bold baseline to 0 (recommended), and only allowing positive prfs</span>
-<span class="c1">#fixed_grid_baseline=0</span>
-<span class="n">gauss_grid_bounds</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="c1"># bound on prf amplitudes (only positive)</span>
-
-
-<span class="n">gf</span><span class="o">.</span><span class="n">grid_fit</span><span class="p">(</span><span class="n">ecc_grid</span><span class="o">=</span><span class="n">ecc_grid</span><span class="p">,</span>
-            <span class="n">polar_grid</span><span class="o">=</span><span class="n">polar_grid</span><span class="p">,</span>
-            <span class="n">size_grid</span><span class="o">=</span><span class="n">size_grid</span><span class="p">,</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-            <span class="n">n_batches</span><span class="o">=</span><span class="n">n_batches</span><span class="p">,</span>
-            <span class="n">grid_bounds</span><span class="o">=</span><span class="n">gauss_grid_bounds</span><span class="p">)</span>
-            <span class="c1">#fixed_grid_baseline=fixed_grid_baseline, </span>
-
-</pre></div>
-</div>
-<p>Once the grid search has been defined we can continue with the iterative search, we must set the <code class="docutils literal notranslate"><span class="pre">rsq_threshold</span></code> to a small but not <em>too</em> small number. This is important. Too small, and we will get stuck on a local minima and never converge (it will take longer to compute and the solution will be wrong).</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterative fit</span>
-<span class="c1"># </span>
-<span class="nv">rsq_threshold</span><span class="o">=</span><span class="m">0</span>.0005
-<span class="nv">verbose</span><span class="o">=</span>True
-<span class="nv">gauss_bounds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[(</span>-17.5,<span class="w"> </span><span class="m">17</span>.5<span class="o">)</span>,<span class="w">  </span><span class="c1"># x</span>
-<span class="w">                </span><span class="o">(</span>-17.5,<span class="w"> </span><span class="m">17</span>.5<span class="o">)</span>,<span class="w">  </span><span class="c1"># y</span>
-<span class="w">                </span><span class="o">(</span><span class="m">0</span>.5,<span class="w"> </span><span class="m">15</span><span class="o">)</span>,<span class="w">  </span><span class="c1"># prf size</span>
-<span class="w">                </span><span class="o">(</span><span class="m">0</span>,<span class="w"> </span><span class="m">1</span><span class="o">)</span>,<span class="w">  </span><span class="c1"># prf amplitude</span>
-<span class="w">                </span><span class="o">(</span><span class="m">0</span>,<span class="w"> </span><span class="m">0</span><span class="o">)]</span><span class="w">  </span><span class="c1"># bold baseline</span>
-<span class="nv">gauss_bounds</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="o">[(</span><span class="m">0</span>,10<span class="o">)</span>,<span class="o">(</span><span class="m">0</span>,0<span class="o">)]</span><span class="w"> </span><span class="c1">#hrf bounds. if want it fixed to some value, specify e.g. (4,4) (0,0)</span>
-
-
-
-
-<span class="c1">#iterative fit acts as a wrapper of optimize.minimize and passes all the arguments</span>
-gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><span class="o">=</span>rsq_threshold,<span class="w"> </span>
-<span class="w">                 </span><span class="nv">verbose</span><span class="o">=</span>verbose,<span class="w"> </span><span class="nv">bounds</span><span class="o">=</span>gauss_bounds<span class="o">)</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Output:</p>
-</div></blockquote>
-<p>[Parallel(n_jobs=8)]: Using backend LokyBackend with 8 concurrent workers.<br />
-[Parallel(n_jobs=8)]: Done  34 tasks      | elapsed:    8.7s<br />
-[Parallel(n_jobs=8)]: Done 184 tasks      | elapsed:   36.7s<br />
-[Parallel(n_jobs=8)]: Done 434 tasks      | elapsed:  1.5min<br />
-[Parallel(n_jobs=8)]: Done 784 tasks      | elapsed:  2.5min<br />
-[Parallel(n_jobs=8)]: Done 1234 tasks      | elapsed:  4.1min<br />
-[Parallel(n_jobs=8)]: Done 1784 tasks      | elapsed:  6.3min<br />
-[Parallel(n_jobs=8)]: Done 2434 tasks      | elapsed:  9.2min<br />
-[Parallel(n_jobs=8)]: Done 3184 tasks      | elapsed: 12.4min<br />
-[Parallel(n_jobs=8)]: Done 4034 tasks      | elapsed: 16.2min<br />
-[Parallel(n_jobs=8)]: Done 4984 tasks      | elapsed: 20.1min<br />
-[Parallel(n_jobs=8)]: Done 6034 tasks      | elapsed: 24.6min<br />
-[Parallel(n_jobs=8)]: Done 7184 tasks      | elapsed: 29.7min<br />
-[Parallel(n_jobs=8)]: Done 8434 tasks      | elapsed: 34.8min<br />
-[Parallel(n_jobs=8)]: Done 9784 tasks      | elapsed: 39.6min<br />
-[Parallel(n_jobs=8)]: Done 11234 tasks      | elapsed: 44.8min<br />
-[Parallel(n_jobs=8)]: Done 12784 tasks      | elapsed: 50.6min<br />
-[Parallel(n_jobs=8)]: Done 14434 tasks      | elapsed: 56.6min<br />
-[Parallel(n_jobs=8)]: Done 16184 tasks      | elapsed: 63.5min<br />
-[Parallel(n_jobs=8)]: Done 17447 out of 17447 | elapsed: 68.6min finished</p>
-</section>
-<section id="plot-prf-parameter-histograms">
-<h3><span class="section-number">2.4.6. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the pRF parameters</span>
-
-<span class="c1"># Get the parameters from the iterative fit</span>
-<span class="n">x</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">y</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">sigma</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">total_rsq</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">iterative_search_params</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># Calculate polar angle and eccentricity maps</span>
-<span class="n">polar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
-<span class="n">ecc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
-
-<span class="c1"># Examining the shape of the output</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Polar shape: &#39;</span><span class="p">,</span> <span class="n">polar</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max ecc: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ecc</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max polar: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">polar</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max sigma: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Max rsq: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">total_rsq</span><span class="p">))</span> 
-
-<span class="c1"># Save the pRF parameters</span>
-<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">pRF_params</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gf</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="n">pRF_params</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="n">sigma</span><span class="p">,</span> <span class="s1">&#39;total_rsq&#39;</span><span class="p">:</span> <span class="n">total_rsq</span><span class="p">}</span>   
-
-
-<span class="n">save_path</span> <span class="o">=</span> <span class="s1">&#39;/home/... .../fMRIdata/iCORTEX/sub-00/retinotopy/&#39;</span>
-<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_path</span> <span class="o">+</span> <span class="s1">&#39;pRF_params_lh.npy&#39;</span><span class="p">,</span> <span class="n">pRF_params</span><span class="p">)</span>
-
-
-<span class="c1"># Plot the time series</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
-
-<span class="c1"># Plot the left hemisphere time series</span>
-<span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ecc</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Eccentricity&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>  <span class="c1"># Adjust the limits as needed</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">polar</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Polar angle&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Sigma&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>  <span class="c1"># Adjust the limits as needed</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">total_rsq</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;VE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">])</span>  <span class="c1"># Adjust the limits as needed</span>
-
-</pre></div>
-</div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/pRF_params_hist.png"><img alt="" class="align-center" src="_images/pRF_params_hist.png" style="width: 900px;" /></a></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p><strong>Distribution of pRF parameters</strong>.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="plot-prf-maps-on-the-flattened-cortical-surface">
-<h3><span class="section-number">2.4.7. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="c1"># Plot</span>
-<span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">left_ax</span><span class="p">,</span> <span class="n">right_ax</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="n">ny</span><span class="o">.</span><span class="n">cortex_plot</span><span class="p">(</span><span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">],</span> <span class="n">axes</span><span class="o">=</span><span class="n">left_ax</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">ecc</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdBu&#39;</span><span class="p">,</span>
-                <span class="n">mask</span><span class="o">=</span><span class="n">total_rsq</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">,</span>
-                <span class="n">vmin</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-
-
-<span class="n">ny</span><span class="o">.</span><span class="n">cortex_plot</span><span class="p">(</span><span class="n">flatmaps</span><span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">],</span> <span class="n">axes</span><span class="o">=</span><span class="n">right_ax</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">polar</span><span class="p">),</span>
-                <span class="n">mask</span><span class="o">=</span><span class="n">total_rsq</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">,</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;polar_angle_lh&#39;</span><span class="p">)</span>
-
-<span class="n">left_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">right_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.</p>
-<p>Here some preliminary results, as proof of concept.</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/pRF_maps_lh.png"><img alt="" class="align-center" src="_images/pRF_maps_lh.png" style="width: 900px;" /></a><a class="reference internal" href="_images/pRF_maps_rh.png"><img alt="" class="align-center" src="_images/pRF_maps_rh.png" style="width: 900px;" /></a></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p><strong>Cortical site (vertex) selectivity to visual field position estimated using pRF modeling</strong>. Data for a single subject and run.</p></td>
-</tr>
-</tbody>
-</table>
-<p>And remember…  this is work in progress!</p>
-</section>
-</section>
 </section>
 
 
@@ -1279,7 +946,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
           <a href="1_Sphinx.html" title="Previous document"><span class="section-number">1. </span><span style="color:black">Research handbook</span></a>
         </li>
         <li>
-          <a href="References.html" title="Next document"><span class="section-number">3. </span><span style="color:black">References</span></a>
+          <a href="3_VFM.html" title="Next document"><span class="section-number">3. </span><span style="color:black">pRF mapping</span></a>
           &rarr;
         </li>
     </ul>
