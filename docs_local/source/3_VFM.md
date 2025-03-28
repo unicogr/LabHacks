@@ -25,7 +25,7 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 
 . 
 
-|![](/figures/pRF/pRF_maps_avg_lh.png){width="900px" align=center}|
+|![](/figures/pRF/sub-01_iso_averaged_lh_pRF_maps_with_colorbars.png){width="1200px" align=center}|
 |:--:|
 |**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
@@ -342,9 +342,12 @@ ax[3].set_xlabel('VE', fontsize=10)
 ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 
 ```
+|![](/figures/pRF/sub-01_iso_pRF_size_vs_eccentricity.png){width="1200px" align=center}|
+|:--:|
+|**pRF size as a function of eccentricity**. |
 
 
-|![](/figures/pRF_params_hist.png){width="900px" align=center}|
+|![](/figures/sub-01_pRF_params_hist.png.png){width="900px" align=center}|
 |:--:|
 |**Distribution of pRF parameters**.|
 
