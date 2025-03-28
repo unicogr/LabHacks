@@ -148,32 +148,32 @@
 <h2><span class="section-number">3.2. </span><strong>1st part</strong>:  pRF mapping<a class="headerlink" href="#st-part-prf-mapping" title="Permalink to this heading">¶</a></h2>
 <section id="we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run">
 <h3><span class="section-number">3.2.1. </span>We use and <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> and <code class="docutils literal notranslate"><span class="pre">prfpy</span></code> to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run<a class="headerlink" href="#we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">six</span> <span class="c1"># six provides python 2/3 compatibility</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 
 
 <span class="c1"># The neuropythy library is a swiss-army-knife for handling MRI data, especially</span>
 <span class="c1"># anatomical/structural data such as that produced by FreeSurfer or the HCP.</span>
 <span class="c1"># https://github.com/noahbenson/neuropythy</span>
-<span class="kn">import</span> <span class="nn">neuropythy</span> <span class="k">as</span> <span class="nn">ny</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">neuropythy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ny</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">ipyvolume</span> <span class="k">as</span> <span class="nn">ipv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipyvolume</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ipv</span>
 
-<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">signal</span>
 
-<span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">import</span> <span class="nn">math</span> 
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">prfpy.stimulus</span> <span class="kn">import</span> <span class="n">PRFStimulus2D</span>
-<span class="kn">from</span> <span class="nn">prfpy.model</span> <span class="kn">import</span> <span class="n">Iso2DGaussianModel</span>
-<span class="kn">from</span> <span class="nn">prfpy.fit</span> <span class="kn">import</span> <span class="n">Iso2DGaussianFitter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.stimulus</span><span class="w"> </span><span class="kn">import</span> <span class="n">PRFStimulus2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iso2DGaussianModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prfpy.fit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iso2DGaussianFitter</span>
 
 
 <span class="c1"># Load the time series</span>
@@ -250,7 +250,7 @@
 
 
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">design_matrix</span><span class="p">)[</span><span class="mi">2</span><span class="p">]):</span>
