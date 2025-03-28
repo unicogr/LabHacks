@@ -11,17 +11,24 @@ In this tutorial, we will learn how to use [prfpy](https://github.com/VU-Cog-Sci
 
 We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer anatomy. 
 
- > **What we will learn?** 
+ > **What we will lear to:** 
 
 
-* To align repeated runs of a visual field mapping fMRI acquisition.  
+* Align repeated runs of a visual field mapping fMRI acquisition.  
 
-* Set up the right grids for the pRF parameter search space.
+* Set up the right search grids for pRF parameter optimization.
 
-* Plot the pRF maps on flatmaps and as interactive 3D surface.
+* Run pRF modelling using parallelization.
+
+* Plot the pRF maps on a flattened cortical reconstruction and as interactive an 3D surface.
+
 
 <figure>
-    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/f9269fee2d5c51cfae3c2dbb610f5255d6442ca3/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe><iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/4201f4c62f1198f754c89728de3de1b57a10fb01/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+</figure>
+
+<figure>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
 </figure>
 
 
