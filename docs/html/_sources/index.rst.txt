@@ -25,7 +25,7 @@ One of these "*principles*" often discussed in the context of practical inferenc
 
 |
     
-.. image:: /figures/Eaton_1985.png
+.. image:: /figures/Misc/Eaton_1985.png
       :width: 750
       :align: center 
         
