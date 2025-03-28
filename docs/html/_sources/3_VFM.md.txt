@@ -11,6 +11,7 @@ In this tutorial, we will learn how to use [prfpy](https://github.com/VU-Cog-Sci
 
 We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer anatomy. 
 
+
  > **What we will lear to:** 
 
 
@@ -22,14 +23,11 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 
 * Plot the pRF maps on a flattened cortical reconstruction and as interactive an 3D surface.
 
+. 
 
-<figure>
-    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
-</figure>
-
-<figure>
-    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
-</figure>
+|![](/figures/pRF/pRF_maps_avg_lh.png){width="900px" align=center}|
+|:--:|
+|**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
 
 
 
@@ -379,10 +377,13 @@ right_ax.axis('off')
 
 As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.
 
+Eye candy!
 
-Here some preliminary results, as proof of concept. 
+<figure>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+</figure>
 
-|![](/figures/pRF/pRF_maps_avg_lh.png){width="900px" align=center}|
-|:--:|
-|**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
+<figure>
+    <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+</figure>
 
