@@ -12,7 +12,7 @@ In this tutorial, we will learn how to use [prfpy](https://github.com/VU-Cog-Sci
 We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer anatomy. 
 
 
- > **What we will lear to:** 
+ > **What we will learn to:** 
 
 
 * Align repeated runs of a visual field mapping fMRI acquisition.  
