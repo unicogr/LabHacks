@@ -113,9 +113,9 @@
   <section class="tex2jax_ignore mathjax_ignore" id="prf-mapping">
 <h1><span class="section-number">3. </span><span style="color:black">pRF mapping</span><a class="headerlink" href="#prf-mapping" title="Permalink to this heading">¶</a></h1>
 <p>In this tutorial, we will learn how to use <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps using 7T-fMRI.</p>
-<p>We will use the <em>iCORTEX 7T-fMRI</em> dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer anatomy.</p>
+<p>We will use the <em>iCORTEX 7T-fMRI</em> dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer’s anatomy.</p>
 <blockquote>
-<div><p><strong>What we will learn to:</strong></p>
+<div><p><strong>Goals</strong></p>
 </div></blockquote>
 <ul class="simple">
 <li><p>Align repeated runs of a visual field mapping fMRI acquisition.</p></li>
@@ -130,7 +130,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p><strong>Cortical site (vertex) selectivity to visual field position estimated using pRF modeling</strong>. Data for a single subject and run.</p></td>
+<tr class="row-even"><td class="text-center"><p><strong>Retinotopic maps in early visual cortex for a single hemisphere</strong>. Population receptive field (pRF) parameters (eccentricity, polar angle, size) were estimated for BOLD data interpolated to the cortical surface. circular region of interest (ROI) was defined on the cortical surface, centered on FreeSurfer’s probabilistic V1 label. The resulting pRF estimates revealed eccentricity representations (left) and polar angle organization (right). Data shown for a single subject (BOLD data were averaged across four runs).</p></td>
 </tr>
 </tbody>
 </table>
@@ -233,12 +233,8 @@
 </pre></div>
 </div>
 </section>
-<section id="we-run-prf-mapping">
-<h3><span class="section-number">3.2.3. </span>We run pRF mapping !<a class="headerlink" href="#we-run-prf-mapping" title="Permalink to this heading">¶</a></h3>
-<p>We use the output from section 2.3.17.</p>
-</section>
 <section id="prepare-stimulus">
-<h3><span class="section-number">3.2.4. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.3. </span>Prepare stimulus<a class="headerlink" href="#prepare-stimulus" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pRF_images_path</span> <span class="o">=</span><span class="s1">&#39;/home/... .../iCORTEX/pRF_log_images/&#39;</span>
 
 <span class="c1"># Initialize an empty list to store the data</span>
@@ -292,8 +288,8 @@
 </div>
 </section>
 <section id="compute-prfs">
-<h3><span class="section-number">3.2.5. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h3>
-<p>We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation (<em>least square minimisation</em>) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
+<h3><span class="section-number">3.2.4. </span>Compute pRFs!<a class="headerlink" href="#compute-prfs" title="Permalink to this heading">¶</a></h3>
+<p>We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation of the pRF position and size parameters, as well as boundaries for only positive pRF is crucial, as it will allow converging fast and accurately to the best solution (by grid search based <em>least squares minimisation</em>). Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">normalize_RFs</span><span class="o">=</span><span class="kc">True</span>
 
 
@@ -332,7 +328,7 @@
 <p>Once the grid search has been defined we can continue with the iterative search, we must set the <code class="docutils literal notranslate"><span class="pre">rsq_threshold</span></code> to a small but not <em>too</em> small number. This is important. Too small, and we will get stuck on a local minima and never converge (it will take longer to compute and the solution will be wrong).</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterative fit</span>
 <span class="c1"># </span>
-<span class="nv">rsq_threshold</span><span class="o">=</span><span class="m">0</span>.0005
+<span class="nv">rsq_threshold</span><span class="o">=</span><span class="m">0</span>.001
 <span class="nv">verbose</span><span class="o">=</span>True
 <span class="nv">gauss_bounds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[(</span>-17.5,<span class="w"> </span><span class="m">17</span>.5<span class="o">)</span>,<span class="w">  </span><span class="c1"># x</span>
 <span class="w">                </span><span class="o">(</span>-17.5,<span class="w"> </span><span class="m">17</span>.5<span class="o">)</span>,<span class="w">  </span><span class="c1"># y</span>
@@ -374,7 +370,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 [Parallel(n_jobs=8)]: Done 17447 out of 17447 | elapsed: 68.6min finished</p>
 </section>
 <section id="plot-prf-parameter-histograms">
-<h3><span class="section-number">3.2.6. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.5. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the pRF parameters</span>
 
 <span class="c1"># Get the parameters from the iterative fit</span>
@@ -431,17 +427,7 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 </div>
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/sub-01_iso_pRF_size_vs_eccentricity.png"><img alt="" class="align-center" src="_images/sub-01_iso_pRF_size_vs_eccentricity.png" style="width: 1200px;" /></a></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p><strong>pRF size as a function of eccentricity</strong>.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="figures/sub-01_pRF_params_hist.png.png"><img alt="" class="align-center" src="figures/sub-01_pRF_params_hist.png.png" style="width: 900px;" /></a></p></th>
+<tr class="row-odd"><th class="head text-center"><p><a class="reference internal" href="_images/sub-01_pRF_params_hist.png"><img alt="" class="align-center" src="_images/sub-01_pRF_params_hist.png" style="width: 900px;" /></a></p></th>
 </tr>
 </thead>
 <tbody>
@@ -449,9 +435,6 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 </tr>
 </tbody>
 </table>
-</section>
-<section id="plot-prf-maps-on-the-flattened-cortical-surface">
-<h3><span class="section-number">3.2.7. </span>Plot pRF maps on the flattened cortical surface<a class="headerlink" href="#plot-prf-maps-on-the-flattened-cortical-surface" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="c1"># Plot</span>
 <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">left_ax</span><span class="p">,</span> <span class="n">right_ax</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
@@ -472,14 +455,13 @@ gf.iterative_fit<span class="o">(</span><span class="nv">rsq_threshold</span><sp
 <span class="n">right_ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.</p>
-<p>Eye candy!</p>
 <figure>
     <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
 </figure>
 <figure>
     <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
 </figure>
+<p>As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work data in individual native space level.</p>
 </section>
 </section>
 </section>

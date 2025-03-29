@@ -9,10 +9,10 @@ comments: true
 
 In this tutorial, we will learn how to use [prfpy](https://github.com/VU-Cog-Sci/prfpy) to compute population receptive field maps using 7T-fMRI.
 
-We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer anatomy. 
+We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timing correction, motion compensation within and between runs, distortion correction, and co-registration with the freesurfer's anatomy. 
 
 
- > **What we will learn to:** 
+ > **Goals** 
 
 
 * Align repeated runs of a visual field mapping fMRI acquisition.  
@@ -27,7 +27,9 @@ We will use the *iCORTEX 7T-fMRI* dataset to illustrate how to apply slice timin
 
 |![](/figures/pRF/sub-01_iso_averaged_lh_pRF_maps_with_colorbars.png){width="1200px" align=center}|
 |:--:|
-|**Cortical site (vertex) selectivity to visual field position estimated using pRF modeling**. Data for a single subject and run.|
+|**Retinotopic maps in early visual cortex for a single hemisphere**. Population receptive field (pRF) parameters (eccentricity, polar angle, size) were estimated for BOLD data interpolated to the cortical surface. circular region of interest (ROI) was defined on the cortical surface, centered on FreeSurfer’s probabilistic V1 label. The resulting pRF estimates revealed eccentricity representations (left) and polar angle organization (right). Data shown for a single subject (BOLD data were averaged across four runs).|
+
+
 
 
 
@@ -138,10 +140,6 @@ lh_cortex_label
 ```
 
 
-### We run pRF mapping !
-
-We use the output from section 2.3.17.
-
 
 ### Prepare stimulus
 ```python
@@ -200,7 +198,7 @@ prf_stim = PRFStimulus2D(screen_size_cm=screen_size_cm,
 ### Compute pRFs!
 
 
-We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation (*least square minimisation*) is crucial, as it will allow converging fast and accurately to the best solution. Importantly, `n_procs` is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster. 
+We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation of the pRF position and size parameters, as well as boundaries for only positive pRF is crucial, as it will allow converging fast and accurately to the best solution (by grid search based *least squares minimisation*). Importantly, `n_procs` is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster. 
 
 ```python
 normalize_RFs=True
@@ -244,7 +242,7 @@ Once the grid search has been defined we can continue with the iterative search,
 ```shell
 # Iterative fit
 # 
-rsq_threshold=0.0005
+rsq_threshold=0.001
 verbose=True
 gauss_bounds = [(-17.5, 17.5),  # x
                 (-17.5, 17.5),  # y
@@ -342,19 +340,15 @@ ax[3].set_xlabel('VE', fontsize=10)
 ax[3].set_xlim([0, 0.6])  # Adjust the limits as needed
 
 ```
-|![](/figures/pRF/sub-01_iso_pRF_size_vs_eccentricity.png){width="1200px" align=center}|
-|:--:|
-|**pRF size as a function of eccentricity**. |
 
-
-|![](/figures/sub-01_pRF_params_hist.png.png){width="900px" align=center}|
+|![](/figures/pRF/sub-01_pRF_params_hist.png){width="900px" align=center}|
 |:--:|
 |**Distribution of pRF parameters**.|
 
 
 
 
-### Plot pRF maps on the flattened cortical surface
+
 
 ```python
 
@@ -378,10 +372,6 @@ right_ax.axis('off')
 ```
 
 
-As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work at the surface level using more subjects and runs, and in different experiments.
-
-Eye candy!
-
 <figure>
     <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_eccentricity_3D.html" width="100%" height="500px" frameborder="0"></iframe>
 </figure>
@@ -389,4 +379,8 @@ Eye candy!
 <figure>
     <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
 </figure>
+
+
+As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work data in individual native space level.
+
 
