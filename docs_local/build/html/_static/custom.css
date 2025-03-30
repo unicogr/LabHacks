@@ -1,0 +1,23 @@
+body {
+    background-color: #ffffe6;
+}
+
+div.body {
+    background-color: #ffffe6;
+    color: 'black'
+}
+
+/* Hide Disqus ads */
+#disqus_thread iframe[src*="ads-iframe"] {
+    display: none !important;
+}
+
+/* Hide Disqus recommended content (optional) */
+#disqus_recommendations {
+    display: none !important;
+}
+
+/* Hide Disqus footer (optional) */
+.disqus-footer {
+    display: none !important;
+}
