@@ -3,10 +3,9 @@
 
 .. raw:: html
 
-    <figure>
-        <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="800px" frameborder="0"></iframe>    
-    </figure>
-
+	<figure>
+		<iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="500px" frameborder="0"></iframe>
+	</figure>
 	
 ℝecently, I encountered an article discussing the ongoing replication crisis in biology
 :footcite:p:`Oza_2023`. The article highlights a known issue in scientific research :footcite:p:`Nezer_2020`: even when different teams analyze the same data using the same methods, replication often leads to different results. The article made me think of overconfident chefs - they don’t just follow recipes, but sneak in their favorite ingredients into every dish before we even taste it. One key reason I pondered, is that scientists frequently approach problems with some degree of preconceived beliefs, which translates to applying a rigid "toolbox" of hypotheses to the challenges they encounter. While the need for collective consensus is clear, these beliefs do not necessarily generalize from team to team, leaving the public confronted with what appears as inconsistent decisions during statistical analysis. Ironically, sometimes these decisions, made with the best of intentions, spread as software packages, and are then used by other researchers to test different hypothesis in their own data. Coincidentally, as I worked to align my scientific software implementations with best practices, I stumbled upon another noteworthy piece in the now defunct Twitter. The `post <https://twitter.com/lakens/status/1718654122516156777>`_ provided the much needed, *so zu sagen*, plumber's perspective: 
