@@ -6,6 +6,7 @@ comments: true
 
 # <span style="color:black">Research handbook</span>
 
+
 Same as in [README](https://github.com/nicogravel/researchLog_template):
 
 This tutorial is a collaborative effort with [Christophe Pallier](https://github.com/chrplr). Please see [here](https://github.com/chrplr/mynotebook) for a boiled down (or "*distilled*") version of it. The requirements are specificed in the file `requirements.txt` within the [main repo's branch](https://github.com/nicogravel/researchLog_template). The steps outlined here should be tailored to meet each individual's specific needs.  

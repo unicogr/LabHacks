@@ -1,12 +1,12 @@
 ----------------
-**Lab tutorials**    
+**Lab hacks**    
 ----------------
 
 *Towards open and reproducible NeuroImaging*
 #######################################################
 
 
-Before we begin, I wanted to share a story. Both as a primer for the tutorials and as an example of how to use [reStructuredText](https://en.wikipedia.org/wiki/ReStructuredText). You can consider the following as a sort of *Lorem ipsum*:
+Before we begin, I wanted to share a story. Both as a primer for the tutorials and as an example of how to use `reStructuredText <https://en.wikipedia.org/wiki/ReStructuredText>`_. You can consider the  following as a sort of *Lorem ipsum*:
 
 ℝecently, I encountered an article discussing the ongoing replication crisis in biology
 :footcite:p:`Oza_2023`. The article highlights a persistent issue in scientific research: even when different teams analyze the same data using the same methods, replication often leads to different results :footcite:p:`Nezer_2020`. One key reason, the authors argue, is that scientists frequently approach problems with some degree of preconceived beliefs, which translates to applying a rigid "toolbox" of hypotheses to the challenges they encounter. While the need for collective consensus is clear, these beliefs do not necessarily generalize from team to team, leaving the public confronted with what appears as inconsistent decisions during statistical analysis. Ironically, sometimes these decisions, made with the best of intentions, spreads as software packages, and are then used by other researchers to test different hypothesis in their own data.
@@ -16,19 +16,15 @@ Coincidentally, as I worked to align my implementations with best practices, I s
 	*Statisticians should be less like priests and more plumbers. I don't care what you personally believe is the right way to do things - if I have a specific problem, I want to know all possible solutions that might fix it, what their limitations are, and how much each would cost.*                     `Daniël Lackens <https://twitter.com/lakens>`_
 
 
+The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. Everything needed to reproduce this pages in a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and `reStructuredText <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>`_.
+The first tutorial is a guide to produce a personalised *research log* that can be easily adapted to one's individual needs. As a bonus, it comes with an example on how to set up a python project and document its code and functions using `docstring <https://en.wikipedia.org/wiki/Docstring>`_. The second tutorial is about how to implement a simple yet clear preprocessing pipeline for surface reconstruction of fMRI data. The third is still on the making and it will be a an extension of the second one, aiming to compute population receptive models using, again, simple yet clear open source packages.
 
-The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`. 
 
- 
 .. note::
 
 	This online resource is meant to be a *living document*. This means it may contain errors and corrections. New content will be added over time. Please check back regularly for the latest version.
 
-.. image:: /figures/Misc/Eaton_1985.png
-	  :width: 750
-	  :align: center
-	  :alt: Diagram of the Sufficiency and Necessity Principle found in an old moleskine. Likely seen in a conference some years ago by Haanne De Jaegher or Shaun Gallagher.
-	  
+
 **********
 Comments
 **********
