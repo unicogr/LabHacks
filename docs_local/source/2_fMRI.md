@@ -126,7 +126,35 @@ Here I have documented the essential preprocessing steps for the functional reti
 
 </details>
 
-### Cortical surface reconstruction
+### Preprocesing of mp2rage 
+
+
+The approach, suggested by Minye, works much better than the denoising procedure used by the group and that is implemented in python (https://github.com/khanlab/mp2rage_genUniDen). Here is how it looks. The UNI (left) is divided by the T1 (right), 
+
+|![](/figures/coReg/uni_and_t1.png){height="400px" align=center}|
+|:--:|
+|**UNI and T1**.|
+
+To give this:
+
+|![](/figures/coReg/uni_div_t1.png){height="400px" align=center}|
+|:--:|
+|**UNI divided by T1**.|
+
+Then, the INV2 is visually scrutinized to define the threshold, as zero was too permissive with the noise. Here I used a threshold of 150:
+
+|![](/figures/coReg/mask.png){height="400px" align=center}|
+|:--:|
+|**Mask**.|
+
+This is used to mask the previous image, giving:
+
+|![](/figures/coReg/mask.png){height="400px" align=center}|
+|:--:|
+|**Masked UNI/T1**.|
+
+Which is floating point image within 0-10 range (magnitude changed after the division). This is the code in FSL: 
+
 
 The anatomical volume used in this tutorial was obtained as follows:
 
@@ -176,7 +204,17 @@ The anatomical volume used in this tutorial was obtained as follows:
 
     # Remove redundant files, keep original inputs + t1_norm + t1_brain
     rm ${subj}_unit1_div.nii.gz ${subj}_inv2_bin.nii.gz ${subj}_t1_tmp.nii.gz ${subj}_t1_thr.nii.gz 
+```
 
+
+
+### Cortical surface reconstruction
+
+Then we resample the cleaned T1 anatomy file to 1 mm cubic voxel and Freesurfer's recon-all function to segment and label different brain tissue:
+
+
+```shell
+    #!/bin/bash
     #### Try recon-all with isotropic voxel size
     flirt -in ${subj}_t1_brain.nii.gz -ref ${subj}_t1_brain.nii.gz -applyisoxfm 1.0 -nosearch -out ${subj}_t1_brain_iso.nii.gz 
 
@@ -440,9 +478,12 @@ plotting.plot_stat_map(T2,bg_img=T1,title='T2 to T1 alignment',display_mode='ort
 
 ```
 
-|![](/figures/alignment.png){height="400px" align=center}|
+
+|![](/figures/coReg/animated_alignment.gif){height="400px" align=center}|
 |:--:|
-|**Example alignment**.|
+|**Co-registration between runs**.|
+
+
 
 
 ### Fine-tune alignment 
