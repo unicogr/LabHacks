@@ -11,7 +11,7 @@ An important step in using functional MRI (fMRI) is the design of stimuli to tar
   
 In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* dataset to illustrate the basic preprocessing steps typically performed to obtain a good functional-to-anatomical match.
 
- > **What we will learn?** 
+ > **What we will learn** 
 
 
 * We will **not** learn today how to use BIDS or run an out-of-the-box toolbox. Today's tutorial does not cover this. 
