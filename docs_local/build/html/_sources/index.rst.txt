@@ -5,8 +5,6 @@
 *Towards open and reproducible NeuroImaging*
 #######################################################
 
-The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`. 
-
 
 Before we begin, I wanted to share a story. Both as a primer for the tutorials and as an example of how to use [reStructuredText](https://en.wikipedia.org/wiki/ReStructuredText). You can consider the following as a sort of *Lorem ipsum*:
 
@@ -19,8 +17,9 @@ Coincidentally, as I worked to align my implementations with best practices, I s
 
 
 
+The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`. 
 
-
+ 
 .. note::
 
 	This online resource is meant to be a *living document*. This means it may contain errors and corrections. New content will be added over time. Please check back regularly for the latest version.
