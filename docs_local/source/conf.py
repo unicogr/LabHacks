@@ -104,6 +104,7 @@ for mod_name in MOCK_MODULES:
 
 '''
 
+
 # Switch from conda to pyenv (Python 3.8.19)
 
 pyenv install 3.8.19
@@ -141,7 +142,7 @@ cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
 # Add, commit and push the changes
 git add .
-git commit -m "tidied up the index"
+git commit -m "typesetting and layout changes"
 git push -u origin main
 
 

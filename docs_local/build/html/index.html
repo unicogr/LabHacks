@@ -106,10 +106,18 @@
 <h2><em>Towards open and reproducible NeuroImaging</em><a class="headerlink" href="#towards-open-and-reproducible-neuroimaging" title="Permalink to this heading">¶</a></h2>
 <section id="goals-learn-how-to-create-a-research-and-code-handbook-preprocess-fmri-data-map-cortical-responses-using-custom-techniques-and-visualize-results">
 <h3><strong>Goals:</strong> Learn how to create a research (<em>and code</em>) handbook, preprocess fMRI data, map cortical responses using custom techniques and visualize results.<a class="headerlink" href="#goals-learn-how-to-create-a-research-and-code-handbook-preprocess-fmri-data-map-cortical-responses-using-custom-techniques-and-visualize-results" title="Permalink to this heading">¶</a></h3>
-<p>The tutorials presented here are inspired on <a class="reference external" href="https://goodresearch.dev">The Good Research Code Handbook</a>, by <a class="reference external" href="https://scholar.google.com/citations?user=gpQg9uQAAAAJ&amp;hl=en">Patrick Mineault</a>. I serve them as a Github repo based on <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>, <a class="reference external" href="https://daringfireball.net/projects/markdown/">Markdown</a> and <a class="reference external" href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">reStructuredText</a> (rendered using <a class="reference external" href="https://jekyllrb.com/docs/github-pages/">Github pages</a>).</p>
+<p>The tutorials presented here are inspired on <a class="reference external" href="https://goodresearch.dev">The Good Research Code Handbook</a>, by <a class="reference external" href="https://scholar.google.com/citations?user=gpQg9uQAAAAJ&amp;hl=en">Patrick Mineault</a>. as a Github repo based on <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a>, <a class="reference external" href="https://daringfireball.net/projects/markdown/">Markdown</a> and  I serve them`reStructuredText &lt;<a class="reference external" href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site</a>&gt;`_ (rendered using <a class="reference external" href="https://jekyllrb.com/docs/github-pages/">Github pages</a>).</p>
+<p>Before we begin, I wanted to share a story. Both as a primer for the tutorials and as an example of how to use [reStructuredText](<a class="reference external" href="https://en.wikipedia.org/wiki/ReStructuredText">https://en.wikipedia.org/wiki/ReStructuredText</a>). You can consider the following as a very personal <em>Lorem ipsum</em>:</p>
+<span style="font-family: 'Old English Text MT', fantasy; font-size: 2em;">R</span>ecently, I encountered an article discussing the ongoing replication crisis in biology<p><a class="footnote-reference brackets" href="#footcite-oza-2023" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Why so often, the article stressed, results obtained by different teams using the same data (and following the same inquiries) are difficult to replicate <a class="footnote-reference brackets" href="#footcite-nezer-2020" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. According to the article, scientists tend to integrate their beliefs into their hypothesis-making machinery (<em>i.e.</em> in the form of a <em>toolbox</em>) to every problem they stumble upon in the field. While the need for collective consensus is clear, potentially diverging decisions taken during a statistical assessment may bring forth confusion rather than clarity. With all its good intentions, excess trust in a method should not lead us into the realm of extreme scientific belief or <a class="reference external" href="https://www.merriam-webster.com/dictionary/scientism">scientificism/scientism</a> (i.e. <em>the urge to trust on the temporary answers our good ol’ metric provide rather than the underlying problem that inspired them in first place</em>). Coincidentally, while trying to reach consensus in my own work, I stumbled upon another noteworthy piece in the now defunct Twitter. The <a class="reference external" href="https://twitter.com/lakens/status/1718654122516156777">post</a> provided the much needed, <em>so zu sagen</em>, plumber’s perspective:</p>
+<blockquote>
+<div><p><em>Statisticians should be less like priests and more plumbers. I don’t care what you personally believe is the right way to do things - if I have a specific problem, I want to know all possible solutions that might fix it, what their limitations are, and how much each would cost.</em>                     <a class="reference external" href="https://twitter.com/lakens">Daniël Lackens</a></p>
+</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This online resource is meant to be a <em>living document</em>. This means it may contain errors and corrections. New content will be added over time. Please check back regularly for the latest version.</p>
+<blockquote>
+<div><p>This online resource is meant to be a <em>living document</em>. This means it may contain errors and corrections. New content will be added over time. Please check back regularly for the latest version.</p>
+</div></blockquote>
+<p>&lt;span style=”font-family: ‘Old English Text MT’, fantasy; font-size: 2em;”&gt;R&lt;/span&gt;ecently, I encountered an article discussing the ongoing replication crisis in biology <a class="footnote-reference brackets" href="#footcite-oza-2023" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Why so often, the article stressed, results obtained by different teams using the same data (and following the same inquiries) are difficult to replicate <a class="footnote-reference brackets" href="#footcite-nezer-2020" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. According to the article, scientists tend to integrate their beliefs into their hypothesis-making machinery (<em>i.e.</em> in the form of</p>
 </div>
 </section>
 <section id="comments">
@@ -177,6 +185,19 @@
 </section>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h3>
+<div class="docutils container" id="id5">
+<aside class="footnote brackets" id="footcite-oza-2023" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Anil Oza. Reproducibility trial, 246 biologists get different results from same data sets. <em>Nature</em>, 2023.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-nezer-2020" role="note">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>Botvinik-Nezer et al. Variability in the analysis of a single neuroimaging dataset by many teams. <em>Nature</em>, 582:84–88, 2020.</p>
+</aside>
+</aside>
+</div>
 </section>
 </section>
 </section>
