@@ -128,22 +128,22 @@ https://www.patrickthurmond.com/blog/2023/12/11/commenting-is-available-now-than
 # conda activate sphinx
 pyenv activate Sphinx
 
-# Navigate to the directory containing the conf.py file
-cd /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/
+    # Navigate to the directory containing the conf.py file
+    cd /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/
 
-# Build the html files
-make clean; make html
+    # Build the html files
+    make clean; make html
 
-# Sync the html files to the docs folder
-rsync -a --delete /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/build/html /home/nicolas/Documents/GitHubProjects/researchLog_template/docs/
+    # Sync the html files to the docs folder
+    rsync -a --delete /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/build/html /home/nicolas/Documents/GitHubProjects/researchLog_template/docs/
 
-# Navigate to the directory containing the conf.py file
-cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
+    # Navigate to the directory containing the conf.py file
+    cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
 
-# Add, commit and push the changes
-git add .
-git commit -m "typesetting and layout changes"
-git push -u origin main
+    # Add, commit and push the changes
+    git add .
+    git commit -m "typesetting and layout changes"
+    git push -u origin main
 
 
 # Create an animated GIF from a series of images in a directory

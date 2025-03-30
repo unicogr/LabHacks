@@ -133,7 +133,7 @@ The approach, suggested by Minye, works much better than the denoising procedure
 
 |![](/figures/coReg/uni_and_t1.png){height="400px" align=center}|
 |:--:|
-|**UNI and T1**.|
+|**UNI and T1**. A. The UNI image. B. The T1 mp2rage image.|
 
 To give this:
 
@@ -145,13 +145,13 @@ Then, the INV2 is visually scrutinized to define the threshold, as zero was too 
 
 |![](/figures/coReg/mask.png){height="400px" align=center}|
 |:--:|
-|**Mask**.|
+|**Mask**. The magnitude of the background noise must be empirically esyimated using `fsleyes` or else.|
 
 This is used to mask the previous image, giving:
 
-|![](/figures/coReg/mask.png){height="400px" align=center}|
+|![](/figures/coReg/cleaned_mp2rage.png){height="400px" align=center}|
 |:--:|
-|**Masked UNI/T1**.|
+|**Masked UNI/T1**. This is the cleaned mp2rage. Note that a section of the frontal cortex did not survived the threshold.|
 
 Which is floating point image within 0-10 range (magnitude changed after the division). This is the code in FSL: 
 
