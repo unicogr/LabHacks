@@ -4,12 +4,9 @@
 
 *Towards open and reproducible NeuroImaging*
 #######################################################
-  
-*************************************************************************************************************************************************************************
-**Goals:** Learn how to create a research (*and code*) handbook, preprocess fMRI data, map cortical responses using custom techniques and visualize results.
-*************************************************************************************************************************************************************************
-  
-The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and  I serve them`reStructuredText <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>`_ (rendered using `Github pages <https://jekyllrb.com/docs/github-pages/>`_). 
+
+The tutorials presented here are inspired on `The Good Research Code Handbook <https://goodresearch.dev>`_, by `Patrick Mineault <https://scholar.google.com/citations?user=gpQg9uQAAAAJ&hl=en>`_. as a Github repo based on `Sphinx <https://www.sphinx-doc.org/en/master/>`_, `Markdown <https://daringfireball.net/projects/markdown/>`. 
+
 
 Before we begin, I wanted to share a story. Both as a primer for the tutorials and as an example of how to use [reStructuredText](https://en.wikipedia.org/wiki/ReStructuredText). You can consider the following as a sort of *Lorem ipsum*:
 
