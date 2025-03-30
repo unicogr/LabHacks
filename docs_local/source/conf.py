@@ -146,10 +146,10 @@ git commit -m "typesetting and layout changes"
 git push -u origin main
 
 
-'''
 
 
-'''
+
+
 
 pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
 
@@ -167,3 +167,6 @@ convert -delay 100 -loop 0 sub-00_iso_run*_T2_T1_alignment.png animated_alignmen
 
 # Print confirmation
 echo "Animated GIF saved as animated_alignment.gif in $pth"
+
+
+'''
