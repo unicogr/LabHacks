@@ -25,7 +25,7 @@ In this tutorial, we will use a single subject from the *iCORTEX 7T-fMRI* datase
 * We intentionally leave some gaps so the user can experience the challenge of figuring out solutions too. Figuring out solution oneself is an important drive in learning.
 
 
- >   **Requirements:**
+ >   **Requirements**
 
 * Linux. Here we use Ubuntu 22 or 24. 
 * For the shell-script based part: `AFNI`, `Freesurfer`, `FSL` and `ANTS` (optional for now).
