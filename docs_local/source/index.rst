@@ -4,8 +4,7 @@
 .. raw:: html
 
     <figure>
-        <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="800px" frameborder="0"></iframe>
-        <caption>	Interactive 3D visualization a population receptive field (pRF) polar angle map depicted on an inflated cortical surface representation for the left hemisphere .</caption>
+        <iframe src="https://rawcdn.githack.com/nicogravel/researchLog_template/fd3cc222bb62b3bacf5a2d855a4adaf5748cbc62/docs_local/source/figures/pRF/lh_polar_3D.html" width="100%" height="800px" frameborder="0"></iframe>    
     </figure>
 
 	
