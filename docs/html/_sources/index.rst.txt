@@ -1,10 +1,6 @@
-----------------
-**Lab hacks**    
-----------------
-
-*Towards open and reproducible NeuroImaging*
-#######################################################
-
+----------------------------------------------------------
+**Lab hacks** towards open and reproducible NeuroImaging*    
+----------------------------------------------------------
 
 𝕽ecently, I encountered an article discussing the ongoing replication crisis in biology
 :footcite:p:`Oza_2023`. The article highlights a persistent issue in scientific research: even when different teams analyze the same data using the same methods, replication often leads to different results :footcite:p:`Nezer_2020`. One key reason I pondered after reading the articles, is that scientists frequently approach problems with some degree of preconceived beliefs, which translates to applying a rigid "toolbox" of hypotheses to the challenges they encounter. While the need for collective consensus is clear, these beliefs do not necessarily generalize from team to team, leaving the public confronted with what appears as inconsistent decisions during statistical analysis. Ironically, sometimes these decisions, made with the best of intentions, spreads as software packages, and are then used by other researchers to test different hypothesis in their own data.
