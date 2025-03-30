@@ -166,5 +166,4 @@ cd "$pth"
 convert -delay 100 -loop 0 sub-00_iso_run*_T2_T1_alignment.png animated_alignment.gif
 
 # Print confirmation
-echo "Animated GIF saved as animated_alignment.gif in $pth"'
-'
+echo "Animated GIF saved as animated_alignment.gif in $pth"
