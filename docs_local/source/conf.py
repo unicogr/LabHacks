@@ -147,3 +147,28 @@ git push -u origin main
 
 
 '''
+
+
+'''
+
+# Create an animated GIF from a series of images in a directory
+
+pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
+
+#!/bin/bash
+
+# Define the path
+pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
+
+# Navigate to the directory
+cd "$pth"
+
+# Create an animated GIF from the matching images
+# Ensure ImageMagick is installed for the `convert` command
+convert -delay 100 -loop 0 sub-00_iso_run*_T2_T1_alignment.png animated_alignment.gif
+
+# Print confirmation
+echo "Animated GIF saved as animated_alignment.gif in $pth"'
+''
+
+''''
