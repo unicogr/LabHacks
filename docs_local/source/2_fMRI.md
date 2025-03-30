@@ -67,7 +67,7 @@ Here I have documented the essential preprocessing steps for the functional reti
 
 
 <details>
-  <summary><span style="color:#3382FF"> The folder tree for the data ued in this tutorial:</span></summary>  
+  <summary><span style="color:#3382FF"> The folder tree for the data used in this tutorial:</span></summary>  
 
 /home/... ... /fMRIdata/iCORTEX   
 ├── cg220008-2898_001  
