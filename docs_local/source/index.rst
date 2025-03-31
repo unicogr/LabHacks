@@ -12,9 +12,9 @@ The tutorials are organized into three main sections:
   
 1. **Sphinx**: This section provides a guide to setting up a personalized research log using `Sphinx <https://www.sphinx-doc.org/en/master/>`_, a documentation generator that makes it easy to create and maintain documentation for your projects. As a bonus, it comes with an example on how to set up a python project and document its code and functions using `docstring <https://en.wikipedia.org/wiki/Docstring>`_, `Markdown <https://daringfireball.net/projects/markdown/>`_ and `reStructuredText <https://en.wikipedia.org/wiki/ReStructuredText>`_. 
   
-2. **fMRI**: This section provides a guide to preprocessing fMRI data using `FreeSurfer <https://surfer.nmr.mgh.harvard.edu/>`_, `AFNI <https://afni.nimh.nih.gov/>`_, `FSL <https://fsl.fmrib.ox.ac.uk/fsl/docs/#/>`_, `NeuroPythy <https://github.com/noahbenson/neuropythy/wiki>`_ `Nilearn <https://nilearn.github.io/stable/index.html>`_ and other open source software packages.
+2. **fMRI**: This section provides a guide to preprocessing fMRI data using `FreeSurfer <https://surfer.nmr.mgh.harvard.edu/>`_, `AFNI <https://afni.nimh.nih.gov/>`_, `FSL <https://fsl.fmrib.ox.ac.uk/fsl/docs/#/>`_, `NeuroPythy <https://github.com/noahbenson/neuropythy/wiki>`_ , `Nilearn <https://nilearn.github.io/stable/index.html>`_, as well as other open source software packages.
   
-3. **pRF**: This section provides a guide to computing population receptive fields using the `prfpy https://prfpy.readthedocs.io/en/latest/>`_` package, a simple and clear python package for visual field mapping.
+3. **pRF**: This section provides a guide to computing population receptive fields using the `prfpy <https://prfpy.readthedocs.io/en/latest/>`_ package, a simple and clear python package for visual field mapping.
 
 4. **References**: This section provides a list of references cited in the tutorials, as well as additional resources for further reading.
   
