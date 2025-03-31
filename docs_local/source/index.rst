@@ -6,7 +6,7 @@ Here you will find a collection of tutorials and code snippets to help you get s
   
 The goal is to provide a simple and clear way to document your research process, from data collection to analysis and visualization.
   
-The tutorials are designed to be easy to follow and adaptable to your own needs. They are based on open source software and best practices in research reproducibility[#handbook]_. The tutorials are written in a way that allows you to easily copy and paste the code into your own projects, and they include links to additional resources for further reading.
+The tutorials are designed to be easy to follow and adaptable to your own needs. They are based on open source software and best practices in research reproducibility [#handbook]_. The tutorials are written in a way that allows you to easily copy and paste the code into your own projects, and they include links to additional resources for further reading.
   
 The tutorials are organized into three main sections:
   
