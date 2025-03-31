@@ -147,10 +147,6 @@ git push -u origin main
 
 
 
-
-
-
-
 pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
 
 #!/bin/bash

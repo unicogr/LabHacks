@@ -7,9 +7,7 @@ comments: true
 # <span style="color:black">Research handbook</span>
 
 
-Same as in [README](https://github.com/nicogravel/researchLog_template):
-
-This tutorial is a collaborative effort with [Christophe Pallier](https://github.com/chrplr). Please see [here](https://github.com/chrplr/mynotebook) for a boiled down (or "*distilled*") version of it. The requirements are specificed in the file `requirements.txt` within the [main repo's branch](https://github.com/nicogravel/researchLog_template). The steps outlined here should be tailored to meet each individual's specific needs.  
+This tutorial is a collaborative effort with [Christophe Pallier](https://github.com/chrplr) and [Minye Zhan]( https://bsky.app/profile/zhanminye.bsky.social). Please see [here](https://github.com/chrplr/mynotebook) for a boiled down version of it. The requirements are specificed in the file `requirements.txt` within the [main repo's branch](https://github.com/nicogravel/researchLog_template). The steps outlined here should be tailored to meet your specific needs.  
 
 
 <details>
@@ -211,6 +209,11 @@ Now enjoy building up your python package!
   
 <br>
   
+ 
+Here you can find everything needed to reproduce [this page](https://github.com/nicogravel/researchLog_template).
+
+
+
 ## <span style="color:lightblue">Comments 🔨</span>
 
 <script src="https://giscus.app/client.js"
