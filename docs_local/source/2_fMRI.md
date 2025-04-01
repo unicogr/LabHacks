@@ -71,53 +71,53 @@ Here I have documented the essential preprocessing steps for the functional reti
 
 /home/... ... /fMRIdata/iCORTEX   
 ├── cg220008-2898_001  
-│   ├── 000001_AAHScout  
-│   ├── 000002_AAHScout-MPR  
-│   ├── 000003_b1-map-xfl-sag-Amplitude  
-│   ├── 000004_b1-map-xfl-sag-Phase  
-│   ├── 000005_b1-map-xfl-sag-B1-Ampli-CP-mode  
-│   ├── 000006_b1-map-xfl-sag-VR  
-│   ├── 000007_b0-gre-field-mapping  
-│   ├── 000008_b0-gre-field-mapping  
-│   ├── 000009_TEST-SAR-BOLD-SBRef  
-│   ├── 000010_TEST-SAR-BOLD  
-│   ├── 00011_mbep2d-TR1-1pt6mm-PA-SBRef  
-│   ├── 000012_mbep2d-TR1-1pt6mm-PA  
-│   ├── 000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef  
-│   ├── 000014_mbep2d-TR1-1pt6mm-AP-REST1  
-│   ├── 000015_mbep2d-TR2-1pt2mm-PA-SBRef  
-│   ├── 000016_mbep2d-TR2-1pt2mm-PA  
-│   ├── 000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef   
-│   ├── 000018_mbep2d-TR2-1pt2mm-AP-RET1    
-│   ├── 000019_mbep2d-TR2-1pt2mm-PA-SBRef  
-│   ├── 000020_mbep2d-TR2-1pt2mm-PA  
-│   ├── 000021_mbep2d-TR2-1pt2mm-AP-RET2-SBone-size-fits-allRef  
-│   ├── 000022_mbep2d-TR2-1pt2mm-AP-RET2  
-│   ├── 000023_mbep2d-TR2-1pt2mm-PA-SBRef  
-│   ├── 000024_mbep2d-TR2-1pt2mm-PA  
-│   ├── 000025_mbep2d-TR2-1pt2mm-AP-RET3-SBRef  
-│   ├── 000026_mbep2d-TR2-1pt2mm-AP-RET3  
-│   ├── 000027_mbep2d-TR2-1pt2mm-PA-SBRef  
-│   ├── 000028_mbep2d-TR2-1pt2mm-PA  
-│   ├── 000029_mbep2d-TR2-1pt2mm-AP-RET4-SBRef  
-│   ├── 000030_mbep2d-TR2-1pt2mm-AP-RET4  
-│   ├── 000031_mbep2d-TR1-1pt6mm-PA-SBRef  
-│   ├── 000032_mbep2d-TR1-1pt6mm-PA  
-│   ├── 000033_mbep2d-TR1-1pt6mm-AP-REST2-SBRef  
-│   ├── 000034_mbep2d-TR1-1pt6mm-AP-REST2  
-│   ├── 000035_t1-mp2rage-sag-iso0.75mm-INV1  
-│   ├── 000036_t1-mp2rage-sag-iso0.75mm-INV1-PHS  
-│   ├── 000037_t1-mp2rage-sag-iso0.75mm-INV2  
-│   ├── 000038_t1-mp2rage-sag-iso0.75mm-INV2-PHS  
-│   ├── 000039_t1-mp2rage-sag-iso0.75mm-T1-Images  
-│   ├── 000040_t1-mp2rage-sag-iso0.75mm-UNI-DEN  
-│   ├── 000041_t1-mp2rage-sag-iso0.75mm-UNI-Images  
-│   ├── 000042_mbep2d-TR2-1pt2mm-PA-SBRef  
-│   ├── 000043_mbep2d-TR2-1pt2mm-PA  
-│   ├── 000044_mbep2d-TR2-1pt2mm-AP-CATV-SBRef  
-│   ├── 000045_mbep2d-TR2-1pt2mm-AP-CATV  
-│   ├── 000046_mbep2d-TR2-1pt2mm-AP-CATV-SBRef-split-1  
-│   └── nifti  
+│   ├── 000001_AAHScout  
+│   ├── 000002_AAHScout-MPR  
+│   ├── 000003_b1-map-xfl-sag-Amplitude  
+│   ├── 000004_b1-map-xfl-sag-Phase  
+│   ├── 000005_b1-map-xfl-sag-B1-Ampli-CP-mode  
+│   ├── 000006_b1-map-xfl-sag-VR  
+│   ├── 000007_b0-gre-field-mapping  
+│   ├── 000008_b0-gre-field-mapping  
+│   ├── 000009_TEST-SAR-BOLD-SBRef  
+│   ├── 000010_TEST-SAR-BOLD  
+│   ├── 00011_mbep2d-TR1-1pt6mm-PA-SBRef  
+│   ├── 000012_mbep2d-TR1-1pt6mm-PA  
+│   ├── 000013_mbep2d-TR1-1pt6mm-AP-REST1-SBRef  
+│   ├── 000014_mbep2d-TR1-1pt6mm-AP-REST1  
+│   ├── 000015_mbep2d-TR2-1pt2mm-PA-SBRef  
+│   ├── 000016_mbep2d-TR2-1pt2mm-PA  
+│   ├── 000017_mbep2d-TR2-1pt2mm-AP-RET1-SBRef   
+│   ├── 000018_mbep2d-TR2-1pt2mm-AP-RET1    
+│   ├── 000019_mbep2d-TR2-1pt2mm-PA-SBRef  
+│   ├── 000020_mbep2d-TR2-1pt2mm-PA  
+│   ├── 000021_mbep2d-TR2-1pt2mm-AP-RET2-SBone-size-fits-allRef  
+│   ├── 000022_mbep2d-TR2-1pt2mm-AP-RET2  
+│   ├── 000023_mbep2d-TR2-1pt2mm-PA-SBRef  
+│   ├── 000024_mbep2d-TR2-1pt2mm-PA  
+│   ├── 000025_mbep2d-TR2-1pt2mm-AP-RET3-SBRef  
+│   ├── 000026_mbep2d-TR2-1pt2mm-AP-RET3  
+│   ├── 000027_mbep2d-TR2-1pt2mm-PA-SBRef  
+│   ├── 000028_mbep2d-TR2-1pt2mm-PA  
+│   ├── 000029_mbep2d-TR2-1pt2mm-AP-RET4-SBRef  
+│   ├── 000030_mbep2d-TR2-1pt2mm-AP-RET4  
+│   ├── 000031_mbep2d-TR1-1pt6mm-PA-SBRef  
+│   ├── 000032_mbep2d-TR1-1pt6mm-PA  
+│   ├── 000033_mbep2d-TR1-1pt6mm-AP-REST2-SBRef  
+│   ├── 000034_mbep2d-TR1-1pt6mm-AP-REST2  
+│   ├── 000035_t1-mp2rage-sag-iso0.75mm-INV1  
+│   ├── 000036_t1-mp2rage-sag-iso0.75mm-INV1-PHS  
+│   ├── 000037_t1-mp2rage-sag-iso0.75mm-INV2  
+│   ├── 000038_t1-mp2rage-sag-iso0.75mm-INV2-PHS  
+│   ├── 000039_t1-mp2rage-sag-iso0.75mm-T1-Images  
+│   ├── 000040_t1-mp2rage-sag-iso0.75mm-UNI-DEN  
+│   ├── 000041_t1-mp2rage-sag-iso0.75mm-UNI-Images  
+│   ├── 000042_mbep2d-TR2-1pt2mm-PA-SBRef  
+│   ├── 000043_mbep2d-TR2-1pt2mm-PA  
+│   ├── 000044_mbep2d-TR2-1pt2mm-AP-CATV-SBRef  
+│   ├── 000045_mbep2d-TR2-1pt2mm-AP-CATV  
+│   ├── 000046_mbep2d-TR2-1pt2mm-AP-CATV-SBRef-split-1  
+│   └── nifti  
 ├── pRF_log_images  
 └── sub-00  
     ├── anat  
@@ -925,4 +925,3 @@ The neuroimaging python package **Neuropythy** is very versatile but a little cu
 ### What's next?
 
 **Next**: using [prfpy](https://github.com/VU-Cog-Sci/prfpy) to compute population receptive field maps.
-

@@ -1018,4 +1018,3 @@ Interactive 3D visualization a population receptive field (pRF) eccentricity and
 
 As a proof of concept, we managed to compute retinotopic maps using one subject and one run using prfpy (a python package for pRF mapping). After some adjustments we will have an accurate, minimalistic and completely transparent and clear pipeline to work data in individual native space level.
 
-

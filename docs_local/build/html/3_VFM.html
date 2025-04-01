@@ -1,22 +1,18 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>3. TUTORIAL: pRF mapping &#8212; researchLog  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=d9c1671e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6df03519" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=6df03519" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="4. References" href="References.html" />
@@ -26,11 +22,11 @@
   </head><body>
   <div class="document">
     
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <p class="logo">
   <a href="index.html">
-    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    <img class="logo" src="_static/logo.png" alt="Logo" />
     
   </a>
 </p>
@@ -71,7 +67,7 @@
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
+<search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
@@ -79,7 +75,7 @@
       <input type="submit" value="Go" />
     </form>
     </div>
-</div>
+</search>
 <script>document.getElementById('searchbox').style.display = "block"</script>
 
 
@@ -113,7 +109,7 @@
           <div class="body" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="tutorial-prf-mapping">
-<h1><span class="section-number">3. </span><a class="reference external" href="https://nicogravel.github.io/researchLog_template/html/2_fMRI.html"><strong>TUTORIAL:</strong></a> <span style="color:lightblue">pRF mapping </span><a class="headerlink" href="#tutorial-prf-mapping" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">3. </span><a class="reference external" href="https://nicogravel.github.io/researchLog_template/html/2_fMRI.html"><strong>TUTORIAL:</strong></a> <span style="color:lightblue">pRF mapping </span><a class="headerlink" href="#tutorial-prf-mapping" title="Link to this heading">¶</a></h1>
 <p>In this tutorial, we will learn how to use <a class="reference external" href="https://github.com/VU-Cog-Sci/prfpy">prfpy</a> to compute population receptive field maps using 7T-fMRI.</p>
 <blockquote>
 <div><p><strong>Goals</strong></p>
@@ -145,7 +141,7 @@
 </tbody>
 </table>
 <section id="questions">
-<h2><span class="section-number">3.1. </span><span style="color:lightblue">Questions? 🦉</span><a class="headerlink" href="#questions" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.1. </span><span style="color:lightblue">Questions? 🦉</span><a class="headerlink" href="#questions" title="Link to this heading">¶</a></h2>
 <script src="https://giscus.app/client.js"
         data-repo="nicogravel/researchLog_template"
         data-repo-id="R_kgDON90EnA"
@@ -164,9 +160,9 @@
 </script>
 </section>
 <section id="st-part-prf-mapping">
-<h2><span class="section-number">3.2. </span><strong>1st part</strong>:  pRF mapping<a class="headerlink" href="#st-part-prf-mapping" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.2. </span><strong>1st part</strong>:  pRF mapping<a class="headerlink" href="#st-part-prf-mapping" title="Link to this heading">¶</a></h2>
 <section id="we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run">
-<h3><span class="section-number">3.2.1. </span>We use and <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> and <code class="docutils literal notranslate"><span class="pre">prfpy</span></code> to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run<a class="headerlink" href="#we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.1. </span>We use and <code class="docutils literal notranslate"><span class="pre">neuropythy</span></code> and <code class="docutils literal notranslate"><span class="pre">prfpy</span></code> to compute pRF parameters for a flattened cortical reconstruction on  single subject and using a single run<a class="headerlink" href="#we-use-and-neuropythy-and-prfpy-to-compute-prf-parameters-for-a-flattened-cortical-reconstruction-on-single-subject-and-using-a-single-run" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span>
 
@@ -249,7 +245,7 @@
 </div>
 </section>
 <section id="get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject">
-<h3><span class="section-number">3.2.2. </span>Get V1 coordinates fom the fsaverage registration of the subject<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.2.2. </span>Get V1 coordinates fom the fsaverage registration of the subject<a class="headerlink" href="#get-v1-coordinates-fom-the-fsaverage-registration-of-the-subject" title="Link to this heading">¶</a></h3>
 <p>We did this in step  2.3.14. No we jujst load these:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fsaverage</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 
@@ -322,7 +318,7 @@
 </section>
 </section>
 <section id="load-surface-matched-t2-data-and-project-it-to-the-flatmaps">
-<h2><span class="section-number">3.3. </span>Load surface-matched T2 data and project it to the flatmaps<a class="headerlink" href="#load-surface-matched-t2-data-and-project-it-to-the-flatmaps" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.3. </span>Load surface-matched T2 data and project it to the flatmaps<a class="headerlink" href="#load-surface-matched-t2-data-and-project-it-to-the-flatmaps" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load FreeSurfer subject</span>
 <span class="n">sub</span> <span class="o">=</span> <span class="n">ny</span><span class="o">.</span><span class="n">freesurfer_subject</span><span class="p">([</span><span class="n">fs_pth</span> <span class="o">+</span> <span class="n">subject_id</span><span class="p">])</span>
 
@@ -397,7 +393,7 @@
 </div>
 </section>
 <section id="preprocess-bold-time-series-and-compute-the-average-for-each-hemisphere">
-<h2><span class="section-number">3.4. </span>Preprocess BOLD time series and compute the average for each hemisphere<a class="headerlink" href="#preprocess-bold-time-series-and-compute-the-average-for-each-hemisphere" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">3.4. </span>Preprocess BOLD time series and compute the average for each hemisphere<a class="headerlink" href="#preprocess-bold-time-series-and-compute-the-average-for-each-hemisphere" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, load and average time series data for each hemisphere</span>
 <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">,</span> <span class="s1">&#39;rh&#39;</span><span class="p">]:</span>
     <span class="n">time_series_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -428,7 +424,7 @@
 </pre></div>
 </div>
 <section id="load-stimuli-images-and-define-design-matrix">
-<h3><span class="section-number">3.4.1. </span>Load stimuli images and define design matrix<a class="headerlink" href="#load-stimuli-images-and-define-design-matrix" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.1. </span>Load stimuli images and define design matrix<a class="headerlink" href="#load-stimuli-images-and-define-design-matrix" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># screen pRF stimulus parameters</span>
 <span class="n">screen_height_cm</span>   <span class="o">=</span> <span class="mi">32</span> <span class="c1">#39.29 #69.84 #12.65</span>
 <span class="n">screen_size_cm</span>     <span class="o">=</span> <span class="n">screen_height_cm</span><span class="o">/</span><span class="mi">2</span> 
@@ -465,7 +461,7 @@
 </div>
 </section>
 <section id="load-the-averaged-time-series-data">
-<h3><span class="section-number">3.4.2. </span>Load the averaged time series data<a class="headerlink" href="#load-the-averaged-time-series-data" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.2. </span>Load the averaged time series data<a class="headerlink" href="#load-the-averaged-time-series-data" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    
     <span class="n">lh_avg_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">func_pth</span><span class="p">,</span> <span class="s1">&#39;lh_averaged_cleaned_zscored.npy&#39;</span><span class="p">)</span>
     <span class="n">rh_avg_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">func_pth</span><span class="p">,</span> <span class="s1">&#39;rh_averaged_cleaned_zscored.npy&#39;</span><span class="p">)</span>
@@ -489,7 +485,7 @@
 </div>
 </section>
 <section id="set-prf-model-parameters-grid-fit-iterative-fit">
-<h3><span class="section-number">3.4.3. </span>Set pRF model parameters (grid fit, iterative fit)<a class="headerlink" href="#set-prf-model-parameters-grid-fit-iterative-fit" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.3. </span>Set pRF model parameters (grid fit, iterative fit)<a class="headerlink" href="#set-prf-model-parameters-grid-fit-iterative-fit" title="Link to this heading">¶</a></h3>
 <p>We first set the grid search. Setting a biophysically meaningful and computationally feasible grid for the optimisation of the pRF position and size parameters, as well as boundaries for only positive pRF is crucial, as it will allow converging fast and accurately to the best solution (by grid search based <em>least squares minimisation</em>). Importantly, <code class="docutils literal notranslate"><span class="pre">n_procs</span></code> is crucial, in my personal computer I can use up to 8 workers. In a high performance cluster more can be used. The more workers, the faster.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the pRF model and fitter</span>
 <span class="n">gg</span> <span class="o">=</span> <span class="n">Iso2DGaussianModel</span><span class="p">(</span><span class="n">stimulus</span><span class="o">=</span><span class="n">prf_stim</span><span class="p">,</span> <span class="n">normalize_RFs</span><span class="o">=</span><span class="n">normalize_RFs</span><span class="p">)</span>
@@ -530,7 +526,7 @@
 <p>Once the grid search has been defined we can continue with the iterative search, we must set the <code class="docutils literal notranslate"><span class="pre">rsq_threshold</span></code> to a small but not <em>too</em> small number. This is important. Too small, and we will get stuck on a local minima and never converge (it will take longer to compute and the solution will be wrong).</p>
 </section>
 <section id="fit-prf-models-to-the-averaged-bold-time-series-data">
-<h3><span class="section-number">3.4.4. </span>Fit pRF models to the averaged BOLD time series data<a class="headerlink" href="#fit-prf-models-to-the-averaged-bold-time-series-data" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.4. </span>Fit pRF models to the averaged BOLD time series data<a class="headerlink" href="#fit-prf-models-to-the-averaged-bold-time-series-data" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through runs and hemispheres</span>
 <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lh&#39;</span><span class="p">,</span> <span class="s1">&#39;rh&#39;</span><span class="p">]:</span>
@@ -618,7 +614,7 @@
 [Parallel(n_jobs=8)]: Done 17447 out of 17447 | elapsed: 68.6min finished</p>
 </section>
 <section id="save-prf-parameters">
-<h3><span class="section-number">3.4.5. </span>Save pRF parameters<a class="headerlink" href="#save-prf-parameters" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.5. </span>Save pRF parameters<a class="headerlink" href="#save-prf-parameters" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save pRF parameters</span>
 <span class="n">save_path</span> <span class="o">=</span> <span class="s1">&#39;/home/ng281432/Documents/data/iCORTEX/sub-00/pRF_results/&#39;</span>
 <span class="n">pRF_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="n">sigma</span><span class="p">,</span> <span class="s1">&#39;total_rsq&#39;</span><span class="p">:</span> <span class="n">total_rsq</span><span class="p">}</span>
@@ -629,7 +625,7 @@
 </div>
 </section>
 <section id="load-prf-mapping-results">
-<h3><span class="section-number">3.4.6. </span>Load pRF mapping results<a class="headerlink" href="#load-prf-mapping-results" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.6. </span>Load pRF mapping results<a class="headerlink" href="#load-prf-mapping-results" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Plot pRF maps on inflated surfaces</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">surface</span>
 
@@ -663,7 +659,7 @@
 </div>
 </section>
 <section id="define-meaingful-prf-colormaps">
-<h3><span class="section-number">3.4.7. </span>Define meaingful pRF colormaps<a class="headerlink" href="#define-meaingful-prf-colormaps" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.7. </span>Define meaingful pRF colormaps<a class="headerlink" href="#define-meaingful-prf-colormaps" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
@@ -868,7 +864,7 @@
 </div>
 </section>
 <section id="plot-prf-parameter-histograms">
-<h3><span class="section-number">3.4.8. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.8. </span>Plot pRF parameter histograms<a class="headerlink" href="#plot-prf-parameter-histograms" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="c1"># Get the parameters from the iterative fit</span>
 <span class="n">x</span><span class="o">=</span><span class="n">pRF_params</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
@@ -929,7 +925,7 @@
 </table>
 </section>
 <section id="plot-the-prf-maps-on-the-flattened-spherical-cortical-representation">
-<h3><span class="section-number">3.4.9. </span>Plot the pRF maps on the flattened spherical cortical representation<a class="headerlink" href="#plot-the-prf-maps-on-the-flattened-spherical-cortical-representation" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.9. </span>Plot the pRF maps on the flattened spherical cortical representation<a class="headerlink" href="#plot-the-prf-maps-on-the-flattened-spherical-cortical-representation" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Plot pRF maps</span>
 <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">left_ax</span><span class="p">,</span> <span class="n">right_ax</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">72</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
 
@@ -1001,7 +997,7 @@
 </div>
 </section>
 <section id="plot-the-prf-maps-on-inflated-surfaces">
-<h3><span class="section-number">3.4.10. </span>Plot the pRF maps on inflated surfaces<a class="headerlink" href="#plot-the-prf-maps-on-inflated-surfaces" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.10. </span>Plot the pRF maps on inflated surfaces<a class="headerlink" href="#plot-the-prf-maps-on-inflated-surfaces" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Plot pRF maps on inflated surfaces</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">nilearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">plotting</span><span class="p">,</span> <span class="n">surface</span>
 
@@ -1082,7 +1078,7 @@
 </div>
 </section>
 <section id="save-html-for-the-3d-visualization">
-<h3><span class="section-number">3.4.11. </span>Save HTML for the 3D visualization<a class="headerlink" href="#save-html-for-the-3d-visualization" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">3.4.11. </span>Save HTML for the 3D visualization<a class="headerlink" href="#save-html-for-the-3d-visualization" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save visualizations as HTML (interactive) and PNG (static image)</span>
 <span class="n">html_ecc_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">subject_id</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s1">_eccentricity_3D.html&#39;</span><span class="p">)</span>
 <span class="n">html_polar_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">subject_id</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s1">_polar_3D.html&#39;</span><span class="p">)</span>
@@ -1128,7 +1124,7 @@
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;.
+      &#169;.
       
       |
       <a href="_sources/3_VFM.md.txt"

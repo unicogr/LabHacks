@@ -9,30 +9,29 @@ myCodeIsYourCode.helloworld module
 
 .. automodule:: myCodeIsYourCode.helloworld
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 myCodeIsYourCode.load\_tfr\_rdm module
 --------------------------------------
 
 .. automodule:: myCodeIsYourCode.load_tfr_rdm
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 myCodeIsYourCode.plot\_tfr\_rdm module
 --------------------------------------
 
 .. automodule:: myCodeIsYourCode.plot_tfr_rdm
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: myCodeIsYourCode
    :members:
-   :undoc-members:
    :show-inheritance:
-   :noindex:
+   :undoc-members:

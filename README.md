@@ -2,7 +2,7 @@
 
 See here, for the Github page: https://nicogravel.github.io/researchLog_template
 
-This tutorial is a collaborative effort with [Christophe Pallier](https://github.com/chrplr). Please see [here](https://github.com/chrplr/mynotebook) for a boiled down (or "*distilled*") version. 
+This tutorial is a collaborative effort with [Christophe Pallier](https://github.com/chrplr) and [Minye Zhan]( https://bsky.app/profile/zhanminye.bsky.social). Please see [here](https://github.com/chrplr/mynotebook) for a boiled down version of it. The requirements are specificed in the file `requirements.txt` within the [main repo's branch](https://github.com/nicogravel/researchLog_template). There you can find everything needed to reproduce [this page](https://nicogravel.github.io/researchLog_template).The steps outlined here should be tailored to meet your specific needs.  
 
 
 
@@ -171,7 +171,7 @@ Now enjoy building up your python package!
 <br>
   
 <details>
-  <summary><span style="color:#3382FF"> 5.- Work: edit, make and commit</span></summary>  
+  <summary><span style="color:#3382FF"> 6.- Work: edit, make and commit</span></summary>  
 
 
   After these steps one wants to *make* the documentation locally. To build the documentation automatically, edit then the document `modules.rst` –if necessary, and do *make clean* followed by *make html*.

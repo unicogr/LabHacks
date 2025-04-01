@@ -29,9 +29,11 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinxcontrib.bibtex',
     'sphinx.ext.autosectionlabel',
-    'sphinx_disqus.disqus',
     'sphinx.ext.viewcode'
 ]
+
+# Disable epub builder
+epub_enable_epub3 = False
 typehints_fully_qualified = False
 disqus_shortname = ''
 
@@ -102,6 +104,7 @@ for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
 
 
+
 '''
 
 
@@ -129,10 +132,13 @@ https://www.patrickthurmond.com/blog/2023/12/11/commenting-is-available-now-than
 pyenv activate Sphinx
 
 # Navigate to the directory containing the conf.py file
-cd /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/
+#cd /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/
+cd /home/ng281432/Documents/github_projects/LabHacks/docs_local/
 
 # Build the html files
-make clean; make html
+make clean;  make html
+
+
 
 # Sync the html files to the docs folder
 rsync -a --delete /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/build/html /home/nicolas/Documents/GitHubProjects/researchLog_template/docs/
@@ -147,22 +153,27 @@ git push -u origin main
 
 
 
-pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
 
-#!/bin/bash
 
-# Define the path
-pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
+## Creating GIF for coregistration of T2 and T1 images
+# This script creates an animated GIF from a series of images in a specified directory.
 
-# Navigate to the directory
-cd "$pth"
+# pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
 
-# Create an animated GIF from the matching images
-# Ensure ImageMagick is installed for the `convert` command
-convert -delay 100 -loop 0 sub-00_iso_run*_T2_T1_alignment.png animated_alignment.gif
+# #!/bin/bash
 
-# Print confirmation
-echo "Animated GIF saved as animated_alignment.gif in $pth"
+# # Define the path
+# pth='/home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/source/figures/coReg/'
+
+# # Navigate to the directory
+# cd "$pth"
+
+# # Create an animated GIF from the matching images
+# # Ensure ImageMagick is installed for the `convert` command
+# convert -delay 100 -loop 0 sub-00_iso_run*_T2_T1_alignment.png animated_alignment.gif
+
+# # Print confirmation
+# echo "Animated GIF saved as animated_alignment.gif in $pth"
 
 
 '''
