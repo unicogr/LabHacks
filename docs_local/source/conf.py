@@ -141,14 +141,14 @@ make clean;  make html
 
 
 # Sync the html files to the docs folder
-rsync -a --delete /home/nicolas/Documents/GitHubProjects/researchLog_template/docs_local/build/html /home/nicolas/Documents/GitHubProjects/researchLog_template/docs/
+rsync -a --delete cd /home/ng281432/Documents/github_projects/LabHacks/docs_local/build/html cd /home/ng281432/Documents/github_projects/LabHacks/docs/
 
 # Navigate to the directory containing the conf.py file
-cd  /home/nicolas/Documents/GitHubProjects/researchLog_template/
+cd /home/ng281432/Documents/github_projects/LabHacks/
 
 # Add, commit and push the changes
 git add .
-git commit -m "typesetting and layout changes"
+git commit -m "setting up dev branch"
 git push -u origin main
 
 

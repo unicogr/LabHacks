@@ -16,8 +16,7 @@ The tutorials are organized into three main sections:
   
 3. **pRF**: This section provides a guide to computing population receptive fields using the `prfpy <https://prfpy.readthedocs.io/en/latest/>`_ package, a simple and clear python package for visual field mapping.
 
-4. **References**: This section provides a list of references cited in the tutorials, as well as additional resources for further reading.
-  
+
 
 
 .. raw:: html
@@ -85,6 +84,7 @@ Content
       1_Sphinx
       2_fMRI
       3_VFM
+	  4_CBlind
       References
 
       
